@@ -1,0 +1,31 @@
+// models/dosen.js
+const client = require("../connection");
+
+const getAllDosen = (callback) => {
+    client.query('SELECT * FROM dosen', callback);
+}
+
+const insertDosen = (nama, gelar, jabatan, jurusan, callback) => {
+    const query = 'INSERT INTO dosen(nama, gelar, jabatan, jurusan) VALUES($1, $2, $3, $4)';
+    const values = [nama, gelar, jabatan, jurusan];
+    client.query(query, values, callback);
+}
+
+const updateDosen = (id_dosen, nama, gelar, jabatan, jurusan, callback) => {
+    const query = 'UPDATE dosen SET nama = $1, gelar = $2, jabatan = $3, jurusan = $4 WHERE id_dosen = $5';
+    const values = [nama, gelar, jabatan, jurusan, id_dosen];
+    client.query(query, values, callback);
+}
+
+const deleteDosen = (id_dosen, callback) => {
+    const query = 'DELETE FROM dosen WHERE id_dosen = $1';
+    const values = [id_dosen];
+    client.query(query, values, callback);
+}
+
+module.exports = {
+    getAllDosen,
+    insertDosen,
+    updateDosen,
+    deleteDosen
+};

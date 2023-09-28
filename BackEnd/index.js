@@ -1,0 +1,25 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const client = require('./connection');
+const app = express();
+
+const dosenRoute = require('./routes/dosenRoute');
+
+app.use(bodyParser.json());
+
+//  Untuk running server pada port yang ditentukan
+app.listen(3100, () =>{
+    console.log('server running in port 3100')
+})
+
+// Untuk menghubungkan ke database postgree melalui node js
+client.connect(err => {
+    if(err){
+        console.log(err.message);
+    } else{
+        console.log('Connected');
+    }
+})
+
+app.use('/', dosenRoute)
