@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 
 const client = require('./connection');
 const app = express();
+const cors = require("cors")
 
 const dosenRoute = require('./routes/dosenRoute');
 const penelitianRoute = require('./routes/penelitianRoute');
 const cors = require("cors");
+const matkulRoute = require('./routes/matkulRoute');
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -27,3 +29,4 @@ client.connect(err => {
 
 app.use('/', dosenRoute)
 app.use('/', penelitianRoute)
+app.use('/', matkulRoute)

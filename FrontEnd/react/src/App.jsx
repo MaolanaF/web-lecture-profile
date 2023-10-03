@@ -4,6 +4,7 @@ import './App.css'
 
 import AddDosen from './pages/dosen/AddDosen';
 import AddPenelitian from './pages/penelitian/AddPenelitian';
+import AddMatkul from './pages/mata_kuliah/AddMatkul';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <Routes>
             <Route path="/dosen/insert" element = {<AddDosen/>} />
             <Route path="/penelitian/insert" element = {<AddPenelitian/>} />
+            <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />
           </Routes>
       </Router>
   )
