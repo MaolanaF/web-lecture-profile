@@ -5,15 +5,15 @@ const getAllDosen = (callback) => {
     client.query('SELECT * FROM dosen', callback);
 }
 
-const insertDosen = (nama, gelar, jabatan, jurusan, callback) => {
-    const query = 'INSERT INTO dosen(nama, gelar, jabatan, jurusan) VALUES($1, $2, $3, $4)';
-    const values = [nama, gelar, jabatan, jurusan];
+const insertDosen = (id_dosen, nama, email, jabatan, jurusan, callback) => {
+    const query = 'INSERT INTO dosen(id_dosen, nama, email, jabatan, jurusan) VALUES($1, $2, $3, $4, $5)';
+    const values = [id_dosen, nama, email, jabatan, jurusan];
     client.query(query, values, callback);
 }
 
-const updateDosen = (id_dosen, nama, gelar, jabatan, jurusan, callback) => {
-    const query = 'UPDATE dosen SET nama = $1, gelar = $2, jabatan = $3, jurusan = $4 WHERE id_dosen = $5';
-    const values = [nama, gelar, jabatan, jurusan, id_dosen];
+const updateDosen = (id_dosen, nama, email, jabatan, jurusan, callback) => {
+    const query = 'UPDATE dosen SET nama = $1, email = $2, jabatan = $3, jurusan = $4 WHERE id_dosen = $5';
+    const values = [nama, email, jabatan, jurusan, id_dosen];
     client.query(query, values, callback);
 }
 
