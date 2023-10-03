@@ -1,0 +1,31 @@
+// models/matkul.js
+const client = require("../connection");
+
+const getAllMatkul = (callback) => {
+    client.query('SELECT * FROM mata_kuliah', callback);
+}
+
+const insertMatkul = (id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, callback) => {
+    const query = 'INSERT INTO mata_kuliah(id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi) VALUES($1, $2, $3, $4, $5, $6)';
+    const values = [id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi];
+    client.query(query, values, callback);
+}
+
+const updateMatkul = (id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, callback) => {
+    const query = 'UPDATE mata_kuliah SET kode_matkul = $1, nama_matkul = $2, semester = $3, kode_kelas = $4, perguruan_tinggi = $5 WHERE id_matkul = $6';
+    const values = [kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, id_matkul];
+    client.query(query, values, callback);
+}
+
+const deleteMatkul = (id_matkul, callback) => {
+    const query = 'DELETE FROM mata_kuliah WHERE id_matkul = $1';
+    const values = [id_matkul];
+    client.query(query, values, callback);
+}
+
+module.exports = {
+    getAllMatkul,
+    insertMatkul,
+    updateMatkul,
+    deleteMatkul
+};

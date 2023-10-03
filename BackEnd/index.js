@@ -3,9 +3,12 @@ const bodyParser = require('body-parser');
 
 const client = require('./connection');
 const app = express();
+const cors = require("cors")
 
 const dosenRoute = require('./routes/dosenRoute');
+const matkulRoute = require('./routes/matkulRoute');
 
+app.use(cors())
 app.use(bodyParser.json());
 
 //  Untuk running server pada port yang ditentukan
@@ -23,3 +26,4 @@ client.connect(err => {
 })
 
 app.use('/', dosenRoute)
+app.use('/', matkulRoute)
