@@ -10,6 +10,7 @@ CREATE TABLE user (
 CREATE TABLE dosen (
     id_dosen VARCHAR(10) PRIMARY KEY,
     nama VARCHAR(100) NOT NULL,
+    email VARCHAR(100),
     jabatan VARCHAR(100),
     jurusan VARCHAR(100) NOT NULL
 );
