@@ -16,8 +16,22 @@ const ListDosenComponent = () => {
       });
   }, []); // Gunakan array kosong agar useEffect dijalankan hanya sekali saat komponen pertama kali dimuat
 
+  // Fungsi untuk menghapus data dosen berdasarkan ID
+  const handleDelete = (id) => {
+    // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
+    axios.delete(`http://localhost:3100/dosen/${id}`)
+      .then(() => {
+        // Hapus data dosen dari state
+        setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error
+      });
+  };
+
   return (
-    <div className="container mt-4">
+    <div className="container mt-4 border">
       <h2>List Dosen</h2>
       <table className="table">
         <thead>
@@ -37,6 +51,14 @@ const ListDosenComponent = () => {
               <td>{dosen.email}</td>
               <td>{dosen.jabatan}</td>
               <td>{dosen.jurusan}</td>
+              <td>
+                <button className="btn btn-danger btn-sm ml-2"
+                  // Tambahkan fungsi onClick untuk tombol delete
+                  onClick={() => { handleDelete(dosen.id_dosen);}}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
