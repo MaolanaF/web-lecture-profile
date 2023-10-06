@@ -4,6 +4,7 @@ import './App.css'
 
 import Dosen from './pages/dosen/Dosen';
 import AddDosen from './pages/dosen/AddDosen';
+import EditDosen from './pages/dosen/EditDosen';
 import AddPenelitian from './pages/penelitian/AddPenelitian';
 import AddMatkul from './pages/mata_kuliah/AddMatkul';
 
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/dosen" element = {<Dosen />} />
             <Route path="/dosen/insert" element = {<AddDosen/>} />
+            <Route path="/dosen/edit/:id_dosen" element = {<EditDosen/>} />
             <Route path="/penelitian/insert" element = {<AddPenelitian/>} />
             <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />
           </Routes>

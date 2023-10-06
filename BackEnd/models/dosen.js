@@ -5,6 +5,13 @@ const getAllDosen = (callback) => {
     client.query('SELECT * FROM dosen', callback);
 }
 
+// Mendapatkan data dosen dari database berdasarkan ID
+const getDosenById = (id_dosen, callback) => {
+    const query = 'SELECT * FROM dosen WHERE id_dosen = $1';
+    const values = [id_dosen];
+    client.query(query, values, callback);
+}
+
 const insertDosen = (id_dosen, nama, email, jabatan, jurusan, callback) => {
     const query = 'INSERT INTO dosen(id_dosen, nama, email, jabatan, jurusan) VALUES($1, $2, $3, $4, $5)';
     const values = [id_dosen, nama, email, jabatan, jurusan];
@@ -25,6 +32,7 @@ const deleteDosen = (id_dosen, callback) => {
 
 module.exports = {
     getAllDosen,
+    getDosenById,
     insertDosen,
     updateDosen,
     deleteDosen

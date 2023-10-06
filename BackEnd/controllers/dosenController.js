@@ -10,6 +10,21 @@ const getAllDosen = (req, res) => {
     });
 }
 
+const getDosenById = (req, res) => {
+  const id_dosen = req.params.id_dosen;
+  dosenModel.getDosenById(id_dosen, (err, result) => {
+      if (!err) {
+          if (result) {
+              res.send(result);
+          } else {
+              res.status(404).send('Dosen tidak ditemukan');
+          }
+      } else {
+          res.status(500).send(err.message);
+      }
+  });
+}
+
 const insertDosen = (req, res) => {
     const { id_dosen, nama, email, jabatan, jurusan } = req.body;
     dosenModel.insertDosen(id_dosen, nama, email, jabatan, jurusan, (err, result) => {
@@ -46,6 +61,7 @@ const deleteDosen = (req, res) => {
 
 module.exports = {
     getAllDosen,
+    getDosenById,
     insertDosen,
     updateDosen,
     deleteDosen

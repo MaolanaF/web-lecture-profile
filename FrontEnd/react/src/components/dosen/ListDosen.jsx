@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 const ListDosenComponent = () => {
   const [dosenList, setDosenList] = useState([]);
@@ -52,6 +53,11 @@ const ListDosenComponent = () => {
               <td>{dosen.jabatan}</td>
               <td>{dosen.jurusan}</td>
               <td>
+                <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}>
+                  <button type="button" className="btn btn-success">
+                    Edit
+                  </button>
+                </Link>
                 <button className="btn btn-danger btn-sm ml-2"
                   // Tambahkan fungsi onClick untuk tombol delete
                   onClick={() => { handleDelete(dosen.id_dosen);}}
