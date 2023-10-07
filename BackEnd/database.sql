@@ -1,6 +1,6 @@
 CREATE DATABASE lectureProfile;
 
-CREATE TABLE user (
+CREATE TABLE "user" (
     id_user VARCHAR(10) PRIMARY KEY,
     username VARCHAR(50),
     password VARCHAR(20),
@@ -22,6 +22,8 @@ CREATE TABLE riwayat_pengajaran (
     FOREIGN KEY (id_matkul) REFERENCES mata_kuliah(id_matkul),
     FOREIGN KEY (id_dosen) REFERENCES dosen(id_dosen)
 );
+
+ALTER TABLE dosen ADD CONSTRAINT fk_dosen_id_user FOREIGN KEY (id_user) REFERENCES "user" (id_user);
 
 CREATE TABLE mata_kuliah (
     id_matkul VARCHAR(10) PRIMARY KEY,
