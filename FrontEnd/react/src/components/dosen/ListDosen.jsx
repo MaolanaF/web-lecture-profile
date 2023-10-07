@@ -32,7 +32,7 @@ const ListDosenComponent = () => {
   };
 
   return (
-    <div className="container mt-4 border">
+    <div className="container mt-4">
       <h2>List Dosen</h2>
       <table className="table">
         <thead>

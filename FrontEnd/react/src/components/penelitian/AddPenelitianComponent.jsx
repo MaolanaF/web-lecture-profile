@@ -23,7 +23,7 @@ const AddPenelitianComponent = () => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post('http://localhost:3100/penelitian', formData)
+    axios.post(`http://localhost:3100/penelitian/${id}`, formData)
       .then((response) => {
         console.log(response.data);
         // Handle success or redirection here
