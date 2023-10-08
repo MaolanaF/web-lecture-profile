@@ -9,6 +9,7 @@ import EditDosen from './pages/dosen/EditDosen';
 import AddPenelitian from './pages/penelitian/AddPenelitian';
 import AddMatkul from './pages/mata_kuliah/AddMatkul';
 import Mata_Kuliah from './pages/mata_kuliah/Matkul';
+import EditMatkul from './pages/mata_kuliah/EditMatkul';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/penelitian/insert" element = {<AddPenelitian/>} />
             <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />
             <Route path="/dosen/mata_kuliah" element = {<Mata_Kuliah/>} />
+            <Route path="/mata_kuliah/edit/:id_matkul" element = {<EditMatkul/>} />
           </Routes>
       </Router>
   )
