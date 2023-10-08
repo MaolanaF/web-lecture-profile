@@ -10,6 +10,21 @@ const getAllMatkul = (req, res) => {
     });
 }
 
+const getMatkulById = (req, res) => {
+  const id_matkul = req.params.id_matkul;
+  matkulModel.getMatkulById(id_matkul, (err, result) => {
+    if (!err) {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(404).send('Mata Kuliah tidak ditemukan');
+      }
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+}
+
 const insertMatkul = (req, res) => {
     const { id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi } = req.body;
     matkulModel.insertMatkul(id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, (err, result) => {
@@ -46,6 +61,7 @@ const deleteMatkul = (req, res) => {
 
 module.exports = {
     getAllMatkul,
+    getMatkulById,
     insertMatkul,
     updateMatkul,
     deleteMatkul
