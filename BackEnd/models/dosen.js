@@ -1,6 +1,7 @@
 // models/dosen.js
 const client = require("../connection");
 
+
 const getAllDosen = (callback) => {
     client.query('SELECT * FROM dosen', callback);
 }

@@ -1,5 +1,6 @@
 const dosenModel = require("../models/dosen");
 
+
 const getAllDosen = (req, res) => {
     dosenModel.getAllDosen((err, result) => {
       if (!err) {
