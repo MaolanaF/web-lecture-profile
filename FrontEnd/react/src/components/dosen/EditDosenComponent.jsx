@@ -3,7 +3,6 @@ import axios from "axios";
 
 
 function EditDosenComponent({ id }) {
-    const [dosenList, setDosenList] = useState({});
     const [formData, setFormData] = useState({
     id_dosen: "",
     nama: "",
@@ -17,7 +16,6 @@ function EditDosenComponent({ id }) {
     async function fetchData() {
       try {
         const response = await axios.get(`http://localhost:3100/dosen/${id}`);
-        setDosenList(response.data);
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -50,12 +48,12 @@ function EditDosenComponent({ id }) {
       <h2>Edit Dosen</h2>
       <form onSubmit={handleUpdateDosen}>
       <div className="form-group">
-          <label>Id_dosen</label>
+          <label>id_dosen</label>
           <input
             type="text"
             className="form-control"
             name="id_dosen"
-            value={formData.id_dosen}
+            value={formData.dosen}
             onChange={handleInputChange}
           />
         </div>
