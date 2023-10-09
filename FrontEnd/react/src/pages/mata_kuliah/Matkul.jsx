@@ -1,4 +1,4 @@
-import ListMatkulComponent from "../../components/mata_kuliah/ListMatkulComponent";
+import ListMatkulComponent from "../../components/mata_kuliah/ListMatkul";
 
 function Mata_Kuliah(){
     return <ListMatkulComponent/>

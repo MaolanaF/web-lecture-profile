@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function EditDosenComponent({ id }) {
-    const [formData, setFormData] = useState({
-    id_dosen: "",
-    nama: "",
-    email: "",
-    jabatan: "",
-    jurusan: "",
-    id_user: "",
-  });
 
-  
+function EditMatkulComponent({ id }) {
+    const [matkulList, setMatkulList] = useState({});
+    const [formData, setFormData] = useState({
+    id_matkul: '',
+    kode_matkul: '',
+    nama_matkul: '',
+    semester: '',
+    kode_kelas: '',
+    perguruan_tinggi: '',
+  });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
-        const rows = response.data.rows[0];
-        setFormData(response.data.rows[0]);
-        console.log(id);
-        console.log(rows);
+        const response = await axios.get(`http://localhost:3100/mata_kuliah/${id}`);
+        setMatkulList(response.data);
+        setFormData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -35,13 +33,13 @@ function EditDosenComponent({ id }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Function to handle the form submission for updating dosen
-  const handleUpdateDosen = async (e) => {
+  // Function to handle the form submission for updating matkul
+  const handleUpdateMatkul = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/dosen/${id}`, formData);
+      const response = await axios.put(`http://localhost:3100/mata_kuliah/${formData.id_matkul}`, formData);
       console.log(response.data);
-      alert("Data dosen berhasil diperbarui");
+      alert("Data mata_kuliah berhasil diperbarui");
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -49,56 +47,65 @@ function EditDosenComponent({ id }) {
 
   return (
     <div className="container mt-4 border">
-      <h2>Edit Dosen</h2>
-      <form onSubmit={handleUpdateDosen}>
+      <h2>Edit Mata Kuliah</h2>
+      <form onSubmit={handleUpdateMatkul}>
       <div className="form-group">
-          <label>id_dosen</label>
+          <label>Id_matkul</label>
           <input
             type="text"
             className="form-control"
-            name="id_dosen"
-            value={id}
-            // onChange={handleInputChange}
-            disabled
-          />
-        </div>
-        <div className="form-group">
-          <label>Nama</label>
-          <input
-            type="text"
-            className="form-control"
-            name="nama"
-            value={formData.nama}
+            name="id_matkul"
+            value={formData.id_matkul}
             onChange={handleInputChange}
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Kode Mata Kuliah</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="kode_matkul"
+            value={formData.kode_matkul}
             onChange={handleInputChange}
           />
         </div>
         <div className="form-group">
-          <label>Jabatan</label>
+          <label>Nama Mata Kuliah</label>
           <input
             type="text"
             className="form-control"
-            name="jabatan"
-            value={formData.jabatan}
+            name="nama_matkul"
+            value={formData.nama_matkul}
             onChange={handleInputChange}
           />
         </div>
         <div className="form-group">
-          <label>Jurusan</label>
+          <label>Semester</label>
           <input
             type="text"
             className="form-control"
-            name="jurusan"
-            value={formData.jurusan}
+            name="semester"
+            value={formData.semester}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Kode Kelas</label>
+          <input
+            type="text"
+            className="form-control"
+            name="kode_kelas"
+            value={formData.kode_kelas}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Perguruan Tinggi</label>
+          <input
+            type="text"
+            className="form-control"
+            name="perguruan_tinggi"
+            value={formData.perguruan_tinggi}
             onChange={handleInputChange}
           />
         </div>
@@ -110,4 +117,4 @@ function EditDosenComponent({ id }) {
   );
 }
 
-export default EditDosenComponent;
+export default EditMatkulComponent;

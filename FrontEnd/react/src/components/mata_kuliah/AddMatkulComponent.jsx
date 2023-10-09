@@ -36,13 +36,13 @@ const AddMatkulComponent = () => {
 
   return (
     <div className="container">
-      <h2 className="mt-4">Add Riwayat Pengajaran</h2>
+      <h2 className="mt-4">Add Mata Kuliah</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Id Mata Kuliah</label>
           <input
             type="text"
-            name="id_matkul"
+            name="id_dosen"
             value={formData.id_matkul}
             onChange={handleChange}
             className="form-control"
@@ -53,7 +53,7 @@ const AddMatkulComponent = () => {
           <label className="form-label">Kode Mata Kuliah</label>
           <input
             type="text"
-            name="kode_matkul"
+            name="nama"
             value={formData.kode_matkul}
             onChange={handleChange}
             className="form-control"
@@ -64,7 +64,7 @@ const AddMatkulComponent = () => {
           <label className="form-label">Nama Mata Kuliah</label>
           <input
             type="text"
-            name="nama_matkul"
+            name="email"
             value={formData.nama_matkul}
             onChange={handleChange}
             className="form-control"
@@ -75,7 +75,7 @@ const AddMatkulComponent = () => {
           <label className="form-label">Semester</label>
           <input
             type="text"
-            name="semester"
+            name="jabatan"
             value={formData.semester}
             onChange={handleChange}
             className="form-control"
@@ -86,7 +86,7 @@ const AddMatkulComponent = () => {
           <label className="form-label">Kode Kelas</label>
           <input
             type="text"
-            name="kode_kelas"
+            name="jurusan"
             value={formData.kode_kelas}
             onChange={handleChange}
             className="form-control"
@@ -97,7 +97,7 @@ const AddMatkulComponent = () => {
           <label className="form-label">Perguruan Tinggi</label>
           <input
             type="text"
-            name="perguruan_tinggi"
+            name="jurusan"
             value={formData.perguruan_tinggi}
             onChange={handleChange}
             className="form-control"
