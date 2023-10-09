@@ -11,11 +11,16 @@ function EditDosenComponent({ id }) {
     id_user: "",
   });
 
+  
+
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(`http://localhost:3100/dosen/${id}`);
-        setFormData(response.data);
+        const rows = response.data.rows[0];
+        setFormData(response.data.rows[0]);
+        console.log(id);
+        console.log(rows);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -34,7 +39,7 @@ function EditDosenComponent({ id }) {
   const handleUpdateDosen = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/dosen/${formData.id_dosen}`, formData);
+      const response = await axios.put(`http://localhost:3100/dosen/${id}`, formData);
       console.log(response.data);
       alert("Data dosen berhasil diperbarui");
     } catch (error) {
@@ -52,8 +57,9 @@ function EditDosenComponent({ id }) {
             type="text"
             className="form-control"
             name="id_dosen"
-            value={formData.dosen}
-            onChange={handleInputChange}
+            value={id}
+            // onChange={handleInputChange}
+            disabled
           />
         </div>
         <div className="form-group">
