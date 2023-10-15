@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
 function EditDosenComponent({ id }) {
-    const [dosenList, setDosenList] = useState({});
     const [formData, setFormData] = useState({
     id_dosen: "",
     nama: "",
@@ -13,12 +11,16 @@ function EditDosenComponent({ id }) {
     id_user: "",
   });
 
+  
+
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axios.get(`http://localhost:3100/dosen/${id}`);
-        setDosenList(response.data);
-        setFormData(response.data);
+        const rows = response.data.rows[0];
+        setFormData(response.data.rows[0]);
+        console.log(id);
+        console.log(rows);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -37,7 +39,7 @@ function EditDosenComponent({ id }) {
   const handleUpdateDosen = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/dosen/${formData.id_dosen}`, formData);
+      const response = await axios.put(`http://localhost:3100/dosen/${id}`, formData);
       console.log(response.data);
       alert("Data dosen berhasil diperbarui");
     } catch (error) {
@@ -50,13 +52,14 @@ function EditDosenComponent({ id }) {
       <h2>Edit Dosen</h2>
       <form onSubmit={handleUpdateDosen}>
       <div className="form-group">
-          <label>Id_dosen</label>
+          <label>id_dosen</label>
           <input
             type="text"
             className="form-control"
             name="id_dosen"
-            value={formData.id_dosen}
-            onChange={handleInputChange}
+            value={id}
+            // onChange={handleInputChange}
+            disabled
           />
         </div>
         <div className="form-group">

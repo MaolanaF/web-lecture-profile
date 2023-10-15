@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+
 const AddDosenComponent = () => {
   const [formData, setFormData] = useState({
-    id_dosen: '',
     nama: '',
     email: '',
     jabatan: '',
@@ -37,17 +37,6 @@ const AddDosenComponent = () => {
     <div className="container">
       <h2 className="mt-4">Add Dosen</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Id Dosen</label>
-          <input
-            type="text"
-            name="id_dosen"
-            value={formData.id_dosen}
-            onChange={handleChange}
-            className="form-control"
-            required
-          />
-        </div>
         <div className="mb-3">
           <label className="form-label">Nama</label>
           <input

@@ -1,5 +1,6 @@
 const dosenModel = require("../models/dosen");
 
+
 const getAllDosen = (req, res) => {
     dosenModel.getAllDosen((err, result) => {
       if (!err) {
@@ -26,8 +27,8 @@ const getDosenById = (req, res) => {
 }
 
 const insertDosen = (req, res) => {
-    const { id_dosen, nama, email, jabatan, jurusan } = req.body;
-    dosenModel.insertDosen(id_dosen, nama, email, jabatan, jurusan, (err, result) => {
+    const { nama, email, jabatan, jurusan } = req.body;
+    dosenModel.insertDosen(nama, email, jabatan, jurusan, (err, result) => {
       if (!err) {
         res.send('Insert success');
       } else {
@@ -39,7 +40,7 @@ const insertDosen = (req, res) => {
 const updateDosen = (req, res) => {
     const id_dosen = req.params.id_dosen;
     const { nama, email, jabatan, jurusan } = req.body;
-    dosenModel.updateDosen(id_dosen, nama, email, jabatan, jurusan, (err, result) => {
+    dosenModel.updateDosen(nama, email, jabatan, jurusan, id_dosen, (err, result) => {
       if (!err) {
         res.send('Update success');
       } else {
