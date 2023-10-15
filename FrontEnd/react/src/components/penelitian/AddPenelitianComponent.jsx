@@ -23,7 +23,7 @@ const AddPenelitianComponent = () => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post(`http://localhost:3100/penelitian/${id}`, formData)
+    axios.post(`http://localhost:3100/penelitian`, formData)
       .then((response) => {
         console.log(response.data);
         // Handle success or redirection here
@@ -38,7 +38,7 @@ const AddPenelitianComponent = () => {
     <div className="container">
       <h2 className="mt-4">Add Riwayat Penelitian</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Id Penelitian</label>
           <input
             type="text"
@@ -48,7 +48,7 @@ const AddPenelitianComponent = () => {
             className="form-control"
             required
           />
-        </div>
+        </div> */}
         <div className="mb-3">
           <label className="form-label">Judul</label>
           <input

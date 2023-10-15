@@ -29,6 +29,7 @@ CREATE TABLE mata_kuliah (
     id_matkul VARCHAR(10) PRIMARY KEY,
     kode_matkul VARCHAR(20),
     nama_matkul VARCHAR(255),
+    nama_dosen VARCHAR(100) NOT NULL,
     semester VARCHAR(15),
     kode_kelas VARCHAR(10),
     perguruan_tinggi VARCHAR(255)

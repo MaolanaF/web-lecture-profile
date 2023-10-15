@@ -5,12 +5,12 @@ import axios from "axios";
 function EditMatkulComponent({ id }) {
     const [matkulList, setMatkulList] = useState({});
     const [formData, setFormData] = useState({
-    id_matkul: '',
-    kode_matkul: '',
-    nama_matkul: '',
-    semester: '',
-    kode_kelas: '',
-    perguruan_tinggi: '',
+    id_matkul: "",
+    kode_matkul: "",
+    nama_matkul: "",
+    semester: "",
+    kode_kelas: "",
+    perguruan_tinggi: "",
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ function EditMatkulComponent({ id }) {
     try {
       const response = await axios.put(`http://localhost:3100/mata_kuliah/${formData.id_matkul}`, formData);
       console.log(response.data);
-      alert("Data mata_kuliah berhasil diperbarui");
+      alert("Data mata kuliah berhasil diperbarui");
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -50,7 +50,7 @@ function EditMatkulComponent({ id }) {
       <h2>Edit Mata Kuliah</h2>
       <form onSubmit={handleUpdateMatkul}>
       <div className="form-group">
-          <label>Id_matkul</label>
+          <label>Id Mata Kuliah</label>
           <input
             type="text"
             className="form-control"
