@@ -6,13 +6,6 @@ const getAllPenelitian = (callback) => {
     client.query('SELECT * FROM penelitian', callback);
 }
 
-// Mendapatkan data dosen dari database berdasarkan ID
-const getPenelitianById = (id_penelitian, callback) => {
-    const query = 'SELECT * FROM penelitian WHERE id_penelitian = $1';
-    const values = [id_penelitian];
-    client.query(query, values, callback);
-}
-
 const insertPenelitian = (judul, tanggal_publikasi, bidang, author, link_penelitian, callback) => {
     const query = 'INSERT INTO penelitian (judul, tanggal_publikasi, bidang, author, link_penelitian) VALUES ($1, $2, $3, $4, $5) RETURNING id_penelitian';
     const values = [judul, tanggal_publikasi, bidang, author, link_penelitian];
