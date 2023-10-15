@@ -32,11 +32,26 @@ const ListPenelitianComponent = () => {
       });
   };
 
+  
+
   return (
     <div className="container mt-4">
       <h2>List Penelitian</h2>
+
+      
       <table className="table">
         <thead>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><Link to={{ pathname: `/penelitian/insert` }}>
+                <button type="button" className="btn btn-success btn-sm"> Tambah </button>
+                </Link>
+            </td>
+          </tr>
           <tr>
             <th>ID Penelitian</th>
             <th>Judul</th>
@@ -57,7 +72,7 @@ const ListPenelitianComponent = () => {
               {/* <td>{penelitian.link_penelitian}</td> */}
               <td>
                 <Link to={{ pathname: `/penelitian/edit/${penelitian.id_penelitian}` }}>
-                  <button type="button" className="btn btn-success">
+                  <button type="button" className="btn btn-success btn-sm ml-2">
                     Edit
                   </button>
                 </Link>

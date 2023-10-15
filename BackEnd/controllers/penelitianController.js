@@ -1,5 +1,20 @@
 const penelitianModel = require("../models/penelitian");
 
+const getPenelitianById = (req, res) => {
+  const id_penelitian = req.params.id_penelitian;
+  penelitianModel.getPenelitianById(id_penelitian, (err, result) => {
+      if (!err) {
+          if (result) {
+              res.send(result);
+          } else {
+              res.status(404).send('Penelitian tidak ditemukan');
+          }
+      } else {
+          res.status(500).send(err.message);
+      }
+  });
+}
+
 const getAllPenelitian = (req, res) => {
   penelitianModel.getAllPenelitian((err, result) => {
     if (!err) {
@@ -11,14 +26,16 @@ const getAllPenelitian = (req, res) => {
 }
 
 const insertPenelitian = (req, res) => {
-  const { id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian } = req.body;
-  penelitianModel.insertPenelitian(id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
+  const {judul, tanggal_publikasi, bidang, author, link_penelitian } = req.body;
+
+  penelitianModel.insertPenelitian(judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
     if (!err) {
       res.send('Insert success');
     } else {
       res.status(500).send(err.message);
     }
-  });
+
+  });  
 }
 
 const updatePenelitian = (req, res) => {
@@ -35,6 +52,7 @@ const updatePenelitian = (req, res) => {
 
 const deletePenelitian = (req, res) => {
   const id_penelitian = req.params.id_penelitian;
+  
   penelitianModel.deletePenelitian(id_penelitian, (err, result) => {
     if (!err) {
       res.send('Delete success');
@@ -46,6 +64,7 @@ const deletePenelitian = (req, res) => {
 
 module.exports = {
   getAllPenelitian,
+  getPenelitianById,
   insertPenelitian,
   updatePenelitian,
   deletePenelitian

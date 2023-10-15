@@ -2,8 +2,8 @@ import EditPenelitianComponent from "../../components/penelitian/EditPenelitianC
 import { useParams } from 'react-router-dom';
 
 function EditPenelitian(){
-    const { id } = useParams();
-    return <EditPenelitianComponent id={id}/>
+    const { id_penelitian } = useParams();
+    return <EditPenelitianComponent id={id_penelitian}/>
 }
 
 export default EditPenelitian;

@@ -3,8 +3,7 @@ import axios from "axios";
 
 
 function EditPenelitianComponent({ id }) {
-    const [penelitianList, setPenelitianList] = useState({});
-    const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     id_penelitian: "",
     judul: "",
     tanggal_publikasi: "",
@@ -17,8 +16,10 @@ function EditPenelitianComponent({ id }) {
     async function fetchData() {
       try {
         const response = await axios.get(`http://localhost:3100/penelitian/${id}`);
-        setPenelitianList(response.data);
-        setFormData(response.data);
+        const rows = response.data.rows[0];
+        setFormData(response.data.rows[0]);
+        console.log(id);
+        console.log(rows);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -37,7 +38,7 @@ function EditPenelitianComponent({ id }) {
   const handleUpdatePenelitian = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/penelitian/${formData.id_penelitian}`, formData);
+      const response = await axios.put(`http://localhost:3100/penelitian/${id}`, formData);
       console.log(response.data);
       alert("Data penelitian berhasil diperbarui");
     } catch (error) {
@@ -46,7 +47,7 @@ function EditPenelitianComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4 border">
+    <div className="container mt-4">
       <h2>Edit Penelitian</h2>
       <form onSubmit={handleUpdatePenelitian}>
       <div className="form-group">
@@ -55,8 +56,9 @@ function EditPenelitianComponent({ id }) {
             type="text"
             className="form-control"
             name="id_penelitian"
-            value={formData.id_penelitian}
-            onChange={handleInputChange}
+            value={id}
+            // onChange={handleInputChange}
+            disabled
           />
         </div>
         <div className="form-group">
