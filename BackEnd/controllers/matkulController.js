@@ -26,11 +26,12 @@ const getMatkulById = (req, res) => {
 }
 
 const insertMatkul = (req, res) => {
-    const { id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi } = req.body;
-    matkulModel.insertMatkul(id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, (err, result) => {
+    const { kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi } = req.body;
+    matkulModel.insertMatkul(kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, (err, result) => {
       if (!err) {
         res.send('Insert success');
       } else {
+        console.log("Inserting Matkul:", kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi);
         res.status(500).send(err.message);
       }
     });

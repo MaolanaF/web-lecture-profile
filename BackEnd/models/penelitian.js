@@ -6,10 +6,14 @@ const getAllPenelitian = (callback) => {
     client.query('SELECT * FROM penelitian', callback);
 }
 
-const insertPenelitian = (id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian, callback) => {
-    const query = 'INSERT INTO penelitian (id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian) VALUES ($1, $2, $3, $4, $5, $6)';
-    const values = [id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian];
-    client.query(query, values, callback);
+const insertPenelitian = (judul, tanggal_publikasi, bidang, author, link_penelitian, callback) => {
+    const query = 'INSERT INTO penelitian (judul, tanggal_publikasi, bidang, author, link_penelitian) VALUES ($1, $2, $3, $4, $5) ';
+    const values = [judul, tanggal_publikasi, bidang, author, link_penelitian];
+    client.query(query, values);
+
+    const query2 = 'INSERT INTO riwayat_penelitian (id_dosen, id_penelitian) VALUES ($1, $2)';
+    const values2 = [id_dosen, id_penelitian];
+    client.query(query2, values2, callback);
 }
 
 const updatePenelitian = (id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian, callback) => {
@@ -19,9 +23,13 @@ const updatePenelitian = (id_penelitian, judul, tanggal_publikasi, bidang, autho
 }
 
 const deletePenelitian = (id_penelitian, callback) => {
-    const query = 'DELETE FROM penelitian WHERE id_penelitian = $1';
+    const query = 'DELETE FROM riwayat_penelitian WHERE id_penelitian = $1';
     const values = [id_penelitian];
-    client.query(query, values, callback);
+    client.query(query, values);
+
+    const query2 = 'DELETE FROM penelitian WHERE id_penelitian = $1';
+    const values2 = [id_penelitian];
+    client.query(query2, values2, callback);
 }
 
 module.exports = {

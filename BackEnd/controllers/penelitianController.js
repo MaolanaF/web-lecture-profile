@@ -11,8 +11,8 @@ const getAllPenelitian = (req, res) => {
 }
 
 const insertPenelitian = (req, res) => {
-  const { id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian } = req.body;
-  penelitianModel.insertPenelitian(id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
+  const { judul, tanggal_publikasi, bidang, author, link_penelitian } = req.body;
+  penelitianModel.insertPenelitian( judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
     if (!err) {
       res.send('Insert success');
     } else {

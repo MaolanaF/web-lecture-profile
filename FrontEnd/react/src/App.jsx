@@ -10,6 +10,9 @@ import AddPenelitian from './pages/penelitian/AddPenelitian';
 import AddMatkul from './pages/mata_kuliah/AddMatkul';
 import Mata_Kuliah from './pages/mata_kuliah/Matkul';
 import EditMatkul from './pages/mata_kuliah/EditMatkul';
+import AddPengajaran from './pages/riwayat_pengajaran/AddRiwayatPengajaran';
+import Home from './pages/web-pages/index';
+import DetailDosen from './pages/web-pages/dosen-details';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
             <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />
             <Route path="/dosen/mata_kuliah" element = {<Mata_Kuliah/>} />
             <Route path="/mata_kuliah/edit/:id_matkul" element = {<EditMatkul/>} />
+            <Route path="/riwayat_pengajaran/insert" element = {<AddPengajaran/>} />
+            <Route path="/home" element = {<Home/>} />
+            <Route path="/dosen-details/:id" element = {<DetailDosen/>}/>
           </Routes>
       </Router>
   )
