@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css'; // Impor CSS Bootstrap
+import { Link } from "react-router-dom";
 
 const ListPenelitianComponent = () => {
   const [penelitianList, setPenelitianList] = useState([]);
@@ -53,14 +54,18 @@ const ListPenelitianComponent = () => {
               <td>{penelitian.tanggal_publikasi}</td>
               <td>{penelitian.bidang}</td>
               <td>{penelitian.author}</td>
-              <td>{penelitian.link_penelitian}</td>
+              {/* <td>{penelitian.link_penelitian}</td> */}
               <td>
-              <button className="btn btn-danger btn-sm ml-2"
+                <Link to={{ pathname: `/penelitian/edit/${penelitian.id_penelitian}` }}>
+                  <button type="button" className="btn btn-success">
+                    Edit
+                  </button>
+                </Link>
+                <button className="btn btn-danger btn-sm ml-2"
                   // Tambahkan fungsi onClick untuk tombol delete
-                  onClick={() => { handleDelete(penelitian.id_penelitian);}}
-                >
+                  onClick={() => { handleDelete(penelitian.id_penelitian);}}>
                   Delete
-              </button>
+                </button>
               </td>
             </tr>
           ))}
