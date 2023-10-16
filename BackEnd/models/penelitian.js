@@ -8,7 +8,7 @@ const getAllPenelitian = (callback) => {
 
 // Mendapatkan data dosen dari database berdasarkan ID
 const getPenelitianById = (id_penelitian, callback) => {
-    const query = 'SELECT * FROM dosen WHERE id_penelitian = $1';
+    const query = 'SELECT * FROM penelitian WHERE id_penelitian = $1';
     const values = [id_penelitian];
     client.query(query, values, callback);
 }

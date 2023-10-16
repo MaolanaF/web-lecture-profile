@@ -2,6 +2,13 @@ import React, { useEffect, useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import './assets/css/style.css';
+import './assets/vendor/bootstrap/css/bootstrap.min.css';
+import './assets/vendor/bootstrap-icons/bootstrap-icons.css';
+import './assets/vendor/glightbox/css/glightbox.min.css';
+import './assets/vendor/swiper/swiper-bundle.min.css';
+import { Link } from "react-router-dom";
 
 import Dosen from './pages/dosen/Dosen';
 import AddDosen from './pages/dosen/AddDosen';
@@ -13,6 +20,7 @@ import AddMatkul from './pages/mata_kuliah/AddMatkul';
 import Mata_Kuliah from './pages/mata_kuliah/Matkul';
 import EditMatkul from './pages/mata_kuliah/EditMatkul';
 import AddPengajaran from './pages/riwayat_pengajaran/AddRiwayatPengajaran';
+import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitian';
 import Home from './pages/Home';
 import Login from './pages/Login';
 
@@ -30,6 +38,7 @@ function App() {
             <Route path="/mata_kuliah" element = {<Mata_Kuliah/>} />
             <Route path="/mata_kuliah/edit/:id_matkul" element = {<EditMatkul/>} />
             <Route path="/riwayat_pengajaran/insert" element = {<AddPengajaran/>} />
+            <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
             <Route path="/home" element = {<Home/>} />
             <Route path="/login" element = {<Login/>} />
           </Routes>
