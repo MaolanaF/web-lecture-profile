@@ -91,15 +91,22 @@ function EditPenelitianComponent({ id }) {
             onChange={handleInputChange}
           />
         </div>
-        <div className="form-group">
-          <label>Penulis</label>
-          <input
-            type="text"
-            className="form-control"
+        <div className="mb-3">
+          <label className="form-label">Author</label>
+          <select
             name="author"
             value={formData.author}
-            onChange={handleInputChange}
-          />
+            onChange={handleChange}
+            className="form-control"
+            required
+          >
+            <option value="">Select an author</option>
+            {
+              dosenList.map((element) => (
+                <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
+              ))
+            }
+          </select>
         </div>
         <div className="form-group">
           <label>Link Penelitian</label>
