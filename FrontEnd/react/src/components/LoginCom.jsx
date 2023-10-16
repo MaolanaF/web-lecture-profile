@@ -1,69 +1,79 @@
 import React, { useEffect, useState } from "react";
-// import axios from "axios";
+import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function LoginCom() {
+  const navigate = useNavigate(); // Use useNavigate
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [error, setError] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3100/login`,
+        formData
+      ); // Replace with your API endpoint
+      console.log(response.data);
+      console.log(response.data[0].username);
+      if (response.data) {
+        Cookies.set("username", response.data[0].username, { expires: 1 }); // Save username to cookie with expiry of 1 day
+        Cookies.set("role", response.data[0].role, { expires: 1 });
+        navigate("/dosen/insert"); // Navigate to home page
+      } else {
+        console.log("Tidak Ada User");
+      }
+      // You can perform actions like redirecting the user after successful login
+    } catch (err) {
+      setError("Login failed. Please check your credentials."); // Handle errors
+      console.error("Login failed:", err);
+    }
+  };
+
   return (
-    <form>
-      {/* Email input */}
-      <div className="form-outline mb-4">
-        <input type="email" id="form2Example1" className="form-control" />
-        <label className="form-label" htmlFor="form2Example1">
-          Email address
-        </label>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group">
+        <input
+          type="text"
+          className="form-control form-control-user"
+          name="username"
+          id="username"
+          placeholder="Username"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
       </div>
-      {/* Password input */}
-      <div className="form-outline mb-4">
-        <input type="password" id="form2Example2" className="form-control" />
-        <label className="form-label" htmlFor="form2Example2">
-          Password
-        </label>
+      <div className="form-group">
+        <input
+          type="password"
+          className="form-control form-control-user"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          placeholder="Password"
+        />
       </div>
-      {/* 2 column grid layout for inline styling */}
-      <div className="row mb-4">
-        <div className="col d-flex justify-content-center">
-          {/* Checkbox */}
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              defaultValue=""
-              id="form2Example34"
-              defaultChecked=""
-            />
-            <label className="form-check-label" htmlFor="form2Example34">
-              {" "}
-              Remember me{" "}
-            </label>
-          </div>
-        </div>
-        <div className="col">
-          {/* Simple link */}
-          <a href="#!">Forgot password?</a>
-        </div>
-      </div>
-      {/* Submit button */}
-      <button type="submit" className="btn btn-primary btn-block mb-4">
-        Sign in
+      <button type="submit" className="btn btn-primary btn-user btn-block">
+        Login
       </button>
-      {/* Register buttons */}
-      <div className="text-center">
-        <p>
-          Not a member? <a href="#!">Register</a>
-        </p>
-        <p>or sign up with:</p>
-        <button type="button" className="btn btn-secondary btn-floating mx-1">
-          <i className="fab fa-facebook-f" />
-        </button>
-        <button type="button" className="btn btn-secondary btn-floating mx-1">
-          <i className="fab fa-google" />
-        </button>
-        <button type="button" className="btn btn-secondary btn-floating mx-1">
-          <i className="fab fa-twitter" />
-        </button>
-        <button type="button" className="btn btn-secondary btn-floating mx-1">
-          <i className="fab fa-github" />
-        </button>
-      </div>
     </form>
   );
 }

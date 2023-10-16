@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-
+import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const AddDosenComponent = () => {
+  console.log(Cookies.get("username"));
+  console.log(Cookies.get("role"));
   const [formData, setFormData] = useState({
-    nama: '',
-    email: '',
-    jabatan: '',
-    jurusan: '',
+    nama: "",
+    email: "",
+    jabatan: "",
+    jurusan: "",
   });
 
   const handleChange = (e) => {
@@ -20,9 +22,10 @@ const AddDosenComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Make a POST request to your backend endpoint
-    axios.post('http://localhost:3100/dosen', formData)
+    axios
+      .post("http://localhost:3100/dosen", formData)
       .then((response) => {
         console.log(response.data);
         // Handle success or redirection here
@@ -81,7 +84,9 @@ const AddDosenComponent = () => {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
   );

@@ -60,10 +60,27 @@ const deleteDosen = (req, res) => {
     });
 }
 
+const getUserByUsername = (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password; 
+  dosenModel.getUserByUsername(username,password, (err, result) => {
+      if (!err) {
+          if (result) {
+              res.send(result.rows);
+          } else {
+              res.status(404).send('Akun tidak ditemukan');
+          }
+      } else {
+          res.status(500).send(err.message);
+      }
+  });
+}
+
 module.exports = {
     getAllDosen,
     getDosenById,
     insertDosen,
     updateDosen,
-    deleteDosen
+    deleteDosen,
+    getUserByUsername
 };

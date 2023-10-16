@@ -9,4 +9,6 @@ router.post('/dosen', dosenController.insertDosen);
 router.put('/dosen/:id_dosen', dosenController.updateDosen);
 router.delete('/dosen/:id_dosen', dosenController.deleteDosen);
 
+router.post('/login', dosenController.getUserByUsername);
+
 module.exports = router;
