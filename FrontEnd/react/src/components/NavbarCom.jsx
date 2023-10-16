@@ -25,18 +25,12 @@ const Navbar = () => {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Features
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  About
+                <a
+                  className="btn btn-warning"
+                  href="/login"
+                  role="button"
+                >
+                Login
                 </a>
               </li>
             </ul>
@@ -57,7 +51,7 @@ const Navbar = () => {
           <div className="d-flex justify-content-center align-items-center h-100">
             <div className="text-white">
               <h1 className="mb-3">Politeknik Negeri Bandung</h1>
-              <h4 className="mb-3">Profile Dosen</h4>
+              <h4 className="mb-3">Profil Dosen</h4>
               <a
                 className="btn btn-outline-light btn-lg"
                 href="#!"
