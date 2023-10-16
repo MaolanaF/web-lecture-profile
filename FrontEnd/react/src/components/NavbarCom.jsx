@@ -6,17 +6,6 @@ const Navbar = () => {
     <header>
       {/* Navbar */}
       {/* <Navbar bg="white" expand="lg">
-      <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#">Home</Nav.Link>
-            <Nav.Link href="#">Features</Nav.Link>
-            <Nav.Link href="#">Pricing</Nav.Link>
-            <Nav.Link href="#">About</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
     </Navbar> */}
     <nav className="navbar navbar-expand-lg navbar-light bg-white border">
         <div className="container-fluid border">
