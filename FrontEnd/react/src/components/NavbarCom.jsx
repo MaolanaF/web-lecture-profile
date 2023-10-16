@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import {Nav, Container } from 'react-bootstrap';
 
 const Navbar = () => {
   return (
@@ -73,4 +73,4 @@ const Navbar = () => {
   );
 };
 
-export default MyNavbar;
+export default Navbar;
