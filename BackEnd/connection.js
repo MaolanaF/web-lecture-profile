@@ -4,7 +4,7 @@ const client = new Client({
     host: "localhost",
     user: "postgres",
     port: 5432,
-    password: "12345678",
+    password: "070702",
     database: "lectureProfile"
 })
 
