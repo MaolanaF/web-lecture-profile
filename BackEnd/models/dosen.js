@@ -31,10 +31,17 @@ const deleteDosen = (id_dosen, callback) => {
     client.query(query, values, callback);
 }
 
+const getUserByUsername = (username, password, callback) => {
+    const query = 'SELECT * FROM "user" WHERE username = $1 AND password = $2';
+    const values = [username, password];
+    client.query(query, values, callback);
+}
+
 module.exports = {
     getAllDosen,
     getDosenById,
     insertDosen,
     updateDosen,
-    deleteDosen
+    deleteDosen,
+    getUserByUsername
 };
