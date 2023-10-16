@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css'; // Impor CSS Bootstrap
+import { Link } from "react-router-dom";
 
 const ListPenelitianComponent = () => {
   const [penelitianList, setPenelitianList] = useState([]);
@@ -31,11 +32,26 @@ const ListPenelitianComponent = () => {
       });
   };
 
+  
+
   return (
     <div className="container mt-4">
       <h2>List Penelitian</h2>
+
+      
       <table className="table">
         <thead>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><Link to={{ pathname: `/penelitian/insert` }}>
+                <button type="button" className="btn btn-success btn-sm"> Tambah </button>
+                </Link>
+            </td>
+          </tr>
           <tr>
             <th>ID Penelitian</th>
             <th>Judul</th>
@@ -53,14 +69,18 @@ const ListPenelitianComponent = () => {
               <td>{penelitian.tanggal_publikasi}</td>
               <td>{penelitian.bidang}</td>
               <td>{penelitian.author}</td>
-              <td>{penelitian.link_penelitian}</td>
+              {/* <td>{penelitian.link_penelitian}</td> */}
               <td>
-              <button className="btn btn-danger btn-sm ml-2"
+                <Link to={{ pathname: `/penelitian/edit/${penelitian.id_penelitian}` }}>
+                  <button type="button" className="btn btn-success btn-sm ml-2">
+                    Edit
+                  </button>
+                </Link>
+                <button className="btn btn-danger btn-sm ml-2"
                   // Tambahkan fungsi onClick untuk tombol delete
-                  onClick={() => { handleDelete(penelitian.id_penelitian);}}
-                >
+                  onClick={() => { handleDelete(penelitian.id_penelitian);}}>
                   Delete
-              </button>
+                </button>
               </td>
             </tr>
           ))}
