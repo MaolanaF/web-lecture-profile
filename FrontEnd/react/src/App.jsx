@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Dosen from './pages/dosen/Dosen';
 import AddDosen from './pages/dosen/AddDosen';
@@ -14,6 +15,7 @@ import EditMatkul from './pages/mata_kuliah/EditMatkul';
 import AddPengajaran from './pages/riwayat_pengajaran/AddRiwayatPengajaran';
 import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitian';
 import Home from './pages/Home';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
             <Route path="/riwayat_pengajaran/insert" element = {<AddPengajaran/>} />
             <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
             <Route path="/home" element = {<Home/>} />
+            <Route path="/login" element = {<Login/>} />
           </Routes>
       </Router>
   )

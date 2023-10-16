@@ -1,7 +1,14 @@
-import HomeCom from "../components/HomeCom";
+import HomeCom from "../components/HomeCom"; 
+import NavbarCom from "../components/NavbarCom";
 
 function Home(){
-    return <HomeCom/>
+    return (
+        <>
+        <NavbarCom/>
+        <HomeCom/>
+        </>
+    )
+    
 }
 
 export default Home;
