@@ -2,7 +2,7 @@ const riwayatModel = require("../../models/riwayat");
 
 const getPengajaranByIdDosen = (req, res) => {
   const id_dosen = req.params.id_dosen;
-  pengajaranModel.getPengajaranById(id_dosen, (err, result) => {
+  riwayatModel.getPengajaranById(id_dosen, (err, result) => {
     if (!err) {
       if (result) {
         res.send(result);
