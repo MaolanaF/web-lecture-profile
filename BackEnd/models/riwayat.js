@@ -8,7 +8,7 @@ const getPengajaranByIdDosen = (id_dosen, callback) => {
 }
 
 const getPenelitianByIdDosen = (id_penelitian, callback) => {
-    const query = 'SELECT * FROM riwayat_penelitian WHERE id_penelitian = $1';
+    const query = 'SELECT penelitian.judul, penelitian.tanggal_publikasi, penelitian.bidang, penelitian.author, penelitian.link_penelitian FROM riwayat_penelitian INNER JOIN penelitian ON riwayat_penelitian.id_penelitian = penelitian.id_penelitian WHERE riwayat_penelitian.id_dosen = $1';
     const values = [id_penelitian];
     client.query(query, values, callback);
 }
