@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card, Image, Tabs, Tab } from 'react-bootstrap';
-
+import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
+import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
 
 function DosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -31,20 +31,20 @@ function DosenDetailComponent({ id }) {
     <section>
       <Container>
         <Row>
-            <Col lg={12}>
+          <Col lg={12}>
             <div className="title-box text-center">
-                <h3 className="title-a">Profile Dosen</h3>
-                <p className="subtitle-a">
+              <h3 className="title-a">Profile Dosen</h3>
+              <p className="subtitle-a">
                 Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-                <div className="line-mf"></div>
+              </p>
+              <div className="line-mf"></div>
             </div>
-            </Col>
+          </Col>
         </Row>
         <Row>
-            <Col lg={12}>
+          <Col lg={12}>
             <Card>
-                <Card.Body>
+              <Card.Body>
                 <Row>
                     <Col lg={4}>
                     <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
@@ -52,43 +52,42 @@ function DosenDetailComponent({ id }) {
                     </Col>
                     <Col lg={8}>
                     <blockquote className="blockquote mb-0">
-                        <p className="h6">{formData.id_dosen}</p>
-                        <p className="h6">{formData.nama}</p>
-                        <p className="h6">{formData.jurusan}</p>
-                        <p className="h6">{formData.jabatan}</p>
+                      <p className="h6">{formData.id_dosen}</p>
+                      <p className="h6">{formData.nama}</p>
+                      <p className="h6">{formData.jurusan}</p>
+                      <p className="h6">{formData.jabatan}</p>
                     </blockquote>
-                    </Col>
+                  </Col>
                 </Row>
-                </Card.Body>
+              </Card.Body>
             </Card>
-            </Col>
+          </Col>
         </Row>
         <Row>
-            <Col lg={12}>
+          <Col lg={12}>
             <Tabs
-                defaultActiveKey="profile"
-                id="fill-tab-example"
-                className="mb-3 mt-5"
-                fill
+              defaultActiveKey="profile"
+              id="fill-tab-example"
+              className="mb-3 mt-5"
+              fill
             >
-                <Tab eventKey="Riwayat Pendidikan" title="Riwayat Pendidikan">
+              <Tab eventKey="Riwayat Pendidikan" title="Riwayat Pendidikan">
                 Riwayat Pendidikan
-                </Tab>
-                <Tab eventKey="Riwayat Pengajaran" title="Riwayat Pengajaran">
-                Riwayat Pengajaran
-                </Tab>
-                <Tab eventKey="Riwayat Penelitian" title="Riwayat Penelitian">
+              </Tab>
+              <Tab eventKey="Riwayat Pengajaran" title="Riwayat Pengajaran">
+                <ListRiwayatPengajaran id={id} />
+              </Tab>
+              <Tab eventKey="Riwayat Penelitian" title="Riwayat Penelitian">
                 Riwayat Penelitian
-                </Tab>
-                <Tab eventKey="Riwayat PKM" title="Riwayat PKM">
+              </Tab>
+              <Tab eventKey="Riwayat PKM" title="Riwayat PKM">
                 Riwayat PKM
-                </Tab>
+              </Tab>
             </Tabs>
-            </Col>
+          </Col>
         </Row>
-        </Container>
+      </Container>
     </section>
-    
   );
 }
 
