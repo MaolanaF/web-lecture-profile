@@ -34,14 +34,22 @@ const ListDosenComponent = () => {
   return (
     <div className="container mt-4">
       <h2>List Dosen</h2>
-
-      <Link to={{ pathname: `/dosen/insert` }}>
-        <button type="button" className="btn btn-success btn-sm ml-2">
-            Tambah
-        </button>
-      </Link>
       <table className="table">
         <thead>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <Link to={{ pathname: `/dosen/insert` }}>
+                <button type="button" className="btn btn-success btn-sm ml-2">
+                  Tambah
+                </button>
+              </Link>
+            </td>
+          </tr>
           <tr>
             <th>ID Dosen</th> 
             <th>Nama</th>

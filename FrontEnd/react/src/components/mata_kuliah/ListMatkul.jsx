@@ -42,6 +42,7 @@ const ListMatkulComponent = () => {
             <td></td>
             <td></td>
             <td></td>
+            <td></td>
             <td><Link to={{ pathname: `/mata_kuliah/insert` }}>
                 <button type="button" className="btn btn-success btn-sm"> Tambah </button>
                 </Link>
@@ -54,6 +55,7 @@ const ListMatkulComponent = () => {
             <th>Semester</th>
             <th>Kode Kelas</th>
             <th>Perguruan Tinggi</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +69,7 @@ const ListMatkulComponent = () => {
               <td>{mata_kuliah.perguruan_tinggi}</td>
               <td>
               <Link to={{ pathname: `/mata_kuliah/edit/${mata_kuliah.id_matkul}` }}>
-                <button type="button" className="btn btn-success">
+                <button type="button" className="btn btn-sm btn-success">
                   Edit
                 </button>
               </Link>

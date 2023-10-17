@@ -20,7 +20,9 @@ import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitia
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/DosenProfile';
-import DashboarAdmin from './pages/AdminDosenProfile';
+import DashboardAdmin_Dosen from './pages/DashboardAdmin_Dosen';
+import DashboardAdmin_Matkul from './pages/DashboardAdmin_Matkul';
+import DashboardAdmin_Penelitian from './pages/DashboardAdmin_Penelitian';
 
 function App() {
   return (
@@ -43,7 +45,9 @@ function App() {
             <Route path="/home" element = {<Home/>} />
             <Route path="/login" element = {<Login/>} />
             <Route path="/dosenProfile/:id_dosen" element = {<Profile/>} />
-            <Route path="/dosenProfile/admin/:id_dosen" element = {<DashboarAdmin/>} />
+            <Route path="/dashboard_admin/dosen" element = {<DashboardAdmin_Dosen/>} />
+            <Route path="/dashboard_admin/mata_kuliah" element = {<DashboardAdmin_Matkul/>} />
+            <Route path="/dashboard_admin/penelitian" element = {<DashboardAdmin_Penelitian/>} />
           </Routes>
       </Router>
       
