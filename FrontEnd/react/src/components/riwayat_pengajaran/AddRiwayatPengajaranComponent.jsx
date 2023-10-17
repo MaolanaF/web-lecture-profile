@@ -39,7 +39,7 @@ const AddRiwayatPengajaranComponent = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     // Find the corresponding matkul object based on the selected nama_matkul
-    const selectedMatkul = matkulList.find((matkul) => matkul.nama_matkul === value);
+    const selectedMatkul = matkulList.find((matkul) => matkul.id_matkul === value);
   
     if (selectedMatkul) {
       // Destructure the matkul object to get the required values

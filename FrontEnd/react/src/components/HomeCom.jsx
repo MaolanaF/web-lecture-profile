@@ -49,25 +49,25 @@ const ListDosenComponent = () => {
               </div>
             </Col>
           </Row>
-          <Row className="g-4">
+          <Row className="g-4" >
             {dosenList.map((dosen, index) => (
-              <Col md={4} key={index}>
-                <Card className="work-box" style={{ height: '100%' }}>
+              <Col md={4} key={index} className="justify-content-center text-align-center d-flex">
+                <Card className="work-box" style={{ height: '100%', width:'80%'}}>
                   <a href={dosen.image} data-gallery="portfolioGallery" className="portfolio-lightbox">
                     <div className="work-img mb-2">
                       <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
-                    style={{ width: "60%", height: "auto" }} />
+                    style={{ width: "30%", height: "auto", marginBottom:"15px" }} />
                     </div>
                   </a>
                   <div className="work-content" style={{ height: '100%' }}>
                     <Row>
-                      <Col sm={8}>
+                      <Col sm={11}>
                         <h5 className="w-title">{dosen.nama}</h5>
                         <div className="w-more">
                           <span className="w-ctegory">{dosen.jabatan}</span> / <span className="w-date">{dosen.jurusan}</span>
                         </div>
                       </Col>
-                      <Col sm={4} className="pl-0">
+                      <Col sm={1} className="pl-0">
                         <div className="w-like">
                           <Link to={{ pathname: `/DosenProfile/${dosen.id_dosen}`}}>
                             <BsChevronDoubleRight /> {/* Menggunakan ikon React Bootstrap */}
