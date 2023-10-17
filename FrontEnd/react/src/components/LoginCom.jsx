@@ -45,36 +45,55 @@ function LoginCom() {
     }
   };
 
+
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <input
-          type="text"
-          className="form-control form-control-user"
-          name="username"
-          id="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="password"
-          className="form-control form-control-user"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          placeholder="Password"
-        />
-      </div>
-      <button type="submit" className="btn btn-primary btn-user btn-block">
-        Login
-      </button>
-    </form>
+    <div className="container d-flex justify-content-center align-items-center" style={{ height: 500, width: 400, border: "1px solid black", borderRadius: "5px", backgroundColor:" #f2f2f2" }}>
+    <div className="text-center">
+      <h1 className="mb-5" style={{ color: "#00008B" }}>Log In</h1>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group mt-3">
+          <div className="input-group">
+            <span className="input-group-text">
+              <i className="bi bi-person" />
+            </span>
+            <input
+              type="text"
+              className="form-control form-control-user"
+              name="username"
+              id="username"
+              placeholder="Username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <div className="form-group mt-3">
+          <div className="input-group">
+            <span className="input-group-text">
+              <i className="bi bi-lock" />
+            </span>
+            <input
+              type="password"
+              className="form-control form-control-user"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+        <button
+          type="submit"
+          className="btn btn-warning btn-user btn-block mt-5"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
   );
 }
 

@@ -37,6 +37,17 @@ const ListMatkulComponent = () => {
       <table className="table">
         <thead>
           <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><Link to={{ pathname: `/mata_kuliah/insert` }}>
+                <button type="button" className="btn btn-success btn-sm"> Tambah </button>
+                </Link>
+            </td>
+          </tr>
+          <tr>
             <th>ID Matkul</th>
             <th>Kode Matkul</th>
             <th>Nama Matkul</th>
