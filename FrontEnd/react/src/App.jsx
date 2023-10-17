@@ -17,6 +17,7 @@ import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitia
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/DosenProfile';
+import DashboarAdmin from './pages/AdminDosenProfile';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/home" element = {<Home/>} />
             <Route path="/login" element = {<Login/>} />
             <Route path="/dosenProfile/:id_dosen" element = {<Profile/>} />
+            <Route path="/dosenProfile/admin/:id_dosen" element = {<DashboarAdmin/>} />
           </Routes>
       </Router>
       
