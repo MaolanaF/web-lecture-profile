@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-
+import { BsChevronDoubleRight } from 'react-icons/bs';  
 
 const ListDosenComponent = () => {
     const [dosenList, setDosenList] = useState([]);
@@ -17,7 +18,7 @@ const ListDosenComponent = () => {
           // Handle error
         });
     }, []); // Gunakan array kosong agar useEffect dijalankan hanya sekali saat komponen pertama kali dimuat
-  
+
     return (
     <>
       {/* Background image */}
@@ -38,50 +39,49 @@ const ListDosenComponent = () => {
       </div>
       {/* Background image */}
       <section id="work" className="portfolio-mf sect-pt4 route">
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-12">
-            <div className="title-box text-center">
-              <h3 className="title-a">List Dosen</h3>
-              <p className="subtitle-a">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-              <div className="line-mf"></div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          {dosenList.map((dosen, index) => (
-            <div className="col-md-4" key={index}>
-              <div className="work-box">
-                <a href={dosen.image} data-gallery="portfolioGallery" className="portfolio-lightbox">
-                  <div className="work-img">
-                    {/* <img src={dosen.image} alt="" className="img-fluid" /> */}
-                    <img src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
-                    style={{ width: "60%", height: "auto" }}/>
-                  </div>
-                </a>
-                <div className="work-content">
-                  <div className="row">
-                    <div className="col-sm-8">
-                      <h2 className="w-title">{dosen.nama}</h2>
-                      <div className="w-more">
-                        <span className="w-ctegory">{dosen.jabatan}</span> / <span className="w-date">{dosen.jurusan}</span>
-                      </div>
-                    </div>
-                    <div className="col-sm-4 pl-0">
-                      <div className="w-like">
-                      {/* <Link to={{ pathname: `/DosenProfile/${dosen.id_dosen}`}}> */}
-                        <span className="bi bi-chevron-double-right"></span>
-                      {/* </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        <Container>
+          <Row>
+            <Col xs={12}>
+              <div className="title-box text-center">
+                <h3 className="title-a mt-5">List Dosen</h3>
+                <p className="subtitle-a">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                <div className="line-mf"></div>
               </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+            </Col>
+          </Row>
+          <Row className="g-4">
+            {dosenList.map((dosen, index) => (
+              <Col md={4} key={index}>
+                <Card className="work-box" style={{ height: '100%' }}>
+                  <a href={dosen.image} data-gallery="portfolioGallery" className="portfolio-lightbox">
+                    <div className="work-img mb-2">
+                      <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
+                    style={{ width: "60%", height: "auto" }} />
+                    </div>
+                  </a>
+                  <div className="work-content" style={{ height: '100%' }}>
+                    <Row>
+                      <Col sm={8}>
+                        <h5 className="w-title">{dosen.nama}</h5>
+                        <div className="w-more">
+                          <span className="w-ctegory">{dosen.jabatan}</span> / <span className="w-date">{dosen.jurusan}</span>
+                        </div>
+                      </Col>
+                      <Col sm={4} className="pl-0">
+                        <div className="w-like">
+                          <Link to={{ pathname: `/DosenProfile/${dosen.id_dosen}`}}>
+                            <BsChevronDoubleRight /> {/* Menggunakan ikon React Bootstrap */}
+                          </Link>
+                        </div>
+                      </Col>
+                    </Row>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      </section>
     </>
     );
   };
