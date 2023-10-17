@@ -8,5 +8,6 @@ router.get('/riwayat_pengajaran/:id_pengajaran', pengajaranController.getPengaja
 router.post('/riwayat_pengajaran', pengajaranController.insertPengajaran);
 router.put('/riwayat_pengajaran/:id_pengajaran', pengajaranController.updatePengajaran);
 router.delete('/riwayat_pengajaran/:id_pengajaran', pengajaranController.deletePengajaran);
+router.get('/profile_dosen/:id_dosen', pengajaranController.getPengajaranByIdDosen);
 
 module.exports = router;

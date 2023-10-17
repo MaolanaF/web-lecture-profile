@@ -59,10 +59,22 @@ const deletePengajaran = (req, res) => {
     });
 }
 
+const getPengajaranByIdDosen = (req, res) => {
+  const id_dosen = req.params.id_dosen;
+  pengajaranModel.getPengajaranByIdDosen(id_dosen, (err, result) => {
+    if(!err){
+      res.send (result.rows);
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+}
+
 module.exports = {
     getAllPengajaran,
     getPengajaranById,
     insertPengajaran,
     updatePengajaran,
-    deletePengajaran
+    deletePengajaran,
+    getPengajaranByIdDosen
 };

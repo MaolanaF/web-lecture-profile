@@ -29,10 +29,17 @@ const deletePengajaran = (id_pengajaran, callback) => {
     client.query(query, values, callback);
 }
 
+const getPengajaranByIdDosen = (id_dosen, callback) => {
+    const query = 'SELECT mata_kuliah.kode_matkul, mata_kuliah.nama_matkul, mata_kuliah.semester, mata_kuliah.kode_kelas, mata_kuliah.perguruan_tinggi FROM riwayat_pengajaran INNER JOIN mata_kuliah ON riwayat_pengajaran.id_matkul = mata_kuliah.id_matkul WHERE riwayat_pengajaran.id_dosen = $1';
+    const values = [id_dosen];
+    client.query(query, values, callback);
+}
+
 module.exports = {
     getAllPengajaran,
     getPengajaranById,
     insertPengajaran,
     updatePengajaran,
-    deletePengajaran
+    deletePengajaran,
+    getPengajaranByIdDosen
 };

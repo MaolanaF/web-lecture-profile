@@ -4,9 +4,6 @@ import {Nav, Container } from 'react-bootstrap';
 const Navbar = () => {
   return (
     <header>
-      {/* Navbar */}
-      {/* <Navbar bg="white" expand="lg">
-    </Navbar> */}
     <nav className="navbar navbar-expand-lg navbar-light bg-white border">
         <div className="container-fluid border">
           <button
@@ -34,17 +31,12 @@ const Navbar = () => {
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">
-                  Pricing
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
                   About
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Coba
+                <a className="nav-link" href="/login">
+                  Login
                 </a>
               </li>
             </ul>
