@@ -11,6 +11,7 @@ const matkulRoute = require('./routes/matkulRoute');
 const pkmRoute = require('./routes/pkmRoute');
 const riwayatPenelitian = require('./routes/riwayatPenelitianRoute');
 const riwayatPengajaranRoute = require('./routes/riwayatPengajaranRoute');
+const riwayatPkmRoute = require('./routes/riwayatPkmRoute');
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -35,3 +36,4 @@ app.use('/', matkulRoute)
 app.use('/', pkmRoute)
 app.use('/', riwayatPenelitian)
 app.use('/', riwayatPengajaranRoute)
+app.use('/', riwayatPkmRoute)
