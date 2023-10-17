@@ -34,7 +34,7 @@ function LoginCom() {
       if (response.data) {
         Cookies.set("username", response.data[0].username, { expires: 1 }); // Save username to cookie with expiry of 1 day
         Cookies.set("role", response.data[0].role, { expires: 1 });
-        navigate("/dosen/insert"); // Navigate to home page
+        navigate("/dosen"); // Navigate to home page
       } else {
         console.log("Tidak Ada User");
       }

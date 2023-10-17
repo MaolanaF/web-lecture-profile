@@ -1,13 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/css/bootstrap.css';
-import './assets/css/style.css';
-import './assets/vendor/bootstrap/css/bootstrap.min.css';
-import './assets/vendor/bootstrap-icons/bootstrap-icons.css';
-import './assets/vendor/glightbox/css/glightbox.min.css';
-import './assets/vendor/swiper/swiper-bundle.min.css';
 import { Link } from "react-router-dom";
 
 import Dosen from './pages/dosen/Dosen';
@@ -23,6 +16,7 @@ import AddPengajaran from './pages/riwayat_pengajaran/AddRiwayatPengajaran';
 import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitian';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Profile from './pages/DosenProfile';
 
 function App() {
   return (
@@ -41,9 +35,12 @@ function App() {
             <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
             <Route path="/home" element = {<Home/>} />
             <Route path="/login" element = {<Login/>} />
+            <Route path="/dosenProfile/:id_dosen" element = {<Profile/>} />
           </Routes>
       </Router>
+      
   )
 }
+
 
 export default App;
