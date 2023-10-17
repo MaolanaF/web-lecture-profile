@@ -42,7 +42,7 @@ const Navbar = () => {
                 {/* Home */}
                 <li className="nav-item">
                   <a className="nav-link" href="#" style={{ color:"black" }}>
-                    ABOUT
+                    About
                   </a>
                 </li>
                 {/* Home */}
