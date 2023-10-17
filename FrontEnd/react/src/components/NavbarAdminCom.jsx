@@ -33,31 +33,37 @@ const Navbar = () => {
                     alt="Logo"
                   />
                 </a>
-                {/* Home */}
+                {/* Dosen */}
                 <li className="nav-item">
-                  <a className="nav-link" href="#" style={{ color:"black" }}>
-                    Home
-                  </a>
+                  <Link to={{ pathname: `/dashboard_admin/dosen` }}>
+                    <a className="nav-link" style={{ color:"black" }}>
+                      Dosen
+                    </a>
+                  </Link>
                 </li>
-                {/* Home */}
+                {/* Mata Kuliah */}
                 <li className="nav-item">
-                  <a className="nav-link" href="#" style={{ color:"black" }}>
-                    About
-                  </a>
+                  <Link to={{ pathname: `/dashboard_admin/mata_kuliah` }}>
+                    <a className="nav-link" style={{ color:"black" }}>
+                      Mata Kuliah
+                    </a>
+                  </Link>
                 </li>
-                {/* Home */}
+                {/* Penelitian */}
                 <li className="nav-item">
-                  <a className="nav-link" href="#" style={{ color:"black" }}>
-                    Contact
-                  </a>
+                  <Link to={{ pathname: `/dashboard_admin/penelitian` }}>
+                    <a className="nav-link" style={{ color:"black" }}>
+                      Penelitian
+                    </a>
+                  </Link>
                 </li>
               </ul>
               <ul className="navbar-nav">
-                {/* Login */}
+                {/* Logout */}
                 <li className="nav-item">
-                  <Link to={{ pathname: `/login` }}>
+                  <Link to={{ pathname: `/home` }}>
                     <button type="button" className="btn btn-warning" style={{ fontWeight:"500" }}>
-                      Login
+                      Logout
                     </button>
                   </Link>
                 </li>

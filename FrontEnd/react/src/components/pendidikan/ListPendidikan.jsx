@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 
-const ListDosenComponent = () => {
-  const [dosenList, setDosenList] = useState([]);
+const ListRiwayatComponent = () => {
+  const [RiwayatList, setRiwayatList] = useState([]);
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/dosen')
+    axios.get('http://localhost:3100/riwayat_pendidikan')
       .then((response) => {
-        setDosenList(response.data); // Mengatur data dosen ke dalam state
+        setRiwayatList(response.data); // Mengatur data dosen ke dalam state
       })
       .catch((error) => {
         console.error(error);
@@ -20,10 +20,10 @@ const ListDosenComponent = () => {
   // Fungsi untuk menghapus data dosen berdasarkan ID
   const handleDelete = (id) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/dosen/${id}`)
+    axios.delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
       .then(() => {
         // Hapus data dosen dari state
-        setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
+        setRiwayatList((prevRiwayatList) => prevRiwayatList.filter((riwayat_pendidikan) => riwayat_pendidikan.id_pendidikan !== id));
       })
       .catch((error) => {
         console.error(error);
@@ -33,49 +33,33 @@ const ListDosenComponent = () => {
 
   return (
     <div className="container mt-4">
-      <h2>List Dosen</h2>
+      <h2>List Pendidikan Dosen</h2>
       <table className="table">
         <thead>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <Link to={{ pathname: `/dosen/insert` }}>
-                <button type="button" className="btn btn-success btn-sm ml-2">
-                  Tambah
-                </button>
-              </Link>
-            </td>
-          </tr>
-          <tr>
-            <th>ID Dosen</th> 
-            <th>Nama</th>
-            <th>Email</th>
-            <th>Jabatan</th>
-            <th>Jurusan</th>
+            <th>id</th>
+            <th>jenjang pendidikan</th>
+            <th>nama institusi</th>
+            <th>tahun lulus</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {dosenList.map((dosen) => (
-            <tr key={dosen.id_dosen}>
-              <td>{dosen.id_dosen}</td>
-              <td>{dosen.nama}</td>
-              <td>{dosen.email}</td>
-              <td>{dosen.jabatan}</td>
-              <td>{dosen.jurusan}</td>
+          {RiwayatList.map((riwayat_pendidikan) => (
+            <tr key={riwayat_pendidikan.id_pendidikan}>
+              <td>{riwayat_pendidikan.id_pendidikan}</td>
+              <td>{riwayat_pendidikan.jenjang_pendidikan}</td>
+              <td>{riwayat_pendidikan.nama_institusi}</td>
+              <td>{riwayat_pendidikan.tahun_lulus}</td>
               <td>
-                <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}>
+                <Link to={{ pathname: `/riwayat_pendidikan/edit/${riwayat_pendidikan.id_pendidikan}` }}>
                   <button type="button" className="btn btn-success btn-sm ml-2">
                     Edit
                   </button>
                 </Link>
                 <button className="btn btn-danger btn-sm ml-2"
                   // Tambahkan fungsi onClick untuk tombol delete
-                  onClick={() => { handleDelete(dosen.id_dosen);}}
+                  onClick={() => { handleDelete(riwayat_pendidikan.id_pendidikan);}}
                 >
                   Delete
                 </button>
@@ -88,4 +72,4 @@ const ListDosenComponent = () => {
   );
 };
 
-export default ListDosenComponent;
+export default ListRiwayatComponent;

@@ -9,6 +9,7 @@ const dosenRoute = require('./routes/dosenRoute');
 const penelitianRoute = require('./routes/penelitianRoute');
 const matkulRoute = require('./routes/matkulRoute');
 const pkmRoute = require('./routes/pkmRoute');
+const pendidikanRoute = require('./routes/pendidikanRoute');
 const riwayatPenelitian = require('./routes/riwayatPenelitianRoute');
 const riwayatPengajaranRoute = require('./routes/riwayatPengajaranRoute');
 const riwayatPkmRoute = require('./routes/riwayatPkmRoute');
@@ -34,6 +35,7 @@ app.use('/', dosenRoute)
 app.use('/', penelitianRoute)
 app.use('/', matkulRoute)
 app.use('/', pkmRoute)
+app.use('/', pendidikanRoute)
 app.use('/', riwayatPenelitian)
 app.use('/', riwayatPengajaranRoute)
 app.use('/', riwayatPkmRoute)
