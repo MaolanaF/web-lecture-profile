@@ -61,7 +61,7 @@ const Navbar = () => {
               <ul className="navbar-nav">
                 {/* Logout */}
                 <li className="nav-item">
-                  <Link to={{ pathname: `/login` }}>
+                  <Link to={{ pathname: `/home` }}>
                     <button type="button" className="btn btn-warning" style={{ fontWeight:"500" }}>
                       Logout
                     </button>
