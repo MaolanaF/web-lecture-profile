@@ -36,10 +36,10 @@ const ListDosenComponent = () => {
       <h2>List Dosen</h2>
 
       <Link to={{ pathname: `/dosen/insert` }}>
-                  <button type="button" className="btn btn-success btn-sm ml-2">
-                    Tambah
-                  </button>
-                </Link>
+        <button type="button" className="btn btn-success btn-sm ml-2">
+            Tambah
+        </button>
+      </Link>
       <table className="table">
         <thead>
           <tr>
@@ -48,6 +48,7 @@ const ListDosenComponent = () => {
             <th>Email</th>
             <th>Jabatan</th>
             <th>Jurusan</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
