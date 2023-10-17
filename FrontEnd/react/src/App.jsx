@@ -30,7 +30,7 @@ function App() {
             <Route path="/penelitian/insert" element = {<AddPenelitian/>} />
             <Route path="/penelitian/edit/:id_penelitian" element = {<EditPenelitian/>} />
             <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />
-            <Route path="/dosen/mata_kuliah" element = {<Mata_Kuliah/>} />
+            <Route path="/mata_kuliah" element = {<Mata_Kuliah/>} />
             <Route path="/mata_kuliah/edit/:id_matkul" element = {<EditMatkul/>} />
             <Route path="/riwayat_pengajaran/insert" element = {<AddPengajaran/>} />
             <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
