@@ -1,73 +1,79 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Link as ScrollLink } from "react-scroll"; // Import ScrollLink
 
-const Navbar = () => {
+const MyNavbar = () => {
+  return (
+    <Navbar expand="lg" bg="light" variant="light" fixed="top">
+      <Container>
+        {/* Logo */}
+        <Navbar.Brand href="#">
+          <img
+            src="https://www.polban.ac.id/wp-content/uploads/2018/06/logo-polban-80.png"
+            width="45"
+            height="60"
+            className="d-inline-block align-top"
+            alt="Logo"
+          />
+        </Navbar.Brand>
 
-    return (
-      <header>
-        {/* Navbar */}
-        <nav className="navbar navbar-expand-lg navbar-light bg-white">
-          <div className="container-fluid">
-            {/* Navbar Toggler */}
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarExample01"
-              aria-controls="navbarExample01"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
+        {/* Navbar Toggler */}
+        <Navbar.Toggle aria-controls="navbar" />
+        <Navbar.Collapse id="navbar">
+          <Nav className="me-auto">
+            {/* About */}
+            <Nav.Link href="#" style={{ color: "black" }}>
+            <ScrollLink
+              activeClass=""
+              to="beranda"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
             >
-              <i className="fas fa-bars" />
-            </button>
-  
-            <div className="collapse navbar-collapse" id="navbarExample01">
-              <ul className="navbar-nav me-auto">
-                {/* Logo */}
-                <a className="navbar-brand" href="#">
-                  <img
-                    src="https://www.polban.ac.id/wp-content/uploads/2018/06/logo-polban-80.png"
-                    width="45"
-                    height="60"
-                    className="d-inline-block align-top"
-                    alt="Logo"
-                  />
-                </a>
-                {/* Home */}
-                <li className="nav-item">
-                  <a className="nav-link" href="#" style={{ color:"black" }}>
-                    Home
-                  </a>
-                </li>
-                {/* Home */}
-                <li className="nav-item">
-                  <a className="nav-link" href="#" style={{ color:"black" }}>
-                    About
-                  </a>
-                </li>
-                {/* Home */}
-                <li className="nav-item">
-                  <a className="nav-link" href="#" style={{ color:"black" }}>
-                    Contact
-                  </a>
-                </li>
-              </ul>
-              <ul className="navbar-nav">
-                {/* Login */}
-                <li className="nav-item">
-                  <Link to={{ pathname: `/login` }}>
-                    <button type="button" className="btn btn-warning" style={{ fontWeight:"500" }}>
-                      Login
-                    </button>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        {/* Navbar */}
-      </header>
-  );  
+              Beranda
+            </ScrollLink>
+            </Nav.Link>
+            {/* About */}
+            <Nav.Link href="#" style={{ color: "black" }}>
+            <ScrollLink
+              activeClass=""
+              to="dosen"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+            >
+              Dosen
+            </ScrollLink>
+            </Nav.Link>
+            <Nav.Link href="#" style={{ color: "black" }}>
+            <ScrollLink
+              activeClass="active"
+              to="penelitian"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+            >
+              Penelitian
+            </ScrollLink>
+            </Nav.Link>
+          </Nav>
+
+          <Nav>
+            {/* Login */}
+            <Link to={{ pathname: `/login` }}>
+              <Button variant="warning" style={{ fontWeight: "500" }}>
+                LOGIN
+              </Button>
+            </Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 };
 
-export default Navbar;
+export default MyNavbar;
