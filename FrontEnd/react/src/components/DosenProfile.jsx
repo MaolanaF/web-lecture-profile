@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
 import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
+import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 
 function DosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -32,11 +33,10 @@ function DosenDetailComponent({ id }) {
       <Container>
         <Row>
           <Col lg={12}>
-            <div className="title-box text-center">
-              <h3 className="title-a">Profile Dosen</h3>
-              <p className="subtitle-a">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              </p>
+            <div className="title-box">
+              <h3 className="title-a text-center">Profil Dosen</h3>
+              <a className="subtitle-a" href="/home">List Dosen</a>
+              <a className="subtitle-a"> / {formData.nama}</a>
               <div className="line-mf"></div>
             </div>
           </Col>
@@ -46,17 +46,24 @@ function DosenDetailComponent({ id }) {
             <Card>
               <Card.Body>
                 <Row>
-                    <Col lg={4}>
+                    <Col md={6} style={{ textAlign:"center"}}>
                     <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
-                    style={{ width: "60%", height: "auto" }} />
+                    style={{ width: "45%", height: "auto" }} />
                     </Col>
-                    <Col lg={8}>
-                    <blockquote className="blockquote mb-0">
-                      <p className="h6">{formData.id_dosen}</p>
-                      <p className="h6">{formData.nama}</p>
-                      <p className="h6">{formData.jurusan}</p>
-                      <p className="h6">{formData.jabatan}</p>
-                    </blockquote>
+                    <Col md={6}>
+                      <Row>
+                      <p className="h1 mb-3">{formData.nama}</p>
+                        <Col sm={3} style={{ fontWeight:"normal" }}>
+                          <p>Jurusan</p>
+                          <p>Jabatan</p>
+                          <p>Email</p>
+                        </Col>
+                        <Col sm={9}>
+                          <p>: {formData.jurusan}</p>
+                          <p>: {formData.jabatan}</p>
+                          <p>: {formData.email}</p>
+                        </Col>
+                      </Row>
                   </Col>
                 </Row>
               </Card.Body>
@@ -66,22 +73,25 @@ function DosenDetailComponent({ id }) {
         <Row>
           <Col lg={12}>
             <Tabs
-              defaultActiveKey="profile"
+              defaultActiveKey="Riwayat Pendidikan"
               id="fill-tab-example"
-              className="mb-3 mt-5"
+              className="mb-3 mt-5 tab-nav h6"
               fill
             >
-              <Tab eventKey="Riwayat Pendidikan" title="Riwayat Pendidikan">
+              <Tab eventKey="Riwayat Pendidikan" title={<><FaGraduationCap /> Riwayat Pendidikan</>}>
                 Riwayat Pendidikan
+                {/* <ListRiwayatPendidikan id={id} /> */}
               </Tab>
-              <Tab eventKey="Riwayat Pengajaran" title="Riwayat Pengajaran">
+              <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
                 <ListRiwayatPengajaran id={id} />
               </Tab>
-              <Tab eventKey="Riwayat Penelitian" title="Riwayat Penelitian">
+              <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
                 Riwayat Penelitian
+                {/* <ListRiwayatPenelitian id={id} /> */}
               </Tab>
-              <Tab eventKey="Riwayat PKM" title="Riwayat PKM">
+              <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
                 Riwayat PKM
+                {/* <ListRiwayatPKM id={id} /> */}
               </Tab>
             </Tabs>
           </Col>

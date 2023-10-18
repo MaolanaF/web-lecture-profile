@@ -8,25 +8,24 @@ const ListRiwayatPengajaranCom = ({ id }) => {
     axios
       .get(`http://localhost:3100/profile_dosen/${id}`)
       .then((response) => {
-        setlistRiwayatPengajaran(response.data); // Mengatur data dosen ke dalam state
+        setlistRiwayatPengajaran(response.data);
         console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
       });
   }, []);
 
   return (
     <div className="container mt-4">
-      <table className="table">
-        <thead>
+      <table className="table table-bordered">
+        <thead className="thead-dark">
           <tr>
             <th>Kode Matkul</th>
             <th>Nama Matkul</th>
             <th>Semester</th>
-            <th>Kode Matkul</th>
-            <th>Perguruan tinggi</th>
+            <th>Kode Kelas</th>
+            <th>Perguruan Tinggi</th>
           </tr>
         </thead>
         <tbody>
