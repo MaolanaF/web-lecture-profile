@@ -49,7 +49,7 @@ function EditDosenComponent({ id }) {
 
   return (
     <div className="container mt-4 border">
-      <h2>Edit Dosen</h2>
+      {/* <h2>Edit Dosen</h2> */}
       <form onSubmit={handleUpdateDosen}>
       <div className="form-group">
           <label>id_dosen</label>

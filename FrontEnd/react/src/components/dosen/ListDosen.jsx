@@ -1,57 +1,85 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { Card, Modal, Button } from 'react-bootstrap'
+import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
+import AddDosenComponent from './AddDosenComponent';
+
 
 const ListDosenComponent = () => {
   const [dosenList, setDosenList] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [showModal, setShowModal] = useState(false);
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
 
   useEffect(() => {
-    // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/dosen')
+    axios
+      .get('http://localhost:3100/dosen')
       .then((response) => {
-        setDosenList(response.data); // Mengatur data dosen ke dalam state
+        const sortedDosenList = response.data.sort((a, b) =>
+          a.id_dosen.localeCompare(b.id_dosen, undefined, { numeric: true })
+        );
+        setDosenList(sortedDosenList);
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
       });
-  }, []); // Gunakan array kosong agar useEffect dijalankan hanya sekali saat komponen pertama kali dimuat
+  }, []);
 
-  // Fungsi untuk menghapus data dosen berdasarkan ID
   const handleDelete = (id) => {
-    // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
     axios.delete(`http://localhost:3100/dosen/${id}`)
       .then(() => {
-        // Hapus data dosen dari state
         setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
       });
   };
 
+  const filteredDosenList = dosenList.filter((dosen) => {
+    const fullName = `${dosen.nama} ${dosen.email} ${dosen.jabatan} ${dosen.jurusan}`;
+    return fullName.toLowerCase().includes(searchText.toLowerCase());
+  });
+
   return (
     <div className="container mt-4">
-      <h2>List Dosen</h2>
-
-      <Link to={{ pathname: `/dosen/insert` }}>
-                  <button type="button" className="btn btn-success btn-sm ml-2">
-                    Tambah
-                  </button>
-                </Link>
-      <table className="table">
-        <thead>
+      <div className="d-flex justify-content-between align-items-center mb-2">
+        <h2>Daftar Dosen</h2>
+      </div>
+      <div className="d-flex justify-content-between align-items-center">
+        <div>
+          <div className="input-group">
+            <span className="input-group-text">
+              <FaSearch />
+            </span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Cari dosen..."
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}/>
+          </div>
+        </div>
+        <button type="button" className="btn btn-success btn-sm" onClick={handleShowModal}>
+          Tambah Dosen
+        </button>
+      </div>
+      <table className="table table-striped mt-3">
+        <thead className="thead-dark">
           <tr>
-            <th>ID Dosen</th> 
+            <th>ID Dosen</th>
             <th>Nama</th>
             <th>Email</th>
             <th>Jabatan</th>
             <th>Jurusan</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          {dosenList.map((dosen) => (
+          {filteredDosenList.map((dosen) => (
             <tr key={dosen.id_dosen}>
               <td>{dosen.id_dosen}</td>
               <td>{dosen.nama}</td>
@@ -60,21 +88,31 @@ const ListDosenComponent = () => {
               <td>{dosen.jurusan}</td>
               <td>
                 <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}>
-                  <button type="button" className="btn btn-success btn-sm ml-2">
-                    Edit
+                  <button type="button" className="btn btn-primary btn-sm mr-2">
+                    <FaEdit />
                   </button>
                 </Link>
-                <button className="btn btn-danger btn-sm ml-2"
-                  // Tambahkan fungsi onClick untuk tombol delete
-                  onClick={() => { handleDelete(dosen.id_dosen);}}
+                <button
+                  className="btn btn-danger btn-sm"
+                    onClick={() => {
+                      handleDelete(dosen.id_dosen);
+                    }}
                 >
-                  Delete
+                  <FaTrash />
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+        <Modal.Title>Tambah Dosen</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddDosenComponent handleClose={handleCloseModal} />
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
