@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { BsChevronDoubleRight } from 'react-icons/bs'; 
 
 function LoginCom() {
   const navigate = useNavigate(); // Use useNavigate
