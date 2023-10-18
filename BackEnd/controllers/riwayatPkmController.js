@@ -1,4 +1,4 @@
-const RiwayatPkm = require('../models/riwayatPkmModel');
+const RiwayatPkm = require('../models/riwayatPkm');
 
 const riwayatPkmController = {
   async insertRiwayatPKM(req, res) {
