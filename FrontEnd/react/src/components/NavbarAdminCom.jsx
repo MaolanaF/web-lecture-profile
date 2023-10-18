@@ -50,13 +50,13 @@ const Navbar = () => {
                   </Link>
                 </li>
                 {/* Penelitian */}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to={{ pathname: `/dashboard_admin/penelitian` }}>
                     <a className="nav-link" style={{ color:"black" }}>
                       Penelitian
                     </a>
                   </Link>
-                </li>
+                </li> */}
               </ul>
               <ul className="navbar-nav">
                 {/* Logout */}

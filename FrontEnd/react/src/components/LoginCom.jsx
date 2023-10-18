@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { FaLock, FaUser } from 'react-icons/fa';
+import { Card } from "react-bootstrap"
 
 function LoginCom() {
   const navigate = useNavigate(); // Use useNavigate
@@ -34,7 +36,7 @@ function LoginCom() {
       if (response.data) {
         Cookies.set("username", response.data[0].username, { expires: 1 }); // Save username to cookie with expiry of 1 day
         Cookies.set("role", response.data[0].role, { expires: 1 });
-        navigate("/dosen"); // Navigate to home page
+        navigate("/dashboard_admin/dosen"); // Navigate to home page
       } else {
         console.log("Tidak Ada User");
       }
@@ -47,53 +49,66 @@ function LoginCom() {
 
 
   return (
-    <div className="container d-flex justify-content-center align-items-center" style={{ height: 500, width: 400, border: "1px solid black", borderRadius: "5px", backgroundColor:" #f2f2f2" }}>
-    <div className="text-center">
-      <h1 className="mb-5" style={{ color: "#00008B" }}>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group mt-3">
-          <div className="input-group">
-            <span className="input-group-text">
-              <i className="bi bi-person" />
-            </span>
-            <input
-              type="text"
-              className="form-control form-control-user"
-              name="username"
-              id="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              required
-            />
+    <div className="container mt-4">
+
+
+          <div className="row shadow br-5">
+            <div className="col-md-7 d-flex justify-content-center align-items-center">
+              <img
+                src="https://e-learning.polban.ac.id/pluginfile.php/1/theme_lambda/carousel_image_11/1618326726/PASCA.jpg"
+                alt="Image"
+                className="img-fluid"
+              />
+            </div>
+            <div className="col-md-5 d-flex justify-content-center align-items-center text-center">
+              <form onSubmit={handleSubmit}>
+              <h1 className="mb-3" style={{ color: "#00008B" }}>
+                Log In
+              </h1>
+                <div className="form-group mt-3">
+                  <div className="input-group">
+                    <span className="input-group-text">
+                      <FaUser />
+                    </span>
+                    <input
+                      type="text"
+                      className="form-control form-control-user"
+                      name="username"
+                      id="username"
+                      placeholder="Username"
+                      value={formData.username}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="form-group mt-3">
+                  <div className="input-group">
+                    <span className="input-group-text">
+                      <FaLock />
+                    </span>
+                    <input
+                      type="password"
+                      className="form-control form-control-user"
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  className="btn btn-warning btn-user btn-block mt-3"
+                >
+                  Login
+                </button>
+              </form>
+            </div>
           </div>
-        </div>
-        <div className="form-group mt-3">
-          <div className="input-group">
-            <span className="input-group-text">
-              <i className="bi bi-lock" />
-            </span>
-            <input
-              type="password"
-              className="form-control form-control-user"
-              name="password"
-              id="password"
-              placeholder="Password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="btn btn-warning btn-user btn-block mt-5"
-        >
-          Login
-        </button>
-      </form>
     </div>
-  </div>
   );
 }
 
