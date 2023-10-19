@@ -41,15 +41,15 @@ function EditMatkulComponent({ id }) {
     try {
       const response = await axios.put(`http://localhost:3100/mata_kuliah/${id}`, formData);
       console.log(response.data);
-      alert("Data dosen berhasil diperbarui");
+      alert("Data mata kuliah berhasil diperbarui");
     } catch (error) {
       console.error("Error updating data:", error);
     }
   };
 
   return (
-    <div className="container mt-4 border">
-      <h2>Edit Dosen</h2>
+    <div className="container mt-4">
+      {/* <h2>Edit Dosen</h2> */}
       <form onSubmit={handleUpdateMatkul}>
       <div className="form-group">
           <label>id_matkul</label>
@@ -112,7 +112,7 @@ function EditMatkulComponent({ id }) {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-3">
           Update
         </button>
       </form>

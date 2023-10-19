@@ -53,7 +53,7 @@ const updateRiwayatPenelitian = (req, res) => {
 const deleteRiwayatPenelitian = (req, res) => {
   const id_riwayatpenelitian = req.params.id_riwayatpenelitian;
   
-  penelitianModel.deleteRiwayatPenelitian(id_riwayatpenelitian, (err, result) => {
+  riwayatPenelitianModel.deleteRiwayatPenelitian(id_riwayatpenelitian, (err, result) => {
     if (!err) {
       res.send('Delete success');
     } else {
@@ -62,12 +62,25 @@ const deleteRiwayatPenelitian = (req, res) => {
   });
 }
 
+const getPenelitianByIdDosen = (req, res) => {
+  const id_dosen = req.params.id_dosen;
+  riwayatPenelitianModel.getPenelitianByIdDosen(id_dosen, (err, result) => {
+    if(!err){
+      res.send (result.rows);
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+}
+
+
 module.exports = {
   getAllRiwayatPenelitian,
   getRiwayatPenelitianById,
   insertRiwayatPenelitian,
   updateRiwayatPenelitian,
-  deleteRiwayatPenelitian
+  deleteRiwayatPenelitian,
+  getPenelitianByIdDosen
 };
 
 

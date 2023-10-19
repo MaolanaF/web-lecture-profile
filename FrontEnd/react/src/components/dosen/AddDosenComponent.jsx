@@ -27,6 +27,7 @@ const AddDosenComponent = () => {
     axios
       .post("http://localhost:3100/dosen", formData)
       .then((response) => {
+        alert("Data dosen berhasil ditambah!");
         console.log(response.data);
         // Handle success or redirection here
       })

@@ -8,5 +8,6 @@ router.get('/riwayat_penelitian/:id_riwayatpenelitian', riwayatPenelitianControl
 router.post('/riwayat_penelitian', riwayatPenelitianController.insertRiwayatPenelitian);
 router.put('/riwayat_penelitian/:id_riwayatpenelitian', riwayatPenelitianController.updateRiwayatPenelitian);
 router.delete('/riwayat_penelitian/:id_riwayatpenelitian', riwayatPenelitianController.deleteRiwayatPenelitian);
+router.get('/profile_dosen/riwayat_penelitian/:id_dosen', riwayatPenelitianController.getPenelitianByIdDosen);
 
 module.exports = router;

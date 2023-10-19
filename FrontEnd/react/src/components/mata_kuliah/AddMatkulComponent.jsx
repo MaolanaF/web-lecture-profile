@@ -26,6 +26,7 @@ const AddMatkulComponent = () => {
     // Make a POST request to your backend endpoint
     axios.post('http://localhost:3100/mata_kuliah', formData)
       .then((response) => {
+        alert("Data mata kuliah berhasil ditambah!");
         console.log(response.data);
         // Handle success or redirection here
       })
@@ -37,7 +38,7 @@ const AddMatkulComponent = () => {
 
   return (
     <div className="container">
-      <h2 className="mt-4">Add Mata Kuliah</h2>
+      {/* <h2 className="mt-4">Add Mata Kuliah</h2> */}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Kode Mata Kuliah</label>

@@ -11,8 +11,6 @@ function EditDosenComponent({ id }) {
     id_user: "",
   });
 
-  
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -48,7 +46,7 @@ function EditDosenComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4 border">
+    <div className="container mt-4">
       {/* <h2>Edit Dosen</h2> */}
       <form onSubmit={handleUpdateDosen}>
       <div className="form-group">
@@ -102,7 +100,7 @@ function EditDosenComponent({ id }) {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-3">
           Update
         </button>
       </form>
