@@ -1,79 +1,45 @@
 import React from "react";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const NavbarAdminCom = () => {
+  return (
+    <Navbar expand="lg" bg="light" variant="light" fixed="top">
+      <Container>
+        {/* Logo */}
+        <Navbar.Brand href="#">
+          <img
+            src="https://www.polban.ac.id/wp-content/uploads/2018/06/logo-polban-80.png"
+            width="45"
+            height="60"
+            className="d-inline-block align-top"
+            alt="Logo"
+          />
+        </Navbar.Brand>
 
-    return (
-      <header>
-        {/* Navbar */}
-        <nav className="navbar navbar-expand-lg navbar-light bg-white">
-          <div className="container-fluid">
-            {/* Navbar Toggler */}
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-mdb-toggle="collapse"
-              data-mdb-target="#navbarExample01"
-              aria-controls="navbarExample01"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <i className="fas fa-bars" />
-            </button>
-  
-            <div className="collapse navbar-collapse" id="navbarExample01">
-              <ul className="navbar-nav me-auto">
-                {/* Logo */}
-                <a className="navbar-brand" href="#">
-                  <img
-                    src="https://www.polban.ac.id/wp-content/uploads/2018/06/logo-polban-80.png"
-                    width="45"
-                    height="60"
-                    className="d-inline-block align-top"
-                    alt="Logo"
-                  />
-                </a>
-                {/* Dosen */}
-                <li className="nav-item">
-                  <Link to={{ pathname: `/dashboard_admin/dosen` }}>
-                    <a className="nav-link" style={{ color:"black" }}>
-                      Dosen
-                    </a>
-                  </Link>
-                </li>
-                {/* Mata Kuliah */}
-                <li className="nav-item">
-                  <Link to={{ pathname: `/dashboard_admin/mata_kuliah` }}>
-                    <a className="nav-link" style={{ color:"black" }}>
-                      Mata Kuliah
-                    </a>
-                  </Link>
-                </li>
-                {/* Penelitian */}
-                {/* <li className="nav-item">
-                  <Link to={{ pathname: `/dashboard_admin/penelitian` }}>
-                    <a className="nav-link" style={{ color:"black" }}>
-                      Penelitian
-                    </a>
-                  </Link>
-                </li> */}
-              </ul>
-              <ul className="navbar-nav">
-                {/* Logout */}
-                <li className="nav-item">
-                  <Link to={{ pathname: `/home` }}>
-                    <button type="button" className="btn btn-warning" style={{ fontWeight:"500" }}>
-                      Logout
-                    </button>
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-        {/* Navbar */}
-      </header>
-  );  
+        {/* Navbar Toggler */}
+        <Navbar.Toggle aria-controls="navbar" />
+        <Navbar.Collapse id="navbar">
+          <Nav className="me-auto">
+            {/* Beranda */}
+            <Nav.Link as={Link} to="/dashboard_admin/dosen">
+                Dosen
+            </Nav.Link>
+            {/* Mata Kuliah */}
+            <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah">
+                Mata Kuliah
+            </Nav.Link>
+          </Nav>
+          <Nav>
+            {/* Logout */}
+            <Button  as={Link} to="/home" variant="warning" style={{ fontWeight: "500" }}>
+              Logout
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
 };
 
-export default Navbar;
+export default NavbarAdminCom;

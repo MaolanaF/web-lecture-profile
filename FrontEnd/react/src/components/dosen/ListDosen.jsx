@@ -4,15 +4,28 @@ import { Link } from "react-router-dom";
 import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddDosenComponent from './AddDosenComponent';
+import EditDosenComponent from './EditDosenComponent';
 
 
 const ListDosenComponent = () => {
   const [dosenList, setDosenList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedDosenId, setSelectedDosenId] = useState(null);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+
+  const handleShowEditModal = (id) => {
+    setSelectedDosenId(id);
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    
+    setShowEditModal(false);
+  };
 
 
   useEffect(() => {
@@ -87,11 +100,11 @@ const ListDosenComponent = () => {
               <td>{dosen.jabatan}</td>
               <td>{dosen.jurusan}</td>
               <td>
-                <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}>
-                  <button type="button" className="btn btn-primary btn-sm mr-2">
+                {/* <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}> */}
+                  <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(dosen.id_dosen)}>
                     <FaEdit />
                   </button>
-                </Link>
+                {/* </Link> */}
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {
@@ -111,6 +124,14 @@ const ListDosenComponent = () => {
         </Modal.Header>
         <Modal.Body>
           <AddDosenComponent handleClose={handleCloseModal} />
+        </Modal.Body>
+      </Modal>
+      <Modal show={showEditModal} onHide={handleCloseEditModal}>
+        <Modal.Header closeButton>
+        <Modal.Title>Edit Dosen</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditDosenComponent id={selectedDosenId} handleClose={handleCloseEditModal} />
         </Modal.Body>
       </Modal>
     </div>
