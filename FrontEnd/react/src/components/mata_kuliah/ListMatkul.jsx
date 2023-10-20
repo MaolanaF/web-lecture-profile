@@ -5,6 +5,7 @@ import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddMatkulComponent from './AddMatkulComponent';
 import EditMatkulComponent from './EditMatkulComponent';
+import './../style.css';
 
 
 const ListMatkulComponent = () => {
@@ -12,13 +13,13 @@ const ListMatkulComponent = () => {
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedMatkulId, setSelectedDosenId] = useState(null);
+  const [selectedMatkulId, setSelectedMatkulId] = useState(null);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
-    setSelectedDosenId(id);
+    setSelectedMatkulId(id);
     setShowEditModal(true);
   };
 
@@ -58,7 +59,7 @@ const ListMatkulComponent = () => {
   });
 
   return (
-    <div className="container mt-4">
+    <div className="container margin-class">
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Mata Kuliah</h2>
       </div>
