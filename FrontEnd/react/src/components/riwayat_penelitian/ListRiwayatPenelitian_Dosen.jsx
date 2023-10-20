@@ -4,6 +4,7 @@ import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddPenelitianComponent from '../penelitian/AddPenelitianComponent';
 import EditPenelitianComponent from '../penelitian/EditPenelitianComponent';
+
 import { Link } from "react-router-dom";
 
 const ListRiwayatPenelitianCom = ({ id }) => {
@@ -13,13 +14,13 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedMatkulId, setSelectedDosenId] = useState(null);
-  
+  const [selectedPenelitianId, setSelectedPenelitianId] = useState(null);
+
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
-    setSelectedDosenId(id);
+    setSelectedPenelitianId(id);
     setShowEditModal(true);
   };
 
@@ -38,7 +39,10 @@ const ListRiwayatPenelitianCom = ({ id }) => {
     axios
       .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/${id}`)
       .then((response) => {
-        setlistRiwayatPenelitian(response.data); // Mengatur data dosen ke dalam state
+        const sortedRiwayatPenelitianList = response.data.sort((a, b) =>
+          b.tanggal_publikasi.localeCompare(a.tanggal_publikasi, undefined, { numeric: false })
+        );
+        setlistRiwayatPenelitian(sortedRiwayatPenelitianList); // Mengatur data dosen ke dalam state
         console.log(response.data);
       })
       .catch((error) => {
@@ -50,10 +54,10 @@ const ListRiwayatPenelitianCom = ({ id }) => {
    // Fungsi untuk menghapus data penelitian berdasarkan ID
    const handleDelete = (id) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/penelitian/${id}`)
+    axios.delete(`http://localhost:3100/riwayat_penelitian/${id}`)
       .then(() => {
         // Hapus data dosen dari state
-        setPenelitianList((prevPenelitianList) => prevPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_penelitian !== id));
+        setlistRiwayatPenelitian((prevPenelitianList) => prevPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
       })
       .catch((error) => {
         console.error(error);
@@ -67,7 +71,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   });
 
   return (
-    <div className="container">
+    <div className="container" style={{marginTop:'-100px'}}>
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Penelitian</h2>
       </div>
@@ -100,7 +104,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
           </tr>
         </thead>
         <tbody>
-          {listRiwayatPenelitian.map((riwayat_penelitian) => (
+          {filteredPenelitianList.map((riwayat_penelitian) => (
             <tr key={riwayat_penelitian.judul}>
               <td>{riwayat_penelitian.judul}</td>
               <td>{formatDate(riwayat_penelitian.tanggal_publikasi)}</td>
@@ -116,7 +120,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {
-                      handleDelete(riwayat_penelitian.id_penelitian);
+                      handleDelete(riwayat_penelitian.id_riwayatpenelitian);
                     }}
                 >
                   <FaTrash />
@@ -139,7 +143,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
         <Modal.Title>Edit Penelitian</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditPenelitianComponent id={selectedMatkulId} handleClose={handleCloseEditModal} />
+          <EditPenelitianComponent id={selectedPenelitianId} handleClose={handleCloseEditModal} />
         </Modal.Body>
       </Modal>
     </div>
