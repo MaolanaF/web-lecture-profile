@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
 import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
-// import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
+import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
 

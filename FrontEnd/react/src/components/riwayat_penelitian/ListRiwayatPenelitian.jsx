@@ -6,7 +6,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/${id}`)
+      .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/${id}`)
       .then((response) => {
         setlistRiwayatPenelitian(response.data); // Mengatur data dosen ke dalam state
         console.log(response.data);

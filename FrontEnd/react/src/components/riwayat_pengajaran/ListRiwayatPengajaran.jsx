@@ -6,7 +6,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/${id}`)
+      .get(`http://localhost:3100/profile_dosen/riwayat_pengajaran/${id}`)
       .then((response) => {
         setlistRiwayatPengajaran(response.data);
         console.log(response.data);

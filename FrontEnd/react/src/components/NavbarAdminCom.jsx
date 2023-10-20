@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const NavbarAdmin = () => {
   return (
@@ -33,10 +33,6 @@ const NavbarAdmin = () => {
               <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah">
                 Mata Kuliah
               </Nav.Link>
-              {/* Penelitian */}
-              {/* <Nav.Link as={Link} to="/dashboard_admin/penelitian">
-                Penelitian
-              </Nav.Link> */}
             </Nav>
             <Nav>
               {/* Logout */}
