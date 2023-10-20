@@ -35,7 +35,7 @@ const ListPenelitianComponent = () => {
   
 
   return (
-    <div className="container mt-4">
+    <div className="container margin-class">
       <h2>List Penelitian</h2>
 
       

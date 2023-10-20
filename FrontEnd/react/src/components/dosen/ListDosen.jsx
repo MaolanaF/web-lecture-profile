@@ -5,6 +5,7 @@ import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddDosenComponent from './AddDosenComponent';
 import EditDosenComponent from './EditDosenComponent';
+import './../style.css';
 
 
 const ListDosenComponent = () => {
@@ -58,7 +59,7 @@ const ListDosenComponent = () => {
   });
 
   return (
-    <div className="container mt-4">
+    <div className="container margin-class">
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Dosen</h2>
       </div>

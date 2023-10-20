@@ -22,13 +22,15 @@ import Login from './pages/Login';
 import Profile from './pages/DosenProfile';
 import DashboardAdmin_Dosen from './pages/DashboardAdmin_Dosen';
 import DashboardAdmin_Matkul from './pages/DashboardAdmin_Matkul';
-import DashboardAdmin_Penelitian from './pages/DashboardAdmin_Penelitian';
+import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
+import DashboardDosen_Penelitian from './pages/DashboardDosen_Penelitian';
+// // import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
 // import EditPkm from './pages/pkm/EditPkm'
-// import AddPkm from './pages/pkm/InputPkm'
-// import ListPkm from './pages/pkm/ListPkms'
-// import EditRiwayatPkm from './pages/riwayatPkm/EditRiwayatPkm'
-// import AddRiwayatPkm from './pages/riwayatPkm/InputRiwayatPkm'
-// import ListRiwayatPkm from './pages/riwayatPkm/ListRiwayatPkms'
+// // import AddPkm from './pages/pkm/InputPkm'
+// // import ListPkm from './pages/pkm/ListPkms'
+// // import EditRiwayatPkm from './pages/riwayatPkm/EditRiwayatPkm'
+// // import AddRiwayatPkm from './pages/riwayatPkm/InputRiwayatPkm'
+// // import ListRiwayatPkm from './pages/riwayatPkm/ListRiwayatPkms'
 
 function App() {
   return (
@@ -53,7 +55,10 @@ function App() {
             <Route path="/dosenProfile/:id_dosen" element = {<Profile/>} />
             <Route path="/dashboard_admin/dosen" element = {<DashboardAdmin_Dosen/>} />
             <Route path="/dashboard_admin/mata_kuliah" element = {<DashboardAdmin_Matkul/>} />
-            <Route path="/dashboard_admin/penelitian" element = {<DashboardAdmin_Penelitian/>} />
+            <Route path="/dashboard_dosen/dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} />
+            <Route path="/dashboard_dosen/penelitian/:id_dosen" element={<DashboardDosen_Penelitian />} />
+
+            {/* {/* <Route path="/dashboard_dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} /> */}
             {/* <Route path="/pkm/list" element={<ListPkm />} />
             <Route path="/pkm/insert" element={<AddPkm />} />
             <Route path="/pkm/edit/:id_pkm" element={<EditPkm />} />
