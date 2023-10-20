@@ -56,7 +56,8 @@ function App() {
             <Route path="/dashboard_admin/dosen" element = {<DashboardAdmin_Dosen/>} />
             <Route path="/dashboard_admin/mata_kuliah" element = {<DashboardAdmin_Matkul/>} />
             <Route path="/dashboard_dosen/dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} />
-            <Route path="/dashboard_dosen/penelitian/id:dosen" element = {<DashboardDosen_Penelitian/>} />
+            <Route path="/dashboard_dosen/penelitian/:id_dosen" element={<DashboardDosen_Penelitian />} />
+
             {/* {/* <Route path="/dashboard_dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} /> */}
             {/* <Route path="/pkm/list" element={<ListPkm />} />
             <Route path="/pkm/insert" element={<AddPkm />} />

@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
 import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
+import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
+import './style.css';
 
 function DashboardDosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -30,14 +32,15 @@ function DashboardDosenDetailComponent({ id }) {
 
   return (
     <section>
-      <Container>
+      <Container className="margin-class">
         <Row>
           <Col lg={12}>
-            <div className="title-box margin-class">
+            <div className="title-box">
               <h3 className="title-a text-center">Profil Dosen</h3>
               <div className="line-mf"></div>
               <a className="subtitle-a" href="/home">List Dosen</a>
               <a className="subtitle-a"> / {formData.nama}</a>
+              
             </div>
           </Col>
         </Row>
@@ -86,8 +89,7 @@ function DashboardDosenDetailComponent({ id }) {
                 <ListRiwayatPengajaran id={id} />
               </Tab>
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
-                Riwayat Penelitian
-                {/* <ListRiwayatPenelitian id={id} /> */}
+                <ListRiwayatPenelitian id={id} />
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
                 Riwayat PKM

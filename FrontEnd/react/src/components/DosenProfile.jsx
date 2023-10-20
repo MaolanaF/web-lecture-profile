@@ -89,7 +89,6 @@ function DosenDetailComponent({ id }) {
                 <ListRiwayatPengajaran id={id} />
               </Tab>
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
-                Riwayat Penelitian
                 <ListRiwayatPenelitian id={id} />
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>

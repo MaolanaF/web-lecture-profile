@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
-// import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
-// import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
+import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 
 function NavbarDosen({ id }) {
@@ -30,6 +29,7 @@ function NavbarDosen({ id }) {
     fetchData();
   }, [id]);
 
+
   return (
     <header>
       {/* Navbar */}
@@ -52,19 +52,17 @@ function NavbarDosen({ id }) {
           <Navbar.Toggle aria-controls="navbarExample01" />
           <Navbar.Collapse id="navbarExample01">
             <Nav className="me-auto">
-              {/* Dosen */}
-              <Nav.Link as={Link} to="/dashboard_dosen/dosen">
+              <Nav.Link as={Link} to={`/dashboard_dosen/dosen/${id}`}>
                 Profil
               </Nav.Link>
-              {/* <Nav.Link as={Link} to="/dashboard_dosen/penelitian">
+              {/* <Nav.Link as={Link} to={`/dashboard_dosen/pendidikan/${id}`}>
+                Pendidikan
+              </Nav.Link> */}
+              <Nav.Link as={Link} to={`/dashboard_dosen/penelitian/${id}`}>
                 Penelitian
-              </Nav.Link> */}
-              {/* <Nav.Link as={Link} to="/dashboard_admin/dosen">
+              </Nav.Link> 
+              {/* <Nav.Link as={Link} to={`/dashboard_dosen/pkm/${id}`}>
                 PKM
-              </Nav.Link> */}
-              {/* Mata Kuliah */}
-              {/* <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah">
-                Mata Kuliah
               </Nav.Link> */}
             </Nav>
             <Nav>
