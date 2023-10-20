@@ -31,8 +31,6 @@ function LoginCom() {
         `http://localhost:3100/login`,
         formData
       ); // Replace with your API endpoint
-      console.log(response.data);
-      console.log(response.data[0].username);
       if (response.data) {
         Cookies.set("username", response.data[0].username, { expires: 1 }); // Save username to cookie with expiry of 1 day
         Cookies.set("role", response.data[0].role, { expires: 1 });

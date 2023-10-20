@@ -3,8 +3,6 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const AddDosenComponent = () => {
-  console.log(Cookies.get("username"));
-  console.log(Cookies.get("role"));
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
