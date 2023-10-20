@@ -13,13 +13,13 @@ const ListMatkulComponent = () => {
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedMatkulId, setSelectedDosenId] = useState(null);
+  const [selectedMatkulId, setSelectedMatkulId] = useState(null);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
-    setSelectedDosenId(id);
+    setSelectedMatkulId(id);
     setShowEditModal(true);
   };
 
