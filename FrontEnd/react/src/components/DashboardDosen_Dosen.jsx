@@ -6,7 +6,7 @@ import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatP
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
 
-function DosenDetailComponent({ id }) {
+function DashboardDosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
     id_dosen: "",
     nama: "",
@@ -103,4 +103,4 @@ function DosenDetailComponent({ id }) {
   );
 }
 
-export default DosenDetailComponent;
+export default DashboardDosenDetailComponent;

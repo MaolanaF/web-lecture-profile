@@ -1,10 +1,10 @@
 import ListDosen from "../components/dosen/ListDosen";
-import NavbarAdminCom from "../components/NavbarAdminCom"
+import NavbarAdmin from "../components/NavbarAdminCom";
 
 function DashboardAdmin_Dosen(){
   return (
       <>
-      <NavbarAdminCom/>
+      <NavbarAdmin/>
       <ListDosen/>
       </>
   )
