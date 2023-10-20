@@ -24,7 +24,7 @@ const updatePengajaran = (id_pengajaran, id_matkul, id_dosen, callback) => {
 }
 
 const deletePengajaran = (id_pengajaran, callback) => {
-    const query = 'DELETE FROM riwayat_pengajaran] WHERE id_pengajaran = $1';
+    const query = 'DELETE FROM riwayat_pengajaran WHERE id_pengajaran = $1';
     const values = [id_pengajaran];
     client.query(query, values, callback);
 }

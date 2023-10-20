@@ -22,11 +22,11 @@ const NavbarAdminCom = () => {
         <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
             {/* Beranda */}
-            <Nav.Link as={Link} to="/dashboard_admin/dosen">
+            <Nav.Link as={Link} to="/dashboard_admin/dosen" style={{ fontWeight:"bold" }}>
                 Dosen
             </Nav.Link>
             {/* Mata Kuliah */}
-            <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah">
+            <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah" style={{ fontWeight:"bold" }}>
                 Mata Kuliah
             </Nav.Link>
           </Nav>
