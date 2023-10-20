@@ -1,3 +1,6 @@
+.margin-class{
+    margin-top: 130px;
+}
 .my-jumbotron {
     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)),
                 url("https://e-learning.polban.ac.id/pluginfile.php/1/theme_lambda/carousel_image_11/1618326726/PASCA.jpg");
@@ -56,6 +59,7 @@
   
   .dosen-box {
     height: 100%;
+    text-align: center;
   }
 
   .dosen-box:hover {
@@ -94,7 +98,7 @@
     color: #000;
   }
 
-  /*--------------------------------------------------------------
+/*--------------------------------------------------------------
 # Counter
 --------------------------------------------------------------*/
 .counter-box {
@@ -134,9 +138,9 @@
   }
 
   .counter-number {
-    margin-top: 20px;
-    font-size: 24px;
-    color: #000; /* Warna teks hitam */
+    margin-top: 25px;
+    font-size: 25px;
+    color: #00008B; /* Warna teks hitam */
     display: block; 
     white-space: pre; 
   }
@@ -219,6 +223,40 @@
     display: inline-block;
     /* float: right; */
   }
+
+
+    /*--------------------------------------------------------------
+# Sidebar
+--------------------------------------------------------------*/
+  
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  min-height: 100vh !important;
+  z-index: 100;
+  padding: 48px 0 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+#sidebar-wrapper{
+  min-height: 100vh !important;
+  width: 100vw;
+  margin-left: -1rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#page-content-wrapper {
+  min-width: 0;
+  width: 100%;
+}
   
   
   

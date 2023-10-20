@@ -32,7 +32,7 @@ const ListMatkulComponent = () => {
   };
 
   return (
-    <div className="container mt-4 border">
+    <div className="container mt-4 margin-class">
       <h2>List Mata Kuliah</h2>
       <table className="table">
         <thead>
