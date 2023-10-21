@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
-import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
-import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
+import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
+import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
 
@@ -86,10 +86,12 @@ function DashboardDosenDetailComponent({ id }) {
                 {/* <ListRiwayatPendidikan id={id} /> */}
               </Tab>
               <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
-                <ListRiwayatPengajaran id={id} />
+                <ListRiwayatPengajaran_Dosen id={id} />
               </Tab>
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
-                <ListRiwayatPenelitian id={id} />
+                <div className="margin-class">
+                  <ListRiwayatPenelitian_Dosen id={id} />
+                </div>
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
                 Riwayat PKM

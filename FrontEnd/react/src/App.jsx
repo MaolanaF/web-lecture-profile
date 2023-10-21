@@ -24,6 +24,7 @@ import DashboardAdmin_Dosen from './pages/DashboardAdmin_Dosen';
 import DashboardAdmin_Matkul from './pages/DashboardAdmin_Matkul';
 import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
 import DashboardDosen_Penelitian from './pages/DashboardDosen_Penelitian';
+import EditRiwayatPengajaran from './pages/riwayat_pengajaran/EditRiwayatPengajaran'
 // // import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
 // import EditPkm from './pages/pkm/EditPkm'
 // // import AddPkm from './pages/pkm/InputPkm'
@@ -57,6 +58,7 @@ function App() {
             <Route path="/dashboard_admin/mata_kuliah" element = {<DashboardAdmin_Matkul/>} />
             <Route path="/dashboard_dosen/dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} />
             <Route path="/dashboard_dosen/penelitian/:id_dosen" element={<DashboardDosen_Penelitian />} />
+            <Route path="/riwayat_pengajaran/edit/:id_pengajaran" element={<EditRiwayatPengajaran/>} />
 
             {/* {/* <Route path="/dashboard_dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} /> */}
             {/* <Route path="/pkm/list" element={<ListPkm />} />

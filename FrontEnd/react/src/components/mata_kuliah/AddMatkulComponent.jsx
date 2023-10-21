@@ -7,7 +7,6 @@ const AddMatkulComponent = () => {
     kode_matkul: '',
     nama_matkul: '',
     nama_dosen: '',
-    semester: '',
     kode_kelas: '',
     perguruan_tinggi: '',
   });
@@ -57,17 +56,6 @@ const AddMatkulComponent = () => {
             type="text"
             name="nama_matkul"
             value={formData.nama_matkul}
-            onChange={handleChange}
-            className="form-control"
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Semester</label>
-          <input
-            type="text"
-            name="semester"
-            value={formData.semester}
             onChange={handleChange}
             className="form-control"
             required

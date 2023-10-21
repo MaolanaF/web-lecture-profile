@@ -2,25 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
-import AddPenelitianComponent from '../penelitian/AddPenelitianComponent';
-import EditPenelitianComponent from '../penelitian/EditPenelitianComponent';
+import AddPengajaranComponent from '../riwayat_pengajaran/AddRiwayatPengajaranComponent';
+import EditPengajaranComponent from '../riwayat_pengajaran/EditRiwayatPengajaranComponent';
 
 import { Link } from "react-router-dom";
 
-const ListRiwayatPenelitianCom = ({ id }) => {
-  const [listRiwayatPenelitian, setlistRiwayatPenelitian] = useState([]);
-  const [penelitianList, setPenelitianList] = useState([]);
+const ListRiwayatPengajaranCom = ({ id }) => {
+  const [listRiwayatPengajaran, setlistRiwayatPengajaran] = useState([]);
+  // const [pengajarannList, setPenelitiaList] = useState([]);
 
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [selectedPenelitianId, setSelectedPenelitianId] = useState(null);
+  const [selectedPengajaranId, setSelectedPengajaranId] = useState(null);
 
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
-    setSelectedPenelitianId(id);
+    setSelectedPengajaranId(id);
     setShowEditModal(true);
   };
 
@@ -29,20 +29,21 @@ const ListRiwayatPenelitianCom = ({ id }) => {
     setShowEditModal(false);
   };
 
-  // Function to format the date
-  const formatDate = (dateString) => {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('id-ID', options);
-  };
-
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/${id}`)
+      .get(`http://localhost:3100/profile_dosen/riwayat_pengajaran/${id}`)
       .then((response) => {
-        const sortedRiwayatPenelitianList = response.data.sort((a, b) =>
-          b.tanggal_publikasi.localeCompare(a.tanggal_publikasi, undefined, { numeric: false })
-        );
-        setlistRiwayatPenelitian(sortedRiwayatPenelitianList); // Mengatur data dosen ke dalam state
+        const sortedRiwayatPengajaranList = response.data.sort((a, b) => {
+          if (a.tahun === b.tahun) {
+            return a.nama_matkul.localeCompare(b.nama_matkul);
+          }
+          return a.tahun - b.tahun;
+        });
+        // const sortedRiwayatPengajaranList = response.data.sort((a, b) => a.tahun - b.tahun);
+        // const sortedRiwayatPengajaranList = response.data.sort((a, b) =>
+        //   a.tahun.localeCompare(b.tahun, undefined, { numeric: false })
+        // );
+        setlistRiwayatPengajaran(sortedRiwayatPengajaranList); // Mengatur data dosen ke dalam state
         console.log(response.data);
       })
       .catch((error) => {
@@ -54,10 +55,10 @@ const ListRiwayatPenelitianCom = ({ id }) => {
    // Fungsi untuk menghapus data penelitian berdasarkan ID
    const handleDelete = (id) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/riwayat_penelitian/${id}`)
+    axios.delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
       .then(() => {
         // Hapus data dosen dari state
-        setlistRiwayatPenelitian((prevRiwayatPenelitianList) => prevRiwayatPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
+        setlistRiwayatPengajaran((prevRiwayatPengajaranList) => prevRiwayatPengajaranList.filter((riwayat_pengajaran) => riwayat_pengajaran.id_pengajaran !== id));
       })
       .catch((error) => {
         console.error(error);
@@ -65,15 +66,15 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       });
   };
 
-  const filteredPenelitianList = listRiwayatPenelitian.filter((riwayat_penelitian) => {
-    const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.author}`;
+  const filteredPengajaranList = listRiwayatPengajaran.filter((riwayat_pengajaran) => {
+    const fullName = `${riwayat_pengajaran.kode_matkul} ${riwayat_pengajaran.nama_matkul} ${riwayat_pengajaran.semester} ${riwayat_pengajaran.tahun} ${riwayat_pengajaran.kode_kelas} ${riwayat_pengajaran.perguruan_tinggi}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
 
   return (
-    <div className="container" style={{marginTop:'-100px'}}>
+    <div className="container" style={{marginTop:'30px'}}>
       <div className="d-flex justify-content-between align-items-center mb-2">
-        <h2>Daftar Penelitian</h2>
+        <h2>Daftar Pengajaran</h2>
       </div>
       <div className="d-flex justify-content-between align-items-center">
         <div>
@@ -90,37 +91,37 @@ const ListRiwayatPenelitianCom = ({ id }) => {
           </div>
         </div>
         <button type="button" className="btn btn-success btn-sm" onClick={handleShowModal}>
-          Tambah Penelitian
+          Tambah Pengajaran
         </button>
       </div>
       <table className="table table-striped mt-3">
         <thead className="thead-dark">
           <tr>
-            <th>Judul</th>
-            <th>Tanggal Publikasi</th>
-            <th>Bidang</th>
-            <th>Author</th>
-            <th>Action</th>
+            <th>Kode Mata Kuliah</th>
+            <th>Nama Mata Kuliah</th>
+            <th>Semester</th>
+            <th>Kode Kelas</th>
+            <th>Perguruan Tinggi</th>
           </tr>
         </thead>
         <tbody>
-          {filteredPenelitianList.map((riwayat_penelitian) => (
-            <tr key={riwayat_penelitian.judul}>
-              <td>{riwayat_penelitian.judul}</td>
-              <td>{formatDate(riwayat_penelitian.tanggal_publikasi)}</td>
-              <td>{riwayat_penelitian.bidang}</td>
-              <td>{riwayat_penelitian.author}</td>
-              {/* <td>{riwayat_penelitian.link_penelitian}</td> */}
+          {filteredPengajaranList.map((riwayat_pengajaran) => (
+            <tr key={riwayat_pengajaran.kode_matkul}>
+              <td>{riwayat_pengajaran.kode_matkul}</td>
+              <td>{riwayat_pengajaran.nama_matkul}</td>
+              <td>{riwayat_pengajaran.semester} {riwayat_pengajaran.tahun}</td>
+              <td>{riwayat_pengajaran.kode_kelas}</td>
+              <td>{riwayat_pengajaran.perguruan_tinggi}</td>
               <td>
                 {/* <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}> */}
-                  <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_penelitian.id_penelitian)}>
+                  <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_pengajaran.id_pengajaran)}>
                     <FaEdit />
                   </button>
                 {/* </Link> */}
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {
-                      handleDelete(riwayat_penelitian.id_riwayatpenelitian);
+                      handleDelete(riwayat_pengajaran.id_pengajaran);
                     }}
                 >
                   <FaTrash />
@@ -132,22 +133,22 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       </table>
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-        <Modal.Title>Tambah Penelitian</Modal.Title>
+        <Modal.Title>Tambah Pengajaran</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddPenelitianComponent handleClose={handleCloseModal} />
+          <AddPengajaranComponent handleClose={handleCloseModal} />
         </Modal.Body>
       </Modal>
       <Modal show={showEditModal} onHide={handleCloseEditModal}>
         <Modal.Header closeButton>
-        <Modal.Title>Edit Penelitian</Modal.Title>
+        <Modal.Title>Edit Pengajaran</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditPenelitianComponent id={selectedPenelitianId} handleClose={handleCloseEditModal} />
+          <EditPengajaranComponent id={selectedPengajaranId} handleClose={handleCloseEditModal} />
         </Modal.Body>
       </Modal>
     </div>
   );
 };
 
-export default ListRiwayatPenelitianCom;
+export default ListRiwayatPengajaranCom;

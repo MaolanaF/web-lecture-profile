@@ -26,8 +26,8 @@ const getPengajaranById = (req, res) => {
 }
 
 const insertPengajaran = (req, res) => {
-    const { id_matkul, id_dosen } = req.body;
-    pengajaranModel.insertPengajaran(id_matkul, id_dosen, (err, result) => {
+    const { id_matkul, id_dosen, semester, tahun } = req.body;
+    pengajaranModel.insertPengajaran(id_matkul, id_dosen, semester, tahun, (err, result) => {
       if (!err) {
         res.send('Insert success');
       } else {
@@ -38,8 +38,8 @@ const insertPengajaran = (req, res) => {
 
 const updatePengajaran = (req, res) => {
     const id_pengajaran = req.params.id_pengajaran;
-    const { id_matkul, id_dosen } = req.body;
-    pengajaranModel.updatePengajaran(id_matkul, id_dosen, id_pengajaran, (err, result) => {
+    const { id_matkul, id_dosen, semester, tahun } = req.body;
+    pengajaranModel.updatePengajaran(id_pengajaran, id_matkul, id_dosen, semester, tahun, (err, result) => {
       if (!err) {
         res.send('Update success');
       } else {
