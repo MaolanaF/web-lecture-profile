@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
-import { Container, Row, Col, Card, Image, Tabs, Tab, Modal } from "react-bootstrap";
-import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
-import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
 import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
 import EditDosenComponent from '../components/dosen/EditDosenComponent';
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
-import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
+import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
 import './style.css';
 
 function DashboardDosenDetailComponent({ id }) {
