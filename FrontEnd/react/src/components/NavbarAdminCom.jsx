@@ -21,16 +21,16 @@ const NavbarAdmin = () => {
             </Navbar.Brand>
           </Link>
 
-          {/* Navbar Toggler */}
-          <Navbar.Toggle aria-controls="navbarExample01" />
-          <Navbar.Collapse id="navbarExample01">
-            <Nav className="me-auto">
-              {/* Dosen */}
-              <Nav.Link as={Link} to="/dashboard_admin/dosen">
+        {/* Navbar Toggler */}
+        <Navbar.Toggle aria-controls="navbar" />
+        <Navbar.Collapse id="navbar">
+          <Nav className="me-auto">
+            {/* Beranda */}
+            <Nav.Link as={Link} to="/dashboard_admin/dosen" style={{ fontWeight:"bold" }}>
                 Dosen
-              </Nav.Link>
-              {/* Mata Kuliah */}
-              <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah">
+            </Nav.Link>
+            {/* Mata Kuliah */}
+            <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah" style={{ fontWeight:"bold" }}>
                 Mata Kuliah
               </Nav.Link>
             </Nav>
