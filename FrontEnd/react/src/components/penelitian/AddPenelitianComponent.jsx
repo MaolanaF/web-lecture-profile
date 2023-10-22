@@ -41,6 +41,7 @@ const AddPenelitianComponent = () => {
     axios.post(`http://localhost:3100/penelitian`, formData)
       .then((response) => {
         console.log(response.data);
+        alert("Data penelitian berhasil ditambah!");
         // Handle success or redirection here
       })
       .catch((error) => {

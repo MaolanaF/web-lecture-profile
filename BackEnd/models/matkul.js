@@ -11,9 +11,9 @@ const getMatkulById = (id_matkul, callback) => {
     client.query(query, values, callback);
 }
 
-const insertMatkul = (kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, callback) => {
-    const query = 'INSERT INTO mata_kuliah(kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi) VALUES($1, $2, $3, $4, $5)';
-    const values = [kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi];
+const insertMatkul = (kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi, callback) => {
+    const query = 'INSERT INTO mata_kuliah(kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi) VALUES($1, $2, $3, $4)';
+    const values = [kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi];
     client.query(query, values, callback);
 }
 
