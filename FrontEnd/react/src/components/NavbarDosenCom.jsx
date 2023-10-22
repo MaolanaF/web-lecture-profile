@@ -52,15 +52,18 @@ function NavbarDosen({ id }) {
           <Navbar.Toggle aria-controls="navbarExample01" />
           <Navbar.Collapse id="navbarExample01">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to={`/dashboard_dosen/dosen/${id}`}>
+              {/* <Nav.Link as={Link} to={`/dashboard_dosen/dosen/${id}`}>
                 Profil
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link as={Link} to={`/dashboard_dosen/pendidikan/${id}`}>
                 Pendidikan
               </Nav.Link> */}
-              <Nav.Link as={Link} to={`/dashboard_dosen/penelitian/${id}`}>
+              {/* <Nav.Link as={Link} to={`/dashboard_dosen/penelitian/${id}`}>
                 Penelitian
               </Nav.Link> 
+              <Nav.Link as={Link} to={`/dashboard_dosen/author_penelitian/:${id}`}>
+                Kontributor Penelitian
+              </Nav.Link>  */}
               {/* <Nav.Link as={Link} to={`/dashboard_dosen/pkm/${id}`}>
                 PKM
               </Nav.Link> */}

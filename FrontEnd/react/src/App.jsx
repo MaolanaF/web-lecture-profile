@@ -20,10 +20,12 @@ import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitia
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Profile from './pages/DosenProfile';
+import DetailPenelitian from './pages/riwayat_penelitian/ListRiwayatPenelitianDetail';
 import DashboardAdmin_Dosen from './pages/DashboardAdmin_Dosen';
 import DashboardAdmin_Matkul from './pages/DashboardAdmin_Matkul';
 import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
 import DashboardDosen_Penelitian from './pages/DashboardDosen_Penelitian';
+
 import EditRiwayatPengajaran from './pages/riwayat_pengajaran/EditRiwayatPengajaran'
 // // import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
 // import EditPkm from './pages/pkm/EditPkm'
@@ -47,12 +49,13 @@ function App() {
             <Route path="/mata_kuliah" element = {<Mata_Kuliah/>} />
             <Route path="/pendidikan" element = {<Pendidikan />} />
             <Route path="/pendidikan/insert" element = {<AddPendidikan/>} />
-            <Route path="/riwayat_pendidikan/edit/:id_pendidikan" element = {<EditPendidikan/>} />
+            <Route path="/pendidikan/edit/:id_pendidikan" element = {<EditPendidikan/>} />
             <Route path="/mata_kuliah/edit/:id_matkul" element = {<EditMatkul/>} />
             <Route path="/riwayat_pengajaran/insert" element = {<AddPengajaran/>} />
             <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
             <Route path="/home" element = {<Home/>} />
             <Route path="/login" element = {<Login/>} />
+            <Route path="/detail_penelitian/:id_penelitian" element = {<DetailPenelitian/>} />
             <Route path="/dosenProfile/:id_dosen" element = {<Profile/>} />
             <Route path="/dashboard_admin/dosen" element = {<DashboardAdmin_Dosen/>} />
             <Route path="/dashboard_admin/mata_kuliah" element = {<DashboardAdmin_Matkul/>} />
