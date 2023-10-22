@@ -180,7 +180,6 @@
     text-align: center;
     top: -16px;
     left: 15px;
-    right: 15px;
     line-height: 25px;
     overflow: hidden;
   }
@@ -190,7 +189,7 @@
     color: #fff;
     padding: 0 15px 5px;
     overflow: hidden;
-    background-color: #0078ff;
+    background-color: #FF7F00;
     border-radius: 4px;
   }
   
