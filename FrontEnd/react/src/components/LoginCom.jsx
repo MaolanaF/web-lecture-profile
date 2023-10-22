@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { FaLock, FaUser } from 'react-icons/fa';
-import { Card } from "react-bootstrap"
+import { FaLock, FaUser } from "react-icons/fa";
+import { Card } from "react-bootstrap";
 
 function LoginCom() {
   const navigate = useNavigate(); // Use useNavigate
@@ -32,9 +32,27 @@ function LoginCom() {
         formData
       ); // Replace with your API endpoint
       if (response.data) {
-        Cookies.set("username", response.data[0].username, { expires: 1 }); // Save username to cookie with expiry of 1 day
-        Cookies.set("role", response.data[0].role, { expires: 1 });
-        navigate("/dashboard_admin/dosen"); // Navigate to home page
+        const userData = response.data[0];
+
+        Cookies.set("role", userData.role, { expires: 1 });
+
+        // navigate("/dashboard_admin/dosen"); // Navigate to home page
+        if (userData.role === "Admin") {
+          navigate("/dashboard_admin/dosen");
+        } else if (userData.role === "Dosen") {
+          try {
+            const response = await axios.get(
+              `http://localhost:3100/login/` + userData.id_user
+            );
+            const idDosen = response.data[0].id_dosen;
+            Cookies.set("userAuth", idDosen, { expires: 1 });
+            navigate("/dashboard_dosen/dosen/" + idDosen);
+          } catch (err) {
+            console.error(err);
+          }
+        } else {
+          console.log("Role tidak valid");
+        }
       } else {
         console.log("Tidak Ada User");
       }
@@ -45,67 +63,64 @@ function LoginCom() {
     }
   };
 
-
   return (
     <div className="container mt-4">
-
-
-          <div className="row shadow br-5">
-            <div className="col-md-7 d-flex justify-content-center align-items-center">
-              <img
-                src="https://e-learning.polban.ac.id/pluginfile.php/1/theme_lambda/carousel_image_11/1618326726/PASCA.jpg"
-                alt="Image"
-                className="img-fluid"
-              />
+      <div className="row shadow br-5">
+        <div className="col-md-7 d-flex justify-content-center align-items-center">
+          <img
+            src="https://e-learning.polban.ac.id/pluginfile.php/1/theme_lambda/carousel_image_11/1618326726/PASCA.jpg"
+            alt="Image"
+            className="img-fluid"
+          />
+        </div>
+        <div className="col-md-5 d-flex justify-content-center align-items-center text-center">
+          <form onSubmit={handleSubmit}>
+            <h1 className="mb-3" style={{ color: "#00008B" }}>
+              Log In
+            </h1>
+            <div className="form-group mt-3">
+              <div className="input-group">
+                <span className="input-group-text">
+                  <FaUser />
+                </span>
+                <input
+                  type="text"
+                  className="form-control form-control-user"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-            <div className="col-md-5 d-flex justify-content-center align-items-center text-center">
-              <form onSubmit={handleSubmit}>
-              <h1 className="mb-3" style={{ color: "#00008B" }}>
-                Log In
-              </h1>
-                <div className="form-group mt-3">
-                  <div className="input-group">
-                    <span className="input-group-text">
-                      <FaUser />
-                    </span>
-                    <input
-                      type="text"
-                      className="form-control form-control-user"
-                      name="username"
-                      id="username"
-                      placeholder="Username"
-                      value={formData.username}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="form-group mt-3">
-                  <div className="input-group">
-                    <span className="input-group-text">
-                      <FaLock />
-                    </span>
-                    <input
-                      type="password"
-                      className="form-control form-control-user"
-                      name="password"
-                      id="password"
-                      placeholder="Password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  className="btn btn-warning btn-user btn-block mt-3"
-                >
-                  Login
-                </button>
-              </form>
+            <div className="form-group mt-3">
+              <div className="input-group">
+                <span className="input-group-text">
+                  <FaLock />
+                </span>
+                <input
+                  type="password"
+                  className="form-control form-control-user"
+                  name="password"
+                  id="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
-          </div>
+            <button
+              type="submit"
+              className="btn btn-warning btn-user btn-block mt-3"
+            >
+              Login
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,19 @@
 import React from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 const NavbarAdmin = () => {
+  const navigate = useNavigate();
+  function handleLogout() {
+    Cookies.remove("role");
+    Cookies.remove("username");
+    Cookies.remove("userAuth");
+    alert("Logout Berhasil !");
+    navigate("/home");
+  }
+
   return (
     <header>
       {/* Navbar */}
@@ -36,11 +47,14 @@ const NavbarAdmin = () => {
             </Nav>
             <Nav>
               {/* Logout */}
-              <Link to="/home">
-                <Button variant="warning" style={{ fontWeight: "500" }}>
-                  Logout
-                </Button>
-              </Link>
+              <button
+                type="button"
+                className="btn btn-warning"
+                style={{ fontWeight: "500" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </Nav>
           </Navbar.Collapse>
         </Container>
