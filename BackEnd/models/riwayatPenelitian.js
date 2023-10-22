@@ -32,6 +32,11 @@ const deleteRiwayatPenelitian = (id_riwayatpenelitian, callback) => {
     client.query(query, values);
 }
 
+const getDosenByIdPenelitian = (id_penelitian, callback) => {
+    const query = 'SELECT dosen.id_dosen, dosen.nama, penelitian.judul, penelitian.tanggal_publikasi, penelitian.bidang, penelitian.link_penelitian FROM riwayat_penelitian INNER JOIN penelitian ON riwayat_penelitian.id_penelitian = penelitian.id_penelitian INNER JOIN dosen ON riwayat_penelitian.id_dosen = dosen.id_dosen WHERE penelitian.id_penelitian = $1';
+    const values = [id_penelitian];
+    client.query(query, values, callback);
+}
 
 const getPenelitianByIdDosen = (id_dosen, callback) => {
     const query = 'SELECT riwayat_penelitian.id_riwayatpenelitian, penelitian.judul, penelitian.tanggal_publikasi, penelitian.bidang, penelitian.author, penelitian.link_penelitian, penelitian.id_penelitian FROM riwayat_penelitian INNER JOIN penelitian ON riwayat_penelitian.id_penelitian = penelitian.id_penelitian WHERE riwayat_penelitian.id_dosen = $1';
@@ -42,6 +47,7 @@ const getPenelitianByIdDosen = (id_dosen, callback) => {
 module.exports = {
     getAllRiwayatPenelitian,
     getRiwayatPenelitianById,
+    getDosenByIdPenelitian,
     insertRiwayatPenelitian,
     updateRiwayatPenelitian,
     deleteRiwayatPenelitian,

@@ -33,7 +33,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
             <tr key={riwayat_pengajaran.kode_matkul}>
               <td>{riwayat_pengajaran.kode_matkul}</td>
               <td>{riwayat_pengajaran.nama_matkul}</td>
-              <td>{riwayat_pengajaran.semester}</td>
+              <td>{riwayat_pengajaran.semester} {riwayat_pengajaran.tahun}</td>
               <td>{riwayat_pengajaran.kode_kelas}</td>
               <td>{riwayat_pengajaran.perguruan_tinggi}</td>
             </tr>

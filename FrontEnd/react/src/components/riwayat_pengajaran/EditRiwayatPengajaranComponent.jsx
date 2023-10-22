@@ -1,21 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const AddRiwayatPengajaranComponent = () => {
+function EditRiwayatPengajaranComponent({ id }) {
+  const [formData, setFormData] = useState({
+    id_dosen: '',
+    nama: '',
+    kode_matkul: '',
+    semester: '',
+    tahun: '',
+    nama_matkul: '',
+  });
 
-  const [dosenList, setDosenList] = useState([]);
+  const [formDataMatkul, setFormDataMatkul] = useState({
+    id_matkul:''
+  });
 
   useEffect(() => {
-    // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/dosen')
-      .then((response) => {
-        setDosenList(response.data); // Mengatur data dosen ke dalam state
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle error
-      });
-  }, []);
+    async function fetchData() {
+      try {
+        const response = await axios.get(`http://localhost:3100/riwayat_pengajaran/${id}`);
+        const rows = response.data.rows[0];
+        setFormData(response.data.rows[0]);
+        setFormDataMatkul(response.data.rows[0]);
+        console.log(id);
+        console.log(rows);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+    
+    fetchData();
+  }, [id]);
 
   const [matkulList, setMatkulList] = useState([]);
 
@@ -31,22 +46,16 @@ const AddRiwayatPengajaranComponent = () => {
       });
   }, []);
 
-  const [formData, setFormData] = useState({
-    id_dosen: '',
-    semester:'',
-    tahun:''
-  });
 
-  const [formDataMatkul, setFormDataMatkul] = useState({
-    id_matkul: '',
-  });
-  
+  // Function to handle input changes for editing
+  // const handleInputChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setFormDataUpdated({ ...formDataUpdated, [name]: value });
+  // };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleChange = (e) => {
@@ -75,64 +84,67 @@ const AddRiwayatPengajaranComponent = () => {
       });
     }
   };
-  
-  const handleSubmit = (e) => {
+
+  // Function to handle the form submission for updating dosen
+  const handleUpdateRiwayatPengajaran = async (e) => {
     e.preventDefault();
-  
-    // Extract id_dosen and id_matkul from the formData
     const { id_dosen, semester, tahun } = formData;
     const { id_matkul } = formDataMatkul;
-  
-    // Make a POST request to your backend endpoint with id_dosen and id_matkul
-    axios.post('http://localhost:3100/riwayat_pengajaran', { id_dosen, id_matkul, semester, tahun })
-      .then((response) => {
-        alert("Data riwayat pengajaran berhasil ditambah!");
-        console.log(response.data);
-        console
-        // Handle success or redirection here
-      })
-      .catch((error) => {
-        console.error(error);
-        // Handle error
-      });
+    try {
+      const response = await axios.put(`http://localhost:3100/riwayat_pengajaran/${id}`, { id_dosen, id_matkul, semester, tahun });
+      console.log(response.data);
+      alert("Data riwayat pengajaran berhasil diperbarui");
+    } catch (error) {
+      console.error("Error updating data:", error);
+    }
   };
 
   return (
-    <div className="container">
-      {/* <h2 className="mt-4">Riwayat Pengajaran</h2> */}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Nama Dosen</label>
-          <select
-            name="id_dosen"
-            value={formData.id_dosen}
-            onChange={handleInputChange}
+    <div className="container mt-4">
+      {/* <h2>Edit Dosen</h2> */}
+      <form onSubmit={handleUpdateRiwayatPengajaran}>
+      {/* <div className="form-group">
+          <label>id_pengajaran</label>
+          <input
+            type="text"
             className="form-control"
-            required
+            name="id_maktul"
+            value={id}
+            // onChange={handleInputChange}
+            disabled
+          />
+        </div> */}
+        <div className="form-group">
+          <label>Dosen</label>
+          <select
+            type="text"
+            className="form-control"
+            name="nama"
+            value={formData.id_dosen}
+            // onChange={handleInputChange}
+            disabled
           >
-            <option value="">Pilih Dosen</option>
-            {
-              dosenList.map((element) => (
-                <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
-              ))
-            }
+          <option value={formData.id_dosen}>{formData.nama}</option>
           </select>
         </div>
         <div className="mb-3">
           <label className="form-label">Nama Mata Kuliah</label>
           <select
             name="id_matkul"
-            value={formDataMatkul.id_matkul}
+            // value={formDataMatkul.id_matkul}
             onChange={handleChange}
             className="form-control"
             required
           >
-            <option value="">Pilih Mata Kuliah</option>
+            <option value={formDataMatkul.id_matkul}>{formDataMatkul.nama_matkul}</option>
             {
               matkulList.map((element) => (
-                <option key={element.id_matkul} value={element.id_matkul}>{element.nama_matkul}</option>
-              ))
-            }
+                element.nama_matkul !== formDataMatkul.nama_matkul ? (
+                  <option key={element.id_matkul} value={element.id_matkul}>
+                    {element.nama_matkul}
+                  </option>
+                ) : null
+            ))}
           </select>
         </div>
         <div className="mb-3">
@@ -141,12 +153,11 @@ const AddRiwayatPengajaranComponent = () => {
               <label>Semester</label>
               <select
                 name="semester"
+                className="form-control"
                 value={formData.semester}
                 onChange={handleInputChange}
-                className="form-control"
                 required
               >
-                <option value="">Pilih Semester</option>
                 <option value="Ganjil">Ganjil</option>
                 <option value="Genap">Genap</option>
               </select>
@@ -156,9 +167,9 @@ const AddRiwayatPengajaranComponent = () => {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleInputChange}
                 name="tahun"
                 value={formData.tahun}
+                onChange={handleInputChange}
               />
             </div>
           </div>
@@ -193,11 +204,13 @@ const AddRiwayatPengajaranComponent = () => {
           disabled
           />
         </div>
-
-        <button type="submit" className="btn btn-primary">Submit</button>
+        
+        <button type="submit" className="btn btn-primary mt-3">
+          Update
+        </button>
       </form>
     </div>
   );
-};
+}
 
-export default AddRiwayatPengajaranComponent;
+export default EditRiwayatPengajaranComponent;

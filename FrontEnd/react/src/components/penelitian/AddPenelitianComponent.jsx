@@ -41,6 +41,7 @@ const AddPenelitianComponent = () => {
     axios.post(`http://localhost:3100/penelitian`, formData)
       .then((response) => {
         console.log(response.data);
+        alert("Data penelitian berhasil ditambah!");
         // Handle success or redirection here
       })
       .catch((error) => {
@@ -51,7 +52,7 @@ const AddPenelitianComponent = () => {
 
   return (
     <div className="container">
-      <h2 className="mt-4">Add Penelitian</h2>
+      {/* <h2 className="mt-4">Add Penelitian</h2> */}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Judul</label>

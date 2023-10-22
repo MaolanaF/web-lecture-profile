@@ -15,6 +15,21 @@ const getRiwayatPenelitianById = (req, res) => {
   });
 }
 
+const getDosenByIdPenelitian = (req, res) => {
+  const id_penelitian = req.params.id_penelitian;
+  riwayatPenelitianModel.getDosenByIdPenelitian(id_penelitian, (err, result) => {
+      if (!err) {
+          if (result) {
+              res.send(result.rows);
+          } else {
+              res.status(404).send('Penelitian tidak ditemukan');
+          }
+      } else {
+          res.status(500).send(err.message);
+      }
+  });
+}
+
 const getAllRiwayatPenelitian = (req, res) => {
   riwayatPenelitianModel.getAllRiwayatPenelitian((err, result) => {
     if (!err) {
@@ -77,6 +92,7 @@ const getPenelitianByIdDosen = (req, res) => {
 module.exports = {
   getAllRiwayatPenelitian,
   getRiwayatPenelitianById,
+  getDosenByIdPenelitian,
   insertRiwayatPenelitian,
   updateRiwayatPenelitian,
   deleteRiwayatPenelitian,
