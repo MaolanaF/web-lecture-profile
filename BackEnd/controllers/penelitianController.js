@@ -90,13 +90,8 @@ const updatePenelitian = (req, res) => {
   const link_baru = req.file ? req.file.filename : link_penelitian 
 
   if(req.file) {
-    var deletedFile = '../public/uploads/penelitian/' + link_penelitian
-
-    console.log(deletedFile)
-
+    var deletedFile = './public/uploads/penelitian/' + link_penelitian
     if (fs.existsSync(deletedFile)) {
-      
-      console.log('exist')
         fs.unlink(deletedFile, (err) => {
             if (err) {
                 console.log(err);

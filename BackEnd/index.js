@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const client = require('./connection');
 const app = express();
 const cors = require("cors");
+const path = require('path');
 
 const dosenRoute = require('./routes/dosenRoute');
 const penelitianRoute = require('./routes/penelitianRoute');
@@ -46,3 +47,4 @@ app.use('/', pendidikanRoute)
 app.use('/', riwayatPenelitian)
 app.use('/', riwayatPengajaranRoute)
 app.use('/', riwayatPkmRoute)
+app.use('/static', express.static(path.join(__dirname, 'public')))
