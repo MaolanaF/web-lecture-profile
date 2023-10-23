@@ -18,6 +18,7 @@ import Penelitian from './pages/penelitian/Penelitian';
 import AddPenelitian from './pages/penelitian/AddPenelitian';
 import EditPenelitian from './pages/penelitian/EditPenelitian';
 import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitian';
+import DetailPenelitian from './pages/riwayat_penelitian/ListRiwayatPenelitianDetail';
 
 // Mata Kuliah & Riwayat Pengajaran
 import AddMatkul from './pages/mata_kuliah/AddMatkul';
@@ -68,6 +69,7 @@ function App() {
             <Route path="/penelitian/insert" element = {<AddPenelitian/>} />
             <Route path="/penelitian/edit/:id_penelitian" element = {<EditPenelitian/>} />
             <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
+            <Route path="/detail_penelitian/:id_penelitian" element = {<DetailPenelitian/>} />
 
             {/* Mata Kuliah & Pengajaran */}
             <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />

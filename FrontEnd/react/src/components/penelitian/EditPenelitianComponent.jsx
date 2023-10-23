@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 function EditPenelitianComponent({ id }) {
-  const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
     id_penelitian: "",
     judul: "",
     tanggal_publikasi: "",
@@ -34,7 +34,7 @@ function EditPenelitianComponent({ id }) {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Function to handle the form submission for updating penelitian
+    // Function to handle the form submission for updating penelitian
   const handleUpdatePenelitian = async (e) => {
     e.preventDefault();
     try {

@@ -1,47 +1,46 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Row, Col, Card, Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ListRiwayatPenelitianCom = ({ id }) => {
   const [listRiwayatPenelitian, setlistRiwayatPenelitian] = useState([]);
+
+  const formatDate = (dateString) => {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('id-ID', options);
+  };
 
   useEffect(() => {
     axios
       .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/${id}`)
       .then((response) => {
-        setlistRiwayatPenelitian(response.data); // Mengatur data dosen ke dalam state
-        console.log(response.data);
+        setlistRiwayatPenelitian(response.data);
       })
       .catch((error) => {
         console.error(error);
-        // Handle error
       });
-  }, []);
+  }, [id]);
 
   return (
-    <div className="container mt-4">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Judul</th>
-            <th>Tanggal Publikasi</th>
-            <th>Bidang</th>
-            <th>Author</th>
-            <th>Link Penelitian</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listRiwayatPenelitian.map((riwayat_penelitian) => (
-            <tr key={riwayat_penelitian.judul}>
-              <td>{riwayat_penelitian.judul}</td>
-              <td>{riwayat_penelitian.tanggal_publikasi}</td>
-              <td>{riwayat_penelitian.bidang}</td>
-              <td>{riwayat_penelitian.author}</td>
-              <td>{riwayat_penelitian.link_penelitian}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Row>
+      {listRiwayatPenelitian.map((riwayat_penelitian) => (
+        <Col md={3} key={riwayat_penelitian.id_penelitian}>
+          <Link to={{ pathname: `/detail_penelitian/${riwayat_penelitian.id_penelitian}` }}>
+            <Card className="card-blog mt-2 dosen-box" style={{height:"170px"}}>
+                <Card.Title>
+                  <span></span> {riwayat_penelitian.judul}
+                </Card.Title>
+              <Card.Footer>
+                <div className="post-date">
+                  <span className="bi bi-clock"></span> {formatDate(riwayat_penelitian.tanggal_publikasi)}
+                </div>
+              </Card.Footer>
+            </Card>
+          </Link>
+        </Col>
+      ))}
+    </Row>
   );
 };
 

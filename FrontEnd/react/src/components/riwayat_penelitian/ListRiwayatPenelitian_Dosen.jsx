@@ -4,6 +4,7 @@ import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddPenelitianComponent from '../penelitian/AddPenelitianComponent';
 import EditPenelitianComponent from '../penelitian/EditPenelitianComponent';
+import '../style.css';
 
 import { Link } from "react-router-dom";
 
@@ -71,7 +72,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   });
 
   return (
-    <div className="container" style={{marginTop:'-100px'}}>
+    <div className="container ">
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Penelitian</h2>
       </div>
@@ -100,6 +101,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
             <th>Tanggal Publikasi</th>
             <th>Bidang</th>
             <th>Author</th>
+            <th>Link Penelitian</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -110,13 +112,12 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               <td>{formatDate(riwayat_penelitian.tanggal_publikasi)}</td>
               <td>{riwayat_penelitian.bidang}</td>
               <td>{riwayat_penelitian.nama}</td>
-              {/* <td>{riwayat_penelitian.link_penelitian}</td> */}
+              {/* <td>{riwayat_penelitian.author}</td> */}
+              <td>{riwayat_penelitian.link_penelitian}</td>
               <td>
-                {/* <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}> */}
                   <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_penelitian.id_penelitian)}>
                     <FaEdit />
                   </button>
-                {/* </Link> */}
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {

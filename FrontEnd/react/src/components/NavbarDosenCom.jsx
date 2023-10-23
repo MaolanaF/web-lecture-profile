@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import Cookies from "js-cookie";
 import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
-import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
+import {
+  FaGraduationCap,
+  FaChalkboardTeacher,
+  FaFlask,
+  FaBook,
+} from "react-icons/fa";
 
 function NavbarDosen({ id }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id_dosen: "",
     nama: "",
@@ -29,7 +37,13 @@ function NavbarDosen({ id }) {
     fetchData();
   }, [id]);
 
-
+  function handleLogout() {
+    Cookies.remove("role");
+    Cookies.remove("username");
+    Cookies.remove("userAuth");
+    alert("Logout Berhasil !");
+    navigate("/home");
+  }
   return (
     <header>
       {/* Navbar */}
@@ -52,26 +66,32 @@ function NavbarDosen({ id }) {
           <Navbar.Toggle aria-controls="navbarExample01" />
           <Navbar.Collapse id="navbarExample01">
             <Nav className="me-auto">
-              <Nav.Link as={Link} to={`/dashboard_dosen/dosen/${id}`}>
+              {/* <Nav.Link as={Link} to={`/dashboard_dosen/dosen/${id}`}>
                 Profil
-              </Nav.Link>
+              </Nav.Link> */}
               {/* <Nav.Link as={Link} to={`/dashboard_dosen/pendidikan/${id}`}>
                 Pendidikan
               </Nav.Link> */}
-              <Nav.Link as={Link} to={`/dashboard_dosen/penelitian/${id}`}>
+              {/* <Nav.Link as={Link} to={`/dashboard_dosen/penelitian/${id}`}>
                 Penelitian
-              </Nav.Link> 
+              </Nav.Link>
+              <Nav.Link as={Link} to={`/dashboard_dosen/author_penelitian/:${id}`}>
+                Kontributor Penelitian
+              </Nav.Link>  */}
               {/* <Nav.Link as={Link} to={`/dashboard_dosen/pkm/${id}`}>
                 PKM
               </Nav.Link> */}
             </Nav>
             <Nav>
               {/* Logout */}
-              <Link to="/home">
-                <Button variant="warning" style={{ fontWeight: "500" }}>
-                  Logout
-                </Button>
-              </Link>
+              <button
+                type="button"
+                className="btn btn-warning"
+                style={{ fontWeight: "500" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </Nav>
           </Navbar.Collapse>
         </Container>

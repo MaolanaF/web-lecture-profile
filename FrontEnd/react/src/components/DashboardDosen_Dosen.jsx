@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
+import EditDosenComponent from '../components/dosen/EditDosenComponent';
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
 import ListRiwayatPendidikan_Dosen from "../components/pendidikan/ListRiwayatPendidikan_Dosen";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
-import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
+import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
 import './style.css';
 
 function DashboardDosenDetailComponent({ id }) {
@@ -16,6 +18,20 @@ function DashboardDosenDetailComponent({ id }) {
     jurusan: "",
     id_user: "",
   });
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedDosenId, setSelectedDosenId] = useState(null);
+
+  const handleShowEditModal = (id) => {
+    setSelectedDosenId(id);
+    setShowEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    
+    setShowEditModal(false);
+  };
+
 
   useEffect(() => {
     async function fetchData() {
@@ -40,7 +56,7 @@ function DashboardDosenDetailComponent({ id }) {
               <h3 className="title-a text-center">Profil Dosen</h3>
               <div className="line-mf"></div>
               <a className="subtitle-a" href="/home">List Dosen</a>
-              <a className="subtitle-a"> / {formData.nama}</a>
+              <a className="subtitle-a"> / {formData.nama}</a> 
               
             </div>
           </Col>
@@ -56,11 +72,16 @@ function DashboardDosenDetailComponent({ id }) {
                     </Col>
                     <Col md={6}>
                       <Row>
-                      <p className="h1 mb-3">{formData.nama}</p>
+                      <p className="h1 mb-3">{formData.nama}
+                      <button type="button" className="btn btn-primary btn-sm ml-4" onClick={() => handleShowEditModal(dosen.id_dosen)}>
+                            <FaEdit />
+                      </button>
+                      </p>
+                      
                         <Col sm={3} style={{ fontWeight:"normal" }}>
                           <p>Jurusan</p>
                           <p>Jabatan</p>
-                          <p>Email</p>
+                          <p>Email</p>                          
                         </Col>
                         <Col sm={9}>
                           <p>: {formData.jurusan}</p>
@@ -89,9 +110,12 @@ function DashboardDosenDetailComponent({ id }) {
                 <ListRiwayatPengajaran_Dosen id={id} />
               </Tab>
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
-                <div className="margin-class">
+              <div className="margin-class">
                   <ListRiwayatPenelitian_Dosen id={id} />
                 </div>
+              </Tab>
+              <Tab eventKey="Author Riwayat Penelitian" title={<><FaFlask /> Author Penelitian</>}>
+                <AddAuthorRiwayatPenelitian/>
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
                 Riwayat PKM
@@ -100,6 +124,14 @@ function DashboardDosenDetailComponent({ id }) {
             </Tabs>
           </Col>
         </Row>
+        <Modal show={showEditModal} onHide={handleCloseEditModal}>
+          <Modal.Header closeButton>
+          <Modal.Title>Edit Dosen</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <EditDosenComponent id={selectedDosenId} handleClose={handleCloseEditModal} />
+          </Modal.Body>
+        </Modal>
       </Container>
     </section>
   );
