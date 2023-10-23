@@ -107,7 +107,7 @@ function DashboardDosenDetailComponent({ id }) {
                 <ListRiwayatPendidikan_Dosen id={id} />
               </Tab>
               <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
-                <ListRiwayatPengajaran_Dosen id={id} />
+                  <ListRiwayatPengajaran_Dosen id={id} />
               </Tab>
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
               <div className="margin-class">
