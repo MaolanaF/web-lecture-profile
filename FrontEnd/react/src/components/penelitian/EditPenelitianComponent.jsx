@@ -120,6 +120,7 @@ function EditPenelitianComponent({ id }) {
           <input
             type="file"
             name="file"
+            accept='application/pdf'
             onChange={hancleFileChange}
             className="form-control"
           />
