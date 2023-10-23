@@ -2,6 +2,7 @@ import AddPenelitianComponent from "../../components/penelitian/AddPenelitianCom
 
 function AddPenelitian(){
     return <AddPenelitianComponent/>
+    
 }
 
 export default AddPenelitian;

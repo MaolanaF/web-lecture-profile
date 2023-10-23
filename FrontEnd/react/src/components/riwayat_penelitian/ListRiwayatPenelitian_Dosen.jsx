@@ -17,7 +17,11 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPenelitianId, setSelectedPenelitianId] = useState(null);
 
-  const handleShowModal = () => setShowModal(true);
+  const handleShowModal = (id) => {
+    setSelectedPenelitianId(id)
+    setShowModal(true);
+  };
+
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
@@ -90,7 +94,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
         </div>
-        <button type="button" className="btn btn-success btn-sm" onClick={handleShowModal}>
+        <button type="button" className="btn btn-success btn-sm" onClick={() => handleShowModal(id)}>
           Tambah Penelitian
         </button>
       </div>
@@ -136,7 +140,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
         <Modal.Title>Tambah Penelitian</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddPenelitianComponent handleClose={handleCloseModal} />
+          <AddPenelitianComponent id={selectedPenelitianId} handleClose={handleCloseModal} />
         </Modal.Body>
       </Modal>
       <Modal show={showEditModal} onHide={handleCloseEditModal}>

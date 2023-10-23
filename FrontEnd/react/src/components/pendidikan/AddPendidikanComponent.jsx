@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const AddRiwayatComponent = () => {
+const AddRiwayatComponent = ({ id }) => {
   const [formData, setFormData] = useState({
-    id_dosen:'',
+    id_dosen: id,
     jenjang_pendidikan: '',
     nama_institusi: '',
     tahun_lulus: ''
@@ -71,8 +71,8 @@ const AddRiwayatComponent = () => {
             onChange={handleChange}
             className="form-control"
             required
+            disabled
           >
-            <option value="">Pilih Dosen</option>
             {
               dosenList.map((element) => (
                 <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>

@@ -16,7 +16,10 @@ const ListRiwayatPengajaranCom = ({ id }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPengajaranId, setSelectedPengajaranId] = useState(null);
 
-  const handleShowModal = () => setShowModal(true);
+  const handleShowModal = (id) => {
+    setSelectedPengajaranId(id);
+    setShowModal(true);
+  }
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
@@ -90,7 +93,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
         </div>
-        <button type="button" className="btn btn-success btn-sm" onClick={handleShowModal}>
+        <button type="button" className="btn btn-success btn-sm" onClick={() => handleShowModal(id)}>
           Tambah Pengajaran
         </button>
       </div>
@@ -136,7 +139,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
         <Modal.Title>Tambah Pengajaran</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddPengajaranComponent handleClose={handleCloseModal} />
+          <AddPengajaranComponent id={selectedPengajaranId} handleClose={handleCloseModal} />
         </Modal.Body>
       </Modal>
       <Modal show={showEditModal} onHide={handleCloseEditModal}>

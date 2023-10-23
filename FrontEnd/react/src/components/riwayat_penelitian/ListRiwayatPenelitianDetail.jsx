@@ -49,7 +49,7 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
           <Card.Title>{penelitian[0]?.judul}</Card.Title>
           <Card className="card-blog mt-2">
             {riwayatPenelitian.map((author) => (
-              <Link to={`/DosenProfile/${author.id_dosen}`}>
+              <Link key={author.id_riwayatpenelitian} to={`/DosenProfile/${author.id_dosen}`}>
                 <Card.Title>{author.nama}</Card.Title>
               </Link>
             ))}

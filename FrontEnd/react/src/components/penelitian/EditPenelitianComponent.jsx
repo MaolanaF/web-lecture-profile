@@ -10,7 +10,17 @@ function EditPenelitianComponent({ id }) {
     bidang: "",
     author: "",
     link_penelitian: "",
+    file: null
   });
+
+  const hancleFileChange = (e) => {
+
+    setFormData({
+      ...formData,
+      ['file']: e.target.files[0],
+    });
+
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +48,11 @@ function EditPenelitianComponent({ id }) {
   const handleUpdatePenelitian = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/penelitian/${id}`, formData);
+      const response = await axios.put(`http://localhost:3100/penelitian/${id}`, formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
       console.log(response.data);
       alert("Data penelitian berhasil diperbarui");
     } catch (error) {
@@ -47,10 +61,10 @@ function EditPenelitianComponent({ id }) {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-4">
       {/* <h2>Edit Penelitian</h2> */}
       <form onSubmit={handleUpdatePenelitian}>
-      {/* <div className="form-group">
+      <div className="form-group">
           <label>Id Penelitian</label>
           <input
             type="text"
@@ -60,7 +74,7 @@ function EditPenelitianComponent({ id }) {
             // onChange={handleInputChange}
             disabled
           />
-        </div> */}
+        </div>
         <div className="form-group">
           <label>Judul</label>
           <input
@@ -101,14 +115,13 @@ function EditPenelitianComponent({ id }) {
             onChange={handleInputChange}
           />
         </div>
-        <div className="form-group">
-          <label>Link Penelitian</label>
+        <div className="mb-3">
+          <label className="form-label">File</label>
           <input
-            type="text"
+            type="file"
+            name="file"
+            onChange={hancleFileChange}
             className="form-control"
-            name="link_penelitian"
-            value={formData.link_penelitian}
-            onChange={handleInputChange}
           />
         </div>
         <button type="submit" className="btn btn-primary mt-3">

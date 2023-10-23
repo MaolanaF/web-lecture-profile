@@ -28,7 +28,6 @@ function DashboardDosenDetailComponent({ id }) {
   };
 
   const handleCloseEditModal = () => {
-    
     setShowEditModal(false);
   };
 
@@ -73,7 +72,7 @@ function DashboardDosenDetailComponent({ id }) {
                     <Col md={6}>
                       <Row>
                       <p className="h1 mb-3">{formData.nama}
-                      <button type="button" className="btn btn-primary btn-sm ml-4" onClick={() => handleShowEditModal(dosen.id_dosen)}>
+                      <button type="button" className="btn btn-primary btn-sm ml-4" onClick={() => handleShowEditModal(id)}>
                             <FaEdit />
                       </button>
                       </p>

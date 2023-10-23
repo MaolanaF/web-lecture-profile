@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const AddRiwayatPengajaranComponent = () => {
+const AddRiwayatPengajaranComponent = ({ id }) => {
 
   const [dosenList, setDosenList] = useState([]);
 
@@ -32,7 +32,7 @@ const AddRiwayatPengajaranComponent = () => {
   }, []);
 
   const [formData, setFormData] = useState({
-    id_dosen: '',
+    id_dosen: id,
     semester:'',
     tahun:''
   });
@@ -106,6 +106,20 @@ const AddRiwayatPengajaranComponent = () => {
           <select
             name="id_dosen"
             value={formData.id_dosen}
+            // onChange={handleChange}
+            className="form-control"
+            required
+            disabled
+          >
+            {
+              dosenList.map((element) => (
+                <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
+              ))
+            }
+          </select>
+          {/* <select
+            name="id_dosen"
+            value={formData.id_dosen}
             onChange={handleInputChange}
             className="form-control"
             required
@@ -116,7 +130,7 @@ const AddRiwayatPengajaranComponent = () => {
                 <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
               ))
             }
-          </select>
+          </select> */}
         </div>
         <div className="mb-3">
           <label className="form-label">Nama Mata Kuliah</label>
