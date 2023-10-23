@@ -1,6 +1,6 @@
 const penelitianModel = require('../models/penelitian');
+const fs = require('fs');
 // import path from "path";
-// import fs from "fs";
 
 const getPenelitianById = (req, res) => {
   const id_penelitian = req.params.id_penelitian;
@@ -43,15 +43,15 @@ const getAllPenelitian = (req, res) => {
 }
 
 const insertPenelitian = (req, res) => {
-  const {judul, tanggal_publikasi, bidang, author, link_penelitian } = req.body;
+  
+  const {judul, tanggal_publikasi, bidang, author } = req.body;
 
-  penelitianModel.insertPenelitian(judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
+  penelitianModel.insertPenelitian(judul, tanggal_publikasi, bidang, author, req.file.filename, (err, result) => {
     if (!err) {
       res.send('Insert success');
     } else {
       res.status(500).send(err.message);
     }
-
   });  
   
   // if(req.files === null) return res.status(400).json({msg: "No File Uploaded"});
@@ -84,8 +84,29 @@ const insertPenelitian = (req, res) => {
 
 const updatePenelitian = (req, res) => {
   const id_penelitian = req.params.id_penelitian;
+
   const { judul, tanggal_publikasi, bidang, author, link_penelitian } = req.body;
-  penelitianModel.updatePenelitian(id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
+
+  const link_baru = req.file ? req.file.filename : link_penelitian 
+
+  if(req.file) {
+    var deletedFile = '../public/uploads/penelitian/' + link_penelitian
+
+    console.log(deletedFile)
+
+    if (fs.existsSync(deletedFile)) {
+      
+      console.log('exist')
+        fs.unlink(deletedFile, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log('deleted');
+        })
+    }
+  }
+
+  penelitianModel.updatePenelitian(id_penelitian, judul, tanggal_publikasi, bidang, author, link_baru, (err, result) => {
     if (!err) {
       res.send('Update success');
     } else {

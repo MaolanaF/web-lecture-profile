@@ -23,8 +23,16 @@ const AddPenelitianComponent = () => {
     tanggal_publikasi: '',
     bidang: '',
     author: '',
-    link_penelitian: ''
+    file: null
   });
+
+  const hancleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      ['file']: e.target.files[0],
+    });
+
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,7 +46,11 @@ const AddPenelitianComponent = () => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post(`http://localhost:3100/penelitian`, formData)
+    axios.post(`http://localhost:3100/penelitian`, formData, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         console.log(response.data);
         alert("Data penelitian berhasil ditambah!");
@@ -106,12 +118,12 @@ const AddPenelitianComponent = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Link Penelitian</label>
+          <label className="form-label">File</label>
           <input
-            type="text"
-            name="link_penelitian"
-            value={formData.link_penelitian}
-            onChange={handleChange}
+            type="file"
+            name="file"
+            // value={formData.file}
+            onChange={hancleFileChange}
             className="form-control"
             required
           />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
 import EditDosenComponent from '../components/dosen/EditDosenComponent';
-import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, Tabs, Tab, Modal } from "react-bootstrap";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
@@ -107,7 +107,7 @@ function DashboardDosenDetailComponent({ id }) {
                 {/* <ListRiwayatPendidikan id={id} /> */}
               </Tab>
               <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
-                <ListRiwayatPengajaran_Dosen id={id} />
+                  <ListRiwayatPengajaran_Dosen id={id} />
               </Tab>
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
               <div className="margin-class">

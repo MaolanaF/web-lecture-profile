@@ -16,6 +16,13 @@ const riwayatPengajaranRoute = require('./routes/riwayatPengajaranRoute');
 
 app.use(cors())
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Izinkan permintaan dari asal apa pun (sebaiknya disesuaikan dengan lingkungan produksi)
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    next();
+  });
+  
 
 //  Untuk running server pada port yang ditentukan
 app.listen(3100, () =>{

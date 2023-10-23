@@ -72,7 +72,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   });
 
   return (
-    <div className="container ">
+    <div className="container" style={{marginTop:"-100px"}}>
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Penelitian</h2>
       </div>
