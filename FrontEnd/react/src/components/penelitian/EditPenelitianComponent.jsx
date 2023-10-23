@@ -61,10 +61,10 @@ function EditPenelitianComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       {/* <h2>Edit Penelitian</h2> */}
       <form onSubmit={handleUpdatePenelitian}>
-      <div className="form-group">
+      {/* <div className="form-group">
           <label>Id Penelitian</label>
           <input
             type="text"
@@ -74,7 +74,7 @@ function EditPenelitianComponent({ id }) {
             // onChange={handleInputChange}
             disabled
           />
-        </div>
+        </div> */}
         <div className="form-group">
           <label>Judul</label>
           <input

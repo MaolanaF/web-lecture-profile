@@ -12,7 +12,7 @@ const matkulRoute = require('./routes/matkulRoute');
 const pendidikanRoute = require('./routes/pendidikanRoute');
 const riwayatPenelitian = require('./routes/riwayatPenelitianRoute');
 const riwayatPengajaranRoute = require('./routes/riwayatPengajaranRoute');
-// const riwayatPkmRoute = require('./routes/riwayatPkmRoute');
+const riwayatPkmRoute = require('./routes/riwayatPkmRoute');
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -45,4 +45,4 @@ app.use('/', matkulRoute)
 app.use('/', pendidikanRoute)
 app.use('/', riwayatPenelitian)
 app.use('/', riwayatPengajaranRoute)
-// app.use('/', riwayatPkmRoute)
+app.use('/', riwayatPkmRoute)

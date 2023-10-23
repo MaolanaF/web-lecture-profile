@@ -3,6 +3,7 @@ import axios from "axios";
 import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
 import EditDosenComponent from '../components/dosen/EditDosenComponent';
 import { Container, Row, Col, Card, Image, Tabs, Tab, Modal } from "react-bootstrap";
+import ListRiwayatPendidikan_Dosen from "../components/pendidikan/ListRiwayatPendidikan_Dosen";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
@@ -103,8 +104,7 @@ function DashboardDosenDetailComponent({ id }) {
               fill
             >
               <Tab eventKey="Riwayat Pendidikan" title={<><FaGraduationCap /> Riwayat Pendidikan</>}>
-                Riwayat Pendidikan
-                {/* <ListRiwayatPendidikan id={id} /> */}
+                <ListRiwayatPendidikan_Dosen id={id} />
               </Tab>
               <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
                   <ListRiwayatPengajaran_Dosen id={id} />

@@ -8,6 +8,8 @@ function EditRiwayatComponent({ id }) {
     jenjang_pendidikan: "",
     nama_institusi: "",
     tahun_lulus: "",
+    id_dosen: "",
+    nama: "",
   });
 
   useEffect(() => {
@@ -33,10 +35,11 @@ function EditRiwayatComponent({ id }) {
   };
 
   // Function to handle the form submission for updating penelitian
-  const handleUpdatePenelitian = async (e) => {
+  const handleUpdatePendidikan = async (e) => {
     e.preventDefault();
+    const { jenjang_pendidikan, nama_institusi, tahun_lulus } = formData
     try {
-      const response = await axios.put(`http://localhost:3100/riwayat_pendidikan/${id}`, formData);
+      const response = await axios.put(`http://localhost:3100/riwayat_pendidikan/${id}`, { jenjang_pendidikan, nama_institusi, tahun_lulus });
       console.log(response.data);
       alert("Data pendidikan berhasil diperbarui");
     } catch (error) {
@@ -45,10 +48,10 @@ function EditRiwayatComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Edit Pendidikan</h2>
-      <form onSubmit={handleUpdatePenelitian}>
-      <div className="form-group">
+    <div className="container">
+      {/* <h2>Edit Pendidikan</h2> */}
+      <form onSubmit={handleUpdatePendidikan}>
+      {/* <div className="form-group">
           <label>Id Pendidikan</label>
           <input
             type="text"
@@ -58,6 +61,19 @@ function EditRiwayatComponent({ id }) {
             // onChange={handleInputChange}
             disabled
           />
+        </div> */}
+        <div className="form-group">
+          <label>Dosen</label>
+          <select
+            type="text"
+            className="form-control"
+            name="nama"
+            value={formData.id_dosen}
+            // onChange={handleInputChange}
+            disabled
+          >
+          <option value={formData.id_dosen}>{formData.nama}</option>
+          </select>
         </div>
         <div className="form-group">
           <label>Jenjang Pendidikan</label>
@@ -89,7 +105,7 @@ function EditRiwayatComponent({ id }) {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-3">
           Update
         </button>
       </form>
