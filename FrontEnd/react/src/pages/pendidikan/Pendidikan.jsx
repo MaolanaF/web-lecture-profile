@@ -1,7 +1,7 @@
-import ListRiwayatComponent from "../../components/pendidikan/ListPendidikan";
+import ListPendidikanComponent from "../../components/pendidikan/ListPendidikan";
 
 function Riwayat(){
-    return <ListRiwayatComponent/>
+    return <ListPendidikanComponent/>
 }
 
 export default Riwayat;

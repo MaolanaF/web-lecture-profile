@@ -9,10 +9,13 @@ import "./style.css";
 const ListDosenComponent = () => {
     const [dosenList, setDosenList] = useState([]);
     const [penelitianList, setPenelitianList] = useState([]);
+    const [pkmList, setPKMList] = useState([]);
     const [latestPenelitian, setLatestPenelitian] = useState([]);
+    const [latestPKM, setLatestPKM] = useState([]);
     // Menghitung jumlah data dalam array dosenList
     const totalDosen = dosenList.length;
     const totalPenelitian = penelitianList.length;
+    const totalPKM = pkmList.length;
   
     useEffect(() => {
       // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
@@ -29,8 +32,19 @@ const ListDosenComponent = () => {
       .then((response) => {
         setPenelitianList(response.data);
         // Ambil 3 penelitian terbaru
-        const sortedPenelitian = response.data.slice().sort((a, b) => b.tanggal - a.tanggal).slice(0, 3);
+        const sortedPenelitian = response.data.slice().sort((a, b) => b.tanggal_publikasi - a.tanggal_publikasi).slice(0, 3);
         setLatestPenelitian(sortedPenelitian);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+      axios.get('http://localhost:3100/pkms')
+      .then((response) => {
+        setPKMList(response.data);
+        // Ambil 3 PKM terbaru
+        const sortedPKM = response.data.slice().sort((a, b) => b.tahun_pkm - a.tahun_pkm).slice(0, 3);
+        setLatestPKM(sortedPKM);
       })
       .catch((error) => {
         console.error(error);
@@ -91,6 +105,7 @@ const ListDosenComponent = () => {
                 </div>
                 <div className="counter-num">
                   <p data-purecounter-start="0" data-purecounter-end="550" data-purecounter-duration="1" className="counter purecounter"></p>
+                  <span className="counter-number">{totalPKM}</span>
                   <span className="counter-text">PKM</span>
                 </div>
               </div>

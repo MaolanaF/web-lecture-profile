@@ -67,12 +67,12 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   };
 
   const filteredPenelitianList = listRiwayatPenelitian.filter((riwayat_penelitian) => {
-    const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.author}`;
+    const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.nama}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
 
   return (
-    <div className="container ">
+    <div className="container" style={{ marginTop: "-100px" }}>
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Penelitian</h2>
       </div>
@@ -85,7 +85,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Cari Mata Kuliah..."
+              placeholder="Cari Penelitian..."
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
@@ -100,24 +100,24 @@ const ListRiwayatPenelitianCom = ({ id }) => {
             <th>Judul</th>
             <th>Tanggal Publikasi</th>
             <th>Bidang</th>
+            <th>Author</th>
             <th>Link Penelitian</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {filteredPenelitianList.map((riwayat_penelitian) => (
-            <tr key={riwayat_penelitian.judul}>
+            <tr key={riwayat_penelitian.id_riwayatpenelitian}>
               <td>{riwayat_penelitian.judul}</td>
               <td>{formatDate(riwayat_penelitian.tanggal_publikasi)}</td>
               <td>{riwayat_penelitian.bidang}</td>
+              <td>{riwayat_penelitian.nama}</td>
               {/* <td>{riwayat_penelitian.author}</td> */}
               <td>{riwayat_penelitian.link_penelitian}</td>
               <td>
-                {/* <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}> */}
                   <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_penelitian.id_penelitian)}>
                     <FaEdit />
                   </button>
-                {/* </Link> */}
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {

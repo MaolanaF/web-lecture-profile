@@ -43,8 +43,7 @@ const ListRiwayatPkmsCom = () => {
                 <th>Judul PKM</th>
                 <th>Tahun PKM</th>
                 <th>Bidang PKM</th>
-                <th>Edit</th>
-                <th>Delete</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -59,8 +58,6 @@ const ListRiwayatPkmsCom = () => {
                     <Link to={`/riwayatpkm/edit/${riwayat_pkm.id_riwayatpkm}`} className="btn btn-primary">
                         Edit
                     </Link>
-                    </td>
-                    <td>
                     <button
                         className="btn btn-danger"
                         onClick={() => deleteRiwayatPkm(riwayat_pkm.id_riwayatpkm)}
