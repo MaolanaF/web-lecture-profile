@@ -2,8 +2,8 @@ import EditRiwayatComponent from "../../components/pendidikan/EditPendidikanComp
 import { useParams } from 'react-router-dom';
 
 function EditRiwayat(){
-    const { id } = useParams();
-    return <EditRiwayatComponent id={id}/>
+    const { id_pendidikan } = useParams();
+    return <EditRiwayatComponent id={id_pendidikan}/>
 }
 
 export default EditRiwayat;

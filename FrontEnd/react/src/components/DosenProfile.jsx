@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
+import ListRiwayatPendidikan from "../components/pendidikan/ListPendidikan";
 import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
 import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
@@ -82,8 +83,7 @@ function DosenDetailComponent({ id }) {
               fill
             >
               <Tab eventKey="Riwayat Pendidikan" title={<><FaGraduationCap /> Riwayat Pendidikan</>}>
-                Riwayat Pendidikan
-                {/* <ListRiwayatPendidikan id={id} /> */}
+                <ListRiwayatPendidikan id={id} />
               </Tab>
               <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
                 <ListRiwayatPengajaran id={id} />

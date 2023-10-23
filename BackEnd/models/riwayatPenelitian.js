@@ -34,7 +34,7 @@ const deleteRiwayatPenelitian = (id_riwayatpenelitian, callback) => {
 
 
 const getPenelitianByIdDosen = (id_dosen, callback) => {
-    const query = 'SELECT riwayat_penelitian.id_riwayatpenelitian, penelitian.judul, penelitian.tanggal_publikasi, penelitian.bidang, penelitian.author, penelitian.link_penelitian, penelitian.id_penelitian FROM riwayat_penelitian INNER JOIN penelitian ON riwayat_penelitian.id_penelitian = penelitian.id_penelitian WHERE riwayat_penelitian.id_dosen = $1';
+    const query = 'SELECT riwayat_penelitian.id_riwayatpenelitian, penelitian.judul, penelitian.tanggal_publikasi, penelitian.bidang, penelitian.author, penelitian.link_penelitian, penelitian.id_penelitian, dosen.nama FROM riwayat_penelitian INNER JOIN penelitian ON riwayat_penelitian.id_penelitian = penelitian.id_penelitian INNER JOIN dosen ON riwayat_penelitian.id_dosen = dosen.id_dosen WHERE riwayat_penelitian.id_dosen = $1';
     const values = [id_dosen];
     client.query(query, values, callback);
 }

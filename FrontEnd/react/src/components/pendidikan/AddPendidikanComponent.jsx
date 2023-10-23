@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
 const AddRiwayatComponent = () => {
   const [formData, setFormData] = useState({
-    id_pendidikan: '',
+    id_dosen:'',
     jenjang_pendidikan: '',
     nama_institusi: '',
-    tahun_lulus: '',
+    tahun_lulus: ''
   });
 
   const handleChange = (e) => {
@@ -24,6 +24,7 @@ const AddRiwayatComponent = () => {
     // Make a POST request to your backend endpoint
     axios.post('http://localhost:3100/riwayat_pendidikan', formData)
       .then((response) => {
+        alert("Data pendidikan berhasil ditambah!");
         console.log(response.data);
         // Handle success or redirection here
       })
@@ -33,11 +34,25 @@ const AddRiwayatComponent = () => {
       });
   };
 
+  const [dosenList, setDosenList] = useState([]);
+
+  useEffect(() => {
+    // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
+    axios.get('http://localhost:3100/dosen')
+      .then((response) => {
+        setDosenList(response.data); // Mengatur data dosen ke dalam state
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error
+      });
+  }, []);
+
   return (
     <div className="container">
-      <h2 className="mt-4">Add riwayat</h2>
+      {/* <h2 className="mt-4">Add riwayat</h2> */}
       <form onSubmit={handleSubmit}>
-        {<div className="mb-3">
+        {/* {<div className="mb-3">
           <label className="form-label">id</label>
           <input
             type="text"
@@ -47,9 +62,26 @@ const AddRiwayatComponent = () => {
             className="form-control"
             required
           />
-        </div>}
+        </div>} */}
+         <div className="mb-3">
+          <label className="form-label">Nama Dosen</label>
+          <select
+            name="id_dosen"
+            value={formData.id_dosen}
+            onChange={handleChange}
+            className="form-control"
+            required
+          >
+            <option value="">Pilih Dosen</option>
+            {
+              dosenList.map((element) => (
+                <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
+              ))
+            }
+          </select>
+        </div>
         <div className="mb-3">
-          <label className="form-label">jenjang pendidikan</label>
+          <label className="form-label">Jenjang Pendidikan</label>
           <input
             type="text"
             name="jenjang_pendidikan"
@@ -60,7 +92,7 @@ const AddRiwayatComponent = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">tahun lulus</label>
+          <label className="form-label">Tahun Lulus</label>
           <input
             type="text"
             name="tahun_lulus"
@@ -71,7 +103,7 @@ const AddRiwayatComponent = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">nama institusi</label>
+          <label className="form-label">Nama Institusi</label>
           <input
             type="text"
             name="nama_institusi"

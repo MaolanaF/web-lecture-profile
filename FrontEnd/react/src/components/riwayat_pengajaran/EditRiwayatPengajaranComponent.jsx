@@ -100,7 +100,7 @@ function EditRiwayatPengajaranComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       {/* <h2>Edit Dosen</h2> */}
       <form onSubmit={handleUpdateRiwayatPengajaran}>
       {/* <div className="form-group">

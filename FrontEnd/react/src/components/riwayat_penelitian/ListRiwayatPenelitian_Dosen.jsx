@@ -66,7 +66,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   };
 
   const filteredPenelitianList = listRiwayatPenelitian.filter((riwayat_penelitian) => {
-    const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.author}`;
+    const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.nama}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
 
@@ -84,7 +84,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
             <input
               type="text"
               className="form-control"
-              placeholder="Cari Mata Kuliah..."
+              placeholder="Cari Penelitian..."
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
@@ -105,11 +105,11 @@ const ListRiwayatPenelitianCom = ({ id }) => {
         </thead>
         <tbody>
           {filteredPenelitianList.map((riwayat_penelitian) => (
-            <tr key={riwayat_penelitian.judul}>
+            <tr key={riwayat_penelitian.id_riwayatpenelitian}>
               <td>{riwayat_penelitian.judul}</td>
               <td>{formatDate(riwayat_penelitian.tanggal_publikasi)}</td>
               <td>{riwayat_penelitian.bidang}</td>
-              <td>{riwayat_penelitian.author}</td>
+              <td>{riwayat_penelitian.nama}</td>
               {/* <td>{riwayat_penelitian.link_penelitian}</td> */}
               <td>
                 {/* <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}> */}
