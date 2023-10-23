@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
 import EditDosenComponent from '../components/dosen/EditDosenComponent';
-import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Card, Image, Tabs, Tab, Modal } from "react-bootstrap";
 import ListRiwayatPendidikan_Dosen from "../components/pendidikan/ListRiwayatPendidikan_Dosen";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
