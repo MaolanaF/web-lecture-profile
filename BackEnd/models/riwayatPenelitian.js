@@ -29,7 +29,7 @@ const updateRiwayatPenelitian = (id_penelitian, id_dosen, callback) => {
 const deleteRiwayatPenelitian = (id_riwayatpenelitian, callback) => {
     const query = 'DELETE FROM riwayat_penelitian WHERE id_riwayatpenelitian = $1';
     const values = [id_riwayatpenelitian];
-    client.query(query, values);
+    client.query(query, values, callback);
 }
 
 const getDosenByIdPenelitian = (id_penelitian, callback) => {
