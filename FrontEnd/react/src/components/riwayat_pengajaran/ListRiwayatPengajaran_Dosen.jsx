@@ -60,8 +60,8 @@ const ListRiwayatPengajaranCom = ({ id }) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
     axios.delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
       .then(() => {
-        // Hapus data dosen dari state
         setlistRiwayatPengajaran((prevRiwayatPengajaranList) => prevRiwayatPengajaranList.filter((riwayat_pengajaran) => riwayat_pengajaran.id_pengajaran !== id));
+        alert("Riwayat pengajaran berhasil dihapus!");
       })
       .catch((error) => {
         console.error(error);

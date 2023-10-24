@@ -21,7 +21,10 @@ const ListDosenComponent = () => {
       // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
       axios.get('http://localhost:3100/dosen')
         .then((response) => {
-          setDosenList(response.data); // Mengatur data dosen ke dalam state
+          const sortedDosenList = response.data.sort((a, b) =>
+            a.nama.localeCompare(b.nama, undefined, { numeric: true })
+          );
+          setDosenList(sortedDosenList);
         })
         .catch((error) => {
           console.error(error);

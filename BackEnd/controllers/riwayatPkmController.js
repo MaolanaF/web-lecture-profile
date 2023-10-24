@@ -42,6 +42,18 @@ const riwayatPkmController = {
     }
   },
 
+  async getRiwayatPKMbyIdDosen(req, res) {
+    try {
+      const { id_dosen } = req.params;
+      const riwayatPkmModel = new RiwayatPkm();
+      const riwayatPkmbyIdDosen = await riwayatPkmModel.getRiwayatPKMbyIdDosen(id_dosen);
+      res.json(riwayatPkmbyIdDosen);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  },
+
   async updateRiwayatPKM (req, res) {
     try {
       const { id } = req.params;

@@ -58,6 +58,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
     axios.delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
       .then(() => {
         setlistRiwayatPendidikan((prevRiwayatPendidikanList) => prevRiwayatPendidikanList.filter((riwayat_pendidikan) => riwayat_pendidikan.id_pendidikan !== id));
+        alert("Riwayat pendidikan berhasil dihapus!");
       })
       .catch((error) => {
         console.error(error);

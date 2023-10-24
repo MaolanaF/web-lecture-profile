@@ -39,8 +39,8 @@ const insertMatkul = (req, res) => {
 
 const updateMatkul = (req, res) => {
     const id_matkul = req.params.id_matkul;
-    const { kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi } = req.body;
-    matkulModel.updateMatkul(id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, (err, result) => {
+    const { kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi } = req.body;
+    matkulModel.updateMatkul(id_matkul, kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi, (err, result) => {
       if (!err) {
         res.send('Update success');
       } else {

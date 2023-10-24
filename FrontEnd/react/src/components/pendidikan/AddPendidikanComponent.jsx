@@ -92,22 +92,22 @@ const AddRiwayatComponent = ({ id }) => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Tahun Lulus</label>
+          <label className="form-label">Nama Institusi</label>
           <input
             type="text"
-            name="tahun_lulus"
-            value={formData.tahun_lulus}
+            name="nama_institusi"
+            value={formData.nama_institusi}
             onChange={handleChange}
             className="form-control"
             required
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Nama Institusi</label>
+          <label className="form-label">Tahun Lulus</label>
           <input
             type="text"
-            name="nama_institusi"
-            value={formData.nama_institusi}
+            name="tahun_lulus"
+            value={formData.tahun_lulus}
             onChange={handleChange}
             className="form-control"
             required

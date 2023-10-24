@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import EditRiwayatPkmCom from "../../components/riwayatPkm/EditRiwayatPkmCom"
 
 function EditRiwayatPkm(){
-  const { id } = useParams();
-  return <EditRiwayatPkmCom id={id}/>
+  const { id_pkm } = useParams();
+  return <EditRiwayatPkmCom id={id_pkm}/>
   
 }
 

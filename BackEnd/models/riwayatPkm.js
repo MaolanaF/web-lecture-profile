@@ -39,6 +39,15 @@ class RiwayatPkmModel {
     }
   }
 
+  async getRiwayatPKMbyIdDosen(id_dosen) {
+    try {
+      const pkm = await client.query("SELECT riwayat_pkm.id_riwayatpkm, pkm.judul, pkm.tahun_pkm, pkm.bidang_pkm, pkm.link_pkm, dosen.nama FROM riwayat_pkm INNER JOIN pkm ON riwayat_pkm.id_pkm = pkm.id_pkm INNER JOIN dosen ON riwayat_pkm.id_dosen = dosen.id_dosen WHERE riwayat_pkm.id_dosen = $1;", [id_dosen]);
+      return pkm.rows;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async updateRiwayatPKM(id, id_dosen, id_pkm) {
     try {
       await client.query("UPDATE riwayat_pkm SET id_dosen = $1, id_pkm = $2", [

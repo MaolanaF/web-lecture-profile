@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
-function EditPkmCom() {
-  const { id_pkm } = useParams();
+function EditPkmCom({ id }) {
   const [data, setData] = useState({
     judul_pkm: "",
     tahun_pkm: "",
@@ -15,10 +15,27 @@ function EditPkmCom() {
     setData({ ...data, [name]: value });
   };
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`http://localhost:3100/pkms/${id}`);
+        const rows = response.data.rows[0];
+        setData(response.data.rows[0]);
+        console.log(id);
+        console.log(rows);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, [id]);
+
+
   const updatePkm = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3100/pkms/${id_pkm}`, {
+      const response = await fetch(`http://localhost:3100/pkms/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

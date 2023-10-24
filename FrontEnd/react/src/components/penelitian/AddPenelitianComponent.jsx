@@ -52,8 +52,8 @@ const AddPenelitianComponent = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         alert("Data penelitian berhasil ditambah!");
+        console.log(response.data);
         // Handle success or redirection here
       })
       .catch((error) => {

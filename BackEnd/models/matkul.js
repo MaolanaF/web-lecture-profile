@@ -17,9 +17,9 @@ const insertMatkul = (kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi, ca
     client.query(query, values, callback);
 }
 
-const updateMatkul = (id_matkul, kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, callback) => {
-    const query = 'UPDATE mata_kuliah SET kode_matkul = $1, nama_matkul = $2, semester = $3, kode_kelas = $4, perguruan_tinggi = $5 WHERE id_matkul = $6';
-    const values = [kode_matkul, nama_matkul, semester, kode_kelas, perguruan_tinggi, id_matkul];
+const updateMatkul = (id_matkul, kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi, callback) => {
+    const query = 'UPDATE mata_kuliah SET kode_matkul = $1, nama_matkul = $2, kode_kelas = $3, perguruan_tinggi = $4 WHERE id_matkul = $5';
+    const values = [kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi, id_matkul];
     client.query(query, values, callback);
 }
 

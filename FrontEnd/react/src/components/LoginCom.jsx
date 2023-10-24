@@ -51,13 +51,16 @@ function LoginCom() {
             console.error(err);
           }
         } else {
+          alert("Role tidak valid");
           console.log("Role tidak valid");
         }
       } else {
+        alert("Tidak Ada User");
         console.log("Tidak Ada User");
       }
       // You can perform actions like redirecting the user after successful login
     } catch (err) {
+      alert("Username atau Password Salah!");
       setError("Login failed. Please check your credentials."); // Handle errors
       console.error("Login failed:", err);
     }

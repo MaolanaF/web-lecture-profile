@@ -47,6 +47,7 @@ const ListDosenComponent = () => {
     axios.delete(`http://localhost:3100/dosen/${id}`)
       .then(() => {
         setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
+        alert("Data dosen berhasil dihapus");
       })
       .catch((error) => {
         console.error(error);
