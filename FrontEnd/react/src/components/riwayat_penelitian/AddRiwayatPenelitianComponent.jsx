@@ -52,6 +52,7 @@ const AddRiwayatPenelitianComponent = () => {
     // Make a POST request to your backend endpoint
     axios.post('http://localhost:3100/riwayat_penelitian', { id_dosen, id_penelitian })
       .then((response) => {
+        alert("Data author penelitian berhasil ditambah!");
         console.log(response.data);
         // Handle success or redirection here
       })

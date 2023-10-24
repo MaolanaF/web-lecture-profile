@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Card, Modal, Button } from 'react-bootstrap'
-import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaSearch, FaEdit, FaTrash, FaFile } from 'react-icons/fa';
 import AddPenelitianComponent from '../penelitian/AddPenelitianComponent';
 import EditPenelitianComponent from '../penelitian/EditPenelitianComponent';
 import '../style.css';
@@ -117,7 +117,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               <td>{riwayat_penelitian.bidang}</td>
               <td>{riwayat_penelitian.nama}</td>
               {/* <td>{riwayat_penelitian.author}</td> */}
-              <td>{riwayat_penelitian.link_penelitian}</td>
+              <td><a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}><FaFile></FaFile> Lihat File</a></td>
               <td>
                   <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_penelitian.id_penelitian)}>
                     <FaEdit />

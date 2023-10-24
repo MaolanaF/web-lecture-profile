@@ -123,6 +123,7 @@ const AddPenelitianComponent = () => {
             type="file"
             name="file"
             // value={formData.file}
+            accept='application/pdf'
             onChange={hancleFileChange}
             className="form-control"
             required

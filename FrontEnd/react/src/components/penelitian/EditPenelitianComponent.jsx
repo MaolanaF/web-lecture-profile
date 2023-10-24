@@ -13,6 +13,14 @@ function EditPenelitianComponent({ id }) {
     file: null
   });
 
+  function formatDate(dateString) {
+    const originalDate = new Date(dateString);
+    const year = originalDate.getFullYear();
+    const month = String(originalDate.getMonth() + 1).padStart(2, '0');
+    const day = String(originalDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
   const hancleFileChange = (e) => {
 
     setFormData({
@@ -91,7 +99,7 @@ function EditPenelitianComponent({ id }) {
             type="date"
             className="form-control"
             name="tanggal_publikasi"
-            value={formData.tanggal_publikasi}
+            value={formatDate(formData.tanggal_publikasi)}
             onChange={handleInputChange}
           />
         </div>
@@ -120,6 +128,8 @@ function EditPenelitianComponent({ id }) {
           <input
             type="file"
             name="file"
+            accept='application/pdf'
+            // value={formData.link_penelitian}
             onChange={hancleFileChange}
             className="form-control"
           />
