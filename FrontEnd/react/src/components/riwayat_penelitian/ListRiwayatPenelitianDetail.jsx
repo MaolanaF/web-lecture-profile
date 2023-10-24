@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col, Card } from "react-bootstrap";
+import { FaFile } from 'react-icons/fa';
 import { Link } from "react-router-dom";
+import "../style.css";
 
 const ListRiwayatPenelitianDetailCom = ({ id }) => {
   const [riwayatPenelitian, setRiwayatPenelitian] = useState([]);
@@ -42,25 +44,27 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
     return <p>Error: {error.message}</p>;
   }
 
+
   return (
-    <div className="container">
+    <div className="container margin-class">
       <Row>
         <Col md={12}>
           <Card.Title>{penelitian[0]?.judul}</Card.Title>
           <Card className="card-blog mt-2">
             {riwayatPenelitian.map((author) => (
               <Link key={author.id_riwayatpenelitian} to={`/DosenProfile/${author.id_dosen}`}>
-                <Card.Title>{author.nama}</Card.Title>
+                <Card.Title >{author.nama}</Card.Title>
               </Link>
             ))}
-            <Card.Body>
-              <Card.Text>{penelitian[0]?.link_penelitian}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <div className="post-date">
+            <div className="post-date">
                 <span className="bi bi-clock"></span>{" "}
                 {formatDate(riwayatPenelitian[0]?.tanggal_publikasi)}
               </div>
+            <Card.Body>
+              <Card.Text><a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayatPenelitian[0]?.link_penelitian}><FaFile></FaFile> Lihat File</a></Card.Text>
+            </Card.Body>
+            <Card.Footer>
+              
             </Card.Footer>
           </Card>
         </Col>
