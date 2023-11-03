@@ -173,6 +173,7 @@ const AddRiwayatPengajaranComponent = ({ id }) => {
                 onChange={handleInputChange}
                 name="tahun"
                 value={formData.tahun}
+                required
               />
             </div>
           </div>

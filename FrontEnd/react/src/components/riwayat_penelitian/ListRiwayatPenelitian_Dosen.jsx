@@ -63,6 +63,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       .then(() => {
         // Hapus data dosen dari state
         setlistRiwayatPenelitian((prevRiwayatPenelitianList) => prevRiwayatPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
+        alert("Riwayat penelitian berhasil dihapus!");
       })
       .catch((error) => {
         console.error(error);
@@ -117,7 +118,8 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               <td>{riwayat_penelitian.bidang}</td>
               <td>{riwayat_penelitian.nama}</td>
               {/* <td>{riwayat_penelitian.author}</td> */}
-              <td><a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}><FaFile></FaFile> Lihat File</a></td>
+              <td>
+                <a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}><FaFile></FaFile> Lihat File</a></td>
               <td>
                   <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_penelitian.id_penelitian)}>
                     <FaEdit />

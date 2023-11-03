@@ -1,83 +1,96 @@
-const RiwayatPkm = require('../models/riwayatPkm');
+const riwayatPkmModel = require('../models/riwayatPkm');
 
-const riwayatPkmController = {
-  async insertRiwayatPKM(req, res) {
-    try {
-      const { id_pkm, id_dosen } = req.body;
+const getAllRiwayatPKM = (req, res) => {
+  riwayatPkmModel.getAllRiwayatPKM((err, result) => {
+    if (!err) {
+      res.send(result.rows);
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+}
 
-      const riwayatPkmModel = new RiwayatPkm();
-  
-      const isPKMValid = await riwayatPkmModel.validatePKM(id_pkm);
-      const isDosenValid = await riwayatPkmModel.validateDosen(id_dosen);
-  
-      if (!isPKMValid || !isDosenValid) {
-        return res.status(400).json({ message: 'ID PKM atau ID Dosen tidak valid' });
+const getRiwayatPKMById = (req, res) => {
+  const id_riwayatpkm = req.params.id_riwayatpkm;
+  riwayatPkmModel.getRiwayatPKMById(id_riwayatpkm, (err, result) => {
+    if (!err) {
+      if (result) {
+        res.send(result);
+      } else {
+        res.status(404).send('PKM tidak ditemukan');
       }
-  
-      const newRiwayatPkm = await riwayatPkmModel.insertRiwayatPKM(id_dosen, id_pkm);
-      return res.json({ message: 'Data Riwayat PKM berhasil ditambahkan' });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: 'Terjadi kesalahan server' });
+    } else {
+      res.status(500).send(err.message);
     }
-    // try {
-    //   const { id_dosen, id_pkm } = req.body;
-    //   const riwayatPkmModel = new RiwayatPkm();
-    //   const newRiwayatPkm = await riwayatPkmModel.insertRiwayatPKM(id_dosen, id_pkm);
-    //   res.json("Pkm Insert");
-    // } catch (err) {
-    //   console.error(err.message);
-    //   res.status(500).send(err.message);
-    // }
-  },
+  });
+}
 
-  async getRiwayatPKMData(req, res) {
-    try {
-      const riwayatPkmModel = new RiwayatPkm();
-      const riwayatPkmData = await riwayatPkmModel.getRiwayatPKMData();
-      res.json(riwayatPkmData);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+const getDosenByIdPKM = (req, res) => {
+  const id_pkm = req.params.id_pkm;
+  riwayatPkmModel.getDosenByIdPKM(id_pkm, (err, result) => {
+    if (!err) {
+      if (result) {
+        res.send(result.rows);
+      } else {
+        res.status(404).send('PKM tidak ditemukan');
+      }
+    } else {
+      res.status(500).send(err.message);
     }
-  },
+  });
+}
 
-  async getRiwayatPKMbyIdDosen(req, res) {
-    try {
-      const { id_dosen } = req.params;
-      const riwayatPkmModel = new RiwayatPkm();
-      const riwayatPkmbyIdDosen = await riwayatPkmModel.getRiwayatPKMbyIdDosen(id_dosen);
-      res.json(riwayatPkmbyIdDosen);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+const getPKMByIdDosen = (req, res) => {
+  const id_dosen = req.params.id_dosen;
+  riwayatPkmModel.getPKMByIdDosen(id_dosen, (err, result) => {
+    if (!err) {
+      res.send(result.rows);
+    } else {
+      res.status(500).send(err.message);
     }
-  },
+  });
+}
 
-  async updateRiwayatPKM (req, res) {
-    try {
-      const { id } = req.params;
-      const { id_dosen, id_pkm } = req.body;
-      const riwayatPkmModel = new RiwayatPkm();
-      await riwayatPkmModel.updateRiwayatPKM(id, id_dosen, id_pkm);
-      res.json("Riwayat Pkm was updated!");
-    } catch (err) {
-      console.error("Error updating todo:", err);
-      res.status(500).send('Server Error');
+const insertRiwayatPKM = (req, res) => {
+  const { id_pkm, id_dosen } = req.body;
+  riwayatPkmModel.insertRiwayatPKM(id_pkm, id_dosen, (err, result) => {
+    if (!err) {
+      res.send('Insert success');
+    } else {
+      res.status(500).send(err.message);
     }
-  },
+  });
+}
 
-  async deleteRiwayatPKM(req, res) {
-    try {
-      const { id_riwayatpkm } = req.params;
-      const riwayatPkmModel = new RiwayatPkm();
-      await riwayatPkmModel.deleteRiwayatPKM(id_riwayatpkm);
-      res.json("Riwayat Pkm was deleted!");
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+const updateRiwayatPKM = (req, res) => {
+  const id_riwayatpkm = req.params.id_riwayatpkm;
+  const { id_pkm, id_dosen } = req.body;
+  riwayatPkmModel.updateRiwayatPKM(id_riwayatpkm, id_pkm, id_dosen, (err, result) => {
+    if (!err) {
+      res.send('Update success');
+    } else {
+      res.status(500).send(err.message);
     }
-  },
+  });
+}
+
+const deleteRiwayatPKM = (req, res) => {
+  const id_riwayatpkm = req.params.id_riwayatpkm;
+  riwayatPkmModel.deleteRiwayatPKM(id_riwayatpkm, (err, result) => {
+    if (!err) {
+      res.send('Delete success');
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+}
+
+module.exports = {
+  getAllRiwayatPKM,
+  getRiwayatPKMById,
+  getDosenByIdPKM,
+  getPKMByIdDosen,
+  deleteRiwayatPKM,
+  insertRiwayatPKM,
+  updateRiwayatPKM,
 };
-
-module.exports = riwayatPkmController;

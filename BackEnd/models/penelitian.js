@@ -8,7 +8,7 @@ const getAllPenelitian = (callback) => {
 
 // Mendapatkan data dosen dari database berdasarkan ID
 const getPenelitianById = (id_penelitian, callback) => {
-    const query = 'SELECT * FROM penelitian WHERE id_penelitian = $1';
+    const query = 'SELECT penelitian.id_penelitian, penelitian.judul, penelitian.tanggal_publikasi, penelitian.bidang, penelitian.author, dosen.nama FROM penelitian INNER JOIN dosen ON penelitian.author = dosen.id_dosen WHERE penelitian.id_penelitian = $1';
     const values = [id_penelitian];
     client.query(query, values, callback);
 }

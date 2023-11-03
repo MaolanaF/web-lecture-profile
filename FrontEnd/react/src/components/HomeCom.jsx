@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { BsChevronDoubleRight} from 'react-icons/bs';  
+import { Link } from "react-router-dom"; 
 import { FaUsers, FaFlask, FaBook} from 'react-icons/fa';  
 import "./style.css"; 
 
@@ -42,7 +41,7 @@ const ListDosenComponent = () => {
         console.error(error);
       });
 
-      axios.get('http://localhost:3100/pkms')
+      axios.get('http://localhost:3100/pkm')
       .then((response) => {
         setPKMList(response.data);
         // Ambil 3 PKM terbaru

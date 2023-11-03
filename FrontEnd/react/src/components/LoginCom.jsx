@@ -38,6 +38,7 @@ function LoginCom() {
 
         // navigate("/dashboard_admin/dosen"); // Navigate to home page
         if (userData.role === "Admin") {
+          alert("Login berhasil!");
           navigate("/dashboard_admin/dosen");
         } else if (userData.role === "Dosen") {
           try {
@@ -46,6 +47,7 @@ function LoginCom() {
             );
             const idDosen = response.data[0].id_dosen;
             Cookies.set("userAuth", idDosen, { expires: 1 });
+            alert("Login berhasil!");
             navigate("/dashboard_dosen/dosen/" + idDosen);
           } catch (err) {
             console.error(err);

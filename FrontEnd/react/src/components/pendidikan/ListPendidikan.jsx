@@ -18,7 +18,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
 
   return (
     <div className="container mt-4">
-      <table className="table table-bordered">
+      <table className="table table-striped mt-3">
         <thead className="thead-dark">
           <tr>
             <th>Jenjang Pendidikan</th>

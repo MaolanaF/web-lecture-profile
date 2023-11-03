@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const AddRiwayatComponent = ({ id }) => {
+const AddRiwayatPendidikanComponent = ({ id }) => {
   const [formData, setFormData] = useState({
     id_dosen: id,
     jenjang_pendidikan: '',
@@ -119,4 +119,4 @@ const AddRiwayatComponent = ({ id }) => {
   );
 };
 
-export default AddRiwayatComponent;
+export default AddRiwayatPendidikanComponent;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Row, Col, Card, Image } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const ListRiwayatPenelitianCom = ({ id }) => {

@@ -1,26 +1,40 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
-function EditPenelitianComponent({ id }) {
-    const [formData, setFormData] = useState({
-    id_penelitian: "",
-    judul: "",
-    tanggal_publikasi: "",
-    bidang: "",
-    author: "",
-    // link_penelitian: "",
-    file: null,
-    nama:""
+function EditPKMComponent({ id }) {
+  // State untuk menyimpan data PKM yang akan diedit
+  const [formData, setFormData] = useState({
+    id_pkm: "",
+    judul_pkm: '',
+    tahun_pkm: '',
+    bidang_pkm: '',
+    kontributor: '',
+    nama: '',
+    file: null
   });
 
-  function formatDate(dateString) {
-    const originalDate = new Date(dateString);
-    const year = originalDate.getFullYear();
-    const month = String(originalDate.getMonth() + 1).padStart(2, '0');
-    const day = String(originalDate.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
+  // Menggunakan useEffect untuk mengambil data PKM dari server
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        // Melakukan permintaan GET ke backend untuk mendapatkan data PKM berdasarkan ID
+        const response = await axios.get(`http://localhost:3100/pkm/${id}`);
+        const rows = response.data.rows[0];
+        
+        // Mengatur data PKM ke dalam state formData
+        setFormData(response.data.rows[0]);
+        
+        // Logging informasi terkait data
+        console.log(id);
+        console.log(rows);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    // Memanggil fungsi fetchData saat komponen dimuat atau nilai 'id' berubah
+    fetchData();
+  }, [id]);
 
   const handleFileChange = (e) => {
 
@@ -31,92 +45,79 @@ function EditPenelitianComponent({ id }) {
 
   }
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await axios.get(`http://localhost:3100/penelitian/${id}`);
-        const rows = response.data.rows[0];
-        setFormData(response.data.rows[0]);
-        console.log(id);
-        console.log(rows);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
-  }, [id]);
-
-  // Function to handle input changes for editing
+  // Function untuk menangani perubahan input pada formulir penyuntingan PKM
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-    // Function to handle the form submission for updating penelitian
-  const handleUpdatePenelitian = async (e) => {
+  // Function untuk menangani pengiriman perubahan data PKM ke server
+  const handleUpdatePKM = async (e) => {
     e.preventDefault();
-    const { id_penelitian, judul, bidang, tanggal_publikasi, author, file } = formData;
+    const { id_pkm, judul_pkm, bidang_pkm, tahun_pkm, kontributor, file } = formData;
     try {
-      const response = await axios.put(`http://localhost:3100/penelitian/${id}`, { id_penelitian, judul, bidang, tanggal_publikasi, author, file }, {
+      // Melakukan permintaan PUT untuk memperbarui data PKM berdasarkan ID
+      const response = await axios.put(`http://localhost:3100/pkm/${id}`, { id_pkm, judul_pkm, bidang_pkm, tahun_pkm, kontributor, file }, {
         headers: {
           "Content-type": "multipart/form-data",
         },
       });
       console.log(response.data);
-      alert("Data penelitian berhasil diperbarui");
+      alert("Data PKM berhasil diperbarui");
     } catch (error) {
       console.error("Error updating data:", error);
     }
+    
+    // // Mengarahkan pengguna kembali ke halaman daftar PKM setelah pembaruan
+    // window.location = "http://localhost:5173/pkm/list"
   };
 
   return (
     <div className="container mt-4">
-      {/* <h2>Edit Penelitian</h2> */}
-      <form onSubmit={handleUpdatePenelitian}>
-      {/* <div className="form-group">
-          <label>Id Penelitian</label>
+      {/* Formulir penyuntingan PKM */}
+      <form onSubmit={handleUpdatePKM}>
+        {/* <div className="form-group">
+          <label>ID PKM</label>
           <input
             type="text"
             className="form-control"
-            name="id_penelitian"
+            name="id_pkm"
             value={id}
-            // onChange={handleInputChange}
-            disabled
+            disabled // Input ID PKM diatur ke mode disabled
           />
         </div> */}
         <div className="form-group">
-          <label>Judul</label>
+          <label>Judul PKM</label>
           <input
             type="text"
             className="form-control"
-            name="judul"
-            value={formData.judul}
+            name="judul_pkm"
+            value={formData.judul_pkm}
             onChange={handleInputChange}
           />
         </div>
         <div className="form-group">
-          <label>Tanggal Publikasi</label>
-          <input
-            type="date"
-            className="form-control"
-            name="tanggal_publikasi"
-            value={formatDate(formData.tanggal_publikasi)}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Bidang</label>
+          <label>Tahun PKM</label>
           <input
             type="text"
             className="form-control"
-            name="bidang"
-            value={formData.bidang}
+            name="tahun_pkm"
+            value={formData.tahun_pkm}
             onChange={handleInputChange}
           />
         </div>
         <div className="form-group">
-          <label>Author</label>
+          <label>Bidang PKM</label>
+          <input
+            type="text"
+            className="form-control"
+            name="bidang_pkm"
+            value={formData.bidang_pkm}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Kontributor</label>
           <select
             type="text"
             className="form-control"
@@ -146,4 +147,4 @@ function EditPenelitianComponent({ id }) {
   );
 }
 
-export default EditPenelitianComponent;
+export default EditPKMComponent;

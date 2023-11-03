@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
 import EditDosenComponent from '../components/dosen/EditDosenComponent';
 import { Container, Row, Col, Card, Image, Tabs, Tab, Modal } from "react-bootstrap";
 import ListRiwayatPendidikan_Dosen from "../components/pendidikan/ListRiwayatPendidikan_Dosen";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
-// import ListRiwayatPkm_Dosen from "../component/riwayatPkm/ListRiwayat"
+import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
+import ListRiwayatPkm_Dosen from "../components/riwayatPkm/ListRiwayatPKM_Dosen"
+import AddAuthorRiwayatPkm from "../components/riwayatPkm/AddRiwayatPKMComponent";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
 import './style.css';
 
@@ -109,13 +110,16 @@ function DashboardDosenDetailComponent({ id }) {
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
               <div className="margin-class">
                   <ListRiwayatPenelitian_Dosen id={id} />
-                </div>
+              </div>
               </Tab>
-              <Tab eventKey="Author Riwayat Penelitian" title={<><FaFlask /> Author Penelitian</>}>
-                <AddAuthorRiwayatPenelitian/>
+              <Tab eventKey="Tambah Auhor Penelitian" title={<><FaFlask /> Author Penelitian</>}>
+                    <AddAuthorRiwayatPenelitian/>
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
-                {/* <ListRiwayatPKM id={id} /> */}
+                <ListRiwayatPkm_Dosen id={id} />
+              </Tab>
+              <Tab eventKey="Tambah Kontributor PKM" title={<><FaBook/> Kontributor PKM</>}>
+                    <AddAuthorRiwayatPkm/>
               </Tab>
             </Tabs>
           </Col>
@@ -129,6 +133,7 @@ function DashboardDosenDetailComponent({ id }) {
           </Modal.Body>
         </Modal>
       </Container>
+      <footer style={{ height: 80 }}/>
     </section>
   );
 }
