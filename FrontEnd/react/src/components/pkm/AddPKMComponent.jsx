@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AddPenelitianComponent = ({ id }) => {
+const AddPKMComponent = ({ id }) => {
 
   const [dosenList, setDosenList] = useState([]);
 
@@ -18,11 +18,11 @@ const AddPenelitianComponent = ({ id }) => {
   }, []);
 
   const [formData, setFormData] = useState({
-    id_penelitian: '',
-    judul: '',
-    tanggal_publikasi: '',
-    bidang: '',
-    author: id,
+    id_pkm: '',
+    judul_pkm: '',
+    tahun_pkm: '',
+    bidang_pkm: '',
+    kontributor: id,
     file: null
   });
 
@@ -46,13 +46,13 @@ const AddPenelitianComponent = ({ id }) => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post(`http://localhost:3100/penelitian`, formData, {
+    axios.post(`http://localhost:3100/pkm`, formData, {
         headers: {
           "Content-type": "multipart/form-data",
         },
       })
       .then((response) => {
-        alert("Data penelitian berhasil ditambah!");
+        alert("Data PKM berhasil ditambah!");
         console.log(response.data);
         // Handle success or redirection here
       })
@@ -64,25 +64,25 @@ const AddPenelitianComponent = ({ id }) => {
 
   return (
     <div className="container">
-      {/* <h2 className="mt-4">Add Penelitian</h2> */}
+      {/* <h2 className="mt-4">Add PKM</h2> */}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Judul</label>
           <input
             type="text"
-            name="judul"
-            value={formData.judul}
+            name="judul_pkm"
+            value={formData.judul_pkm}
             onChange={handleChange}
             className="form-control"
             required
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Tanggal Publikasi</label>
+          <label className="form-label">Tahun</label>
           <input
-            type="date"
-            name="tanggal_publikasi"
-            value={formData.tanggal_publikasi}
+            type="text"
+            name="tahun_pkm"
+            value={formData.tahun_pkm}
             onChange={handleChange}
             className="form-control"
             required                                                                                                                                                                                                                                                                                                        
@@ -92,24 +92,23 @@ const AddPenelitianComponent = ({ id }) => {
           <label className="form-label">Bidang</label>
           <input
             type="text"
-            name="bidang"
-            value={formData.bidang}
+            name="bidang_pkm"
+            value={formData.bidang_pkm}
             onChange={handleChange}
             className="form-control"
             required
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Author</label>
+          <label className="form-label">Kontributor</label>
           <select
-            name="author"
-            value={formData.author}
+            name="kontributor"
+            value={formData.kontributor}
             onChange={handleChange}
             className="form-control"
             required
             disabled
           >
-            {/* <option value="">Select an author</option> */}
             {
               dosenList.map((element) => (
                 <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
@@ -136,4 +135,4 @@ const AddPenelitianComponent = ({ id }) => {
   );
 };
 
-export default AddPenelitianComponent;
+export default AddPKMComponent;

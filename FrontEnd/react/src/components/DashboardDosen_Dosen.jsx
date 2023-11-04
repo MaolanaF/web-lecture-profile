@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
 import EditDosenComponent from '../components/dosen/EditDosenComponent';
 import { Container, Row, Col, Card, Image, Tabs, Tab, Modal } from "react-bootstrap";
 import ListRiwayatPendidikan_Dosen from "../components/pendidikan/ListRiwayatPendidikan_Dosen";
 import ListRiwayatPengajaran_Dosen from "../components/riwayat_pengajaran/ListRiwayatPengajaran_Dosen";
 import ListRiwayatPenelitian_Dosen from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
+import AddAuthorRiwayatPenelitian from "../components/riwayat_penelitian/AddRiwayatPenelitianComponent";
+import ListRiwayatPkm_Dosen from "../components/riwayatPkm/ListRiwayatPKM_Dosen"
+import AddAuthorRiwayatPkm from "../components/riwayatPkm/AddRiwayatPKMComponent";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
 import './style.css';
 
@@ -28,7 +30,6 @@ function DashboardDosenDetailComponent({ id }) {
   };
 
   const handleCloseEditModal = () => {
-    
     setShowEditModal(false);
   };
 
@@ -55,9 +56,6 @@ function DashboardDosenDetailComponent({ id }) {
             <div className="title-box">
               <h3 className="title-a text-center">Profil Dosen</h3>
               <div className="line-mf"></div>
-              <a className="subtitle-a" href="/home">List Dosen</a>
-              <a className="subtitle-a"> / {formData.nama}</a> 
-              
             </div>
           </Col>
         </Row>
@@ -73,7 +71,7 @@ function DashboardDosenDetailComponent({ id }) {
                     <Col md={6}>
                       <Row>
                       <p className="h1 mb-3">{formData.nama}
-                      <button type="button" className="btn btn-primary btn-sm ml-4" onClick={() => handleShowEditModal(dosen.id_dosen)}>
+                      <button type="button" className="btn btn-primary btn-sm ml-5" onClick={() => handleShowEditModal(id)}>
                             <FaEdit />
                       </button>
                       </p>
@@ -112,14 +110,16 @@ function DashboardDosenDetailComponent({ id }) {
               <Tab eventKey="Riwayat Penelitian" title={<><FaFlask /> Riwayat Penelitian</>}>
               <div className="margin-class">
                   <ListRiwayatPenelitian_Dosen id={id} />
-                </div>
+              </div>
               </Tab>
-              <Tab eventKey="Author Riwayat Penelitian" title={<><FaFlask /> Author Penelitian</>}>
-                <AddAuthorRiwayatPenelitian/>
+              <Tab eventKey="Tambah Auhor Penelitian" title={<><FaFlask /> Author Penelitian</>}>
+                    <AddAuthorRiwayatPenelitian/>
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
-                Riwayat PKM
-                {/* <ListRiwayatPKM id={id} /> */}
+                <ListRiwayatPkm_Dosen id={id} />
+              </Tab>
+              <Tab eventKey="Tambah Kontributor PKM" title={<><FaBook/> Kontributor PKM</>}>
+                    <AddAuthorRiwayatPkm/>
               </Tab>
             </Tabs>
           </Col>
@@ -133,6 +133,7 @@ function DashboardDosenDetailComponent({ id }) {
           </Modal.Body>
         </Modal>
       </Container>
+      <footer style={{ height: 80 }}/>
     </section>
   );
 }

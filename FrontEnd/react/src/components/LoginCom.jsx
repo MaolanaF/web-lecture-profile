@@ -38,6 +38,7 @@ function LoginCom() {
 
         // navigate("/dashboard_admin/dosen"); // Navigate to home page
         if (userData.role === "Admin") {
+          alert("Login berhasil!");
           navigate("/dashboard_admin/dosen");
         } else if (userData.role === "Dosen") {
           try {
@@ -46,18 +47,22 @@ function LoginCom() {
             );
             const idDosen = response.data[0].id_dosen;
             Cookies.set("userAuth", idDosen, { expires: 1 });
+            alert("Login berhasil!");
             navigate("/dashboard_dosen/dosen/" + idDosen);
           } catch (err) {
             console.error(err);
           }
         } else {
+          alert("Role tidak valid");
           console.log("Role tidak valid");
         }
       } else {
+        alert("Tidak Ada User");
         console.log("Tidak Ada User");
       }
       // You can perform actions like redirecting the user after successful login
     } catch (err) {
+      alert("Username atau Password Salah!");
       setError("Login failed. Please check your credentials."); // Handle errors
       console.error("Login failed:", err);
     }

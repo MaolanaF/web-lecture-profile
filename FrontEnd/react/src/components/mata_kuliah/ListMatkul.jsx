@@ -47,6 +47,7 @@ const ListMatkulComponent = () => {
     axios.delete(`http://localhost:3100/mata_kuliah/${id}`)
       .then(() => {
         setMatkulList((prevMatkulList) => prevMatkulList.filter((mata_kuliah) => mata_kuliah.id_matkul !== id));
+        alert("Mata Kuliah berhasil dihapus");
       })
       .catch((error) => {
         console.error(error);

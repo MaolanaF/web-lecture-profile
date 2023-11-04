@@ -1,12 +1,9 @@
-// EditPkms.js
-import React from "react";
+import EditPKMComponent from "../../components/pkm/EditPKMComponent"
 import { useParams } from 'react-router-dom';
-import EditPkmCom from "../../components/pkm/EditPkmCom";
 
-function EditPkm(){
-  const { id } = useParams();
-  return <EditPkmCom id={id}/>
-  
+function EditPKM(){
+    const { id_pkm } = useParams();
+    return <EditPKMComponent id={id_pkm}/>
 }
 
-export default EditPkm;
+export default EditPKM;

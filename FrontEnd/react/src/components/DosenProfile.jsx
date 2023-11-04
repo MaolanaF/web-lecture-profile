@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Image, Tabs, Tab } from "react-bootstrap";
 import ListRiwayatPendidikan from "../components/pendidikan/ListPendidikan";
 import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
 import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
+import ListRiwayatPKM from "../components/riwayatPkm/ListRiwayatPKM"
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
 
@@ -92,12 +93,12 @@ function DosenDetailComponent({ id }) {
                 <ListRiwayatPenelitian id={id} />
               </Tab>
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
-                Riwayat PKM
-                {/* <ListRiwayatPKM id={id} /> */}
+                <ListRiwayatPKM id={id} />
               </Tab>
             </Tabs>
           </Col>
         </Row>
+        <footer style={{ height: 80 }}/>
       </Container>
     </section>
   );

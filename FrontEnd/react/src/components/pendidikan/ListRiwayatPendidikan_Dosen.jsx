@@ -15,7 +15,11 @@ const ListRiwayatPendidikanCom = ({ id }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPendidikanId, setSelectedPendidikanId] = useState(null);
 
-  const handleShowModal = () => setShowModal(true);
+  const handleShowModal = (id) => {
+    setSelectedPendidikanId(id)
+    setShowModal(true);
+  };
+
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
@@ -54,6 +58,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
     axios.delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
       .then(() => {
         setlistRiwayatPendidikan((prevRiwayatPendidikanList) => prevRiwayatPendidikanList.filter((riwayat_pendidikan) => riwayat_pendidikan.id_pendidikan !== id));
+        alert("Riwayat pendidikan berhasil dihapus!");
       })
       .catch((error) => {
         console.error(error);
@@ -84,7 +89,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
         </div>
-        <button type="button" className="btn btn-success btn-sm" onClick={handleShowModal}>
+        <button type="button" className="btn btn-success btn-sm" onClick={() => handleShowModal(id)}>
           Tambah Pendidikan
         </button>
       </div>
@@ -125,7 +130,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
         <Modal.Title>Tambah Pendidikan</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddPendidikanComponent handleClose={handleCloseModal} />
+          <AddPendidikanComponent id={selectedPendidikanId} handleClose={handleCloseModal} />
         </Modal.Body>
       </Modal>
       <Modal show={showEditModal} onHide={handleCloseEditModal}>

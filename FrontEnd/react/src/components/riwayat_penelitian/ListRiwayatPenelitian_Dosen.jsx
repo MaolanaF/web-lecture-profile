@@ -17,7 +17,11 @@ const ListRiwayatPenelitianCom = ({ id }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedPenelitianId, setSelectedPenelitianId] = useState(null);
 
-  const handleShowModal = () => setShowModal(true);
+  const handleShowModal = (id) => {
+    setSelectedPenelitianId(id)
+    setShowModal(true);
+  };
+
   const handleCloseModal = () => setShowModal(false);
 
   const handleShowEditModal = (id) => {
@@ -59,6 +63,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       .then(() => {
         // Hapus data dosen dari state
         setlistRiwayatPenelitian((prevRiwayatPenelitianList) => prevRiwayatPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
+        alert("Riwayat penelitian berhasil dihapus!");
       })
       .catch((error) => {
         console.error(error);
@@ -90,7 +95,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               onChange={(e) => setSearchText(e.target.value)}/>
           </div>
         </div>
-        <button type="button" className="btn btn-success btn-sm" onClick={handleShowModal}>
+        <button type="button" className="btn btn-success btn-sm" onClick={() => handleShowModal(id)}>
           Tambah Penelitian
         </button>
       </div>
@@ -113,7 +118,8 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               <td>{riwayat_penelitian.bidang}</td>
               <td>{riwayat_penelitian.nama}</td>
               {/* <td>{riwayat_penelitian.author}</td> */}
-              <td><a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}><FaFile></FaFile> Lihat File</a></td>
+              <td>
+                <a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}><FaFile></FaFile> Lihat File</a></td>
               <td>
                   <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_penelitian.id_penelitian)}>
                     <FaEdit />
@@ -136,7 +142,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
         <Modal.Title>Tambah Penelitian</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AddPenelitianComponent handleClose={handleCloseModal} />
+          <AddPenelitianComponent id={selectedPenelitianId} handleClose={handleCloseModal} />
         </Modal.Body>
       </Modal>
       <Modal show={showEditModal} onHide={handleCloseEditModal}>

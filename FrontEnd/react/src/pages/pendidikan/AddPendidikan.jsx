@@ -1,7 +1,10 @@
-import AddRiwayatComponent from "../../components/pendidikan/AddPendidikanComponent"
+import AddPendidikanComponent from "../../components/pendidikan/AddPendidikanComponent"
+import { useParams } from 'react-router-dom';
 
 function AddRiwayat(){
-    return <AddRiwayatComponent/>
+    const { id_dosen } = useParams();
+    return <AddPendidikanComponent id={id_dosen}/>
+    // return <AddPendidikanComponent/>
 }
 
 export default AddRiwayat;

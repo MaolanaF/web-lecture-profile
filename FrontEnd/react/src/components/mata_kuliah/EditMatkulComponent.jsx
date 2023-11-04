@@ -6,7 +6,6 @@ function EditMatkulComponent({ id }) {
     id_matkul: "",
     kode_matkul: "",
     nama_matkul: "",
-    semester: "",
     kode_kelas: "",
     perguruan_tinggi: "",
   });
@@ -79,16 +78,6 @@ function EditMatkulComponent({ id }) {
             className="form-control"
             name="nama_matkul"
             value={formData.nama_matkul}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Semester</label>
-          <input
-            type="text"
-            className="form-control"
-            name="semester"
-            value={formData.semester}
             onChange={handleInputChange}
           />
         </div>

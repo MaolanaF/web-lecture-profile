@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link as ScrollLink } from "react-scroll"; // Import ScrollLink
 
+// const isHome = location.pathname === `/home`;
+
 const MyNavbar = () => {
   return (
     <Navbar expand="lg" bg="light" variant="light" fixed="top">
@@ -23,7 +25,22 @@ const MyNavbar = () => {
         <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
             {/* About */}
-            <Nav.Link href="#" style={{ color: "black" }}>
+            {/* <Nav.Link style={{ color: "black" }}>
+              {isHome ? (
+                <ScrollLink
+                  to="beranda"
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                >
+                Beranda
+                </ScrollLink>
+              ) : (
+                <Link to={{ pathname: `/home` }}>Beranda</Link>
+              )}
+            </Nav.Link> */}
+            <Nav.Link style={{ color: "black" }}>
             <ScrollLink
               activeClass=""
               to="beranda"

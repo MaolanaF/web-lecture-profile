@@ -1,57 +1,49 @@
-// models/pkm.js
+// models/penelitian.js
 const client = require('../connection');
 
-class PkmModel {
-  async insertPKM(judul_pkm, tahun_pkm, bidang_pkm, link_pkm) {
-    try {
-      const newPkm = await client.query(
-        "INSERT INTO pkm (judul_pkm, tahun_pkm, bidang_pkm, link_pkm) VALUES($1, $2, $3, $4) RETURNING *",
-        [judul_pkm, tahun_pkm, bidang_pkm, link_pkm]
-      );
-      return newPkm.rows;
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  async getPKM() {
-    try {
-      const allPkms = await client.query("SELECT * FROM pkm");
-      return allPkms.rows;
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  async getPKMbyId(id_pkm) {
-    try {
-      const pkm = await client.query("SELECT * FROM pkm WHERE id_pkm = $1", [id_pkm]);
-      return pkm.rows;
-    } catch (err) {
-      throw err;
-    }
-  }
-
-  async updatePKM(id_pkm, judul_pkm, tahun_pkm, bidang_pkm, link_pkm) {
-    try {
-      await client.query(
-        "UPDATE pkm SET judul_pkm = $1, tahun_pkm = $2, bidang_pkm = $3, link_pkm = $4 WHERE id_pkm = $5",
-        [judul_pkm, tahun_pkm, bidang_pkm, link_pkm, id_pkm]
-      );
-      console.log("PKM updated successfully!");
-    } catch (err) {
-      console.error("Error updating PKM:", err);
-      throw err;
-    }
-  }
-
-  async deletePKM(id_pkm) {
-    try {
-      await client.query("DELETE FROM pkm WHERE id_pkm = $1", [id_pkm]);
-    } catch (err) {
-      throw err;
-    }
-  }
+const getAllPKM = (callback) => {
+    client.query('SELECT * FROM pkm', callback);
 }
 
-module.exports = PkmModel;
+const getPKMById = (id_pkm, callback) => {
+    const query = 'SELECT pkm.id_pkm, pkm.judul_pkm, pkm.tahun_pkm, pkm.bidang_pkm, pkm.kontributor, dosen.nama FROM pkm INNER JOIN dosen ON pkm.kontributor = dosen.id_dosen WHERE pkm.id_pkm = $1';
+    const values = [id_pkm];
+    client.query(query, values, callback);
+}
+
+const insertPKM = (judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm, callback) => {
+    const query = 'INSERT INTO pkm (judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm) VALUES ($1, $2, $3, $4, $5) RETURNING id_pkm';
+    const values = [judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm];
+
+    client.query(query, values, (err, result) => {
+        if (!err) {
+            const query2 = 'INSERT INTO riwayat_pkm (id_dosen, id_pkm) VALUES ($1, $2)';
+            const values2 = [kontributor, result.rows[0].id_pkm];
+            client.query(query2, values2, callback);
+        }
+    });
+}
+
+const updatePKM = (id_pkm, judul_pkm, tahun_pkm, bidang_pkm, link_pkm, kontributor, callback) => {
+    const query = 'UPDATE pkm SET judul_pkm = $1, tahun_pkm = $2, bidang_pkm = $3, kontributor = $4, link_pkm = $5 WHERE id_pkm = $6';
+    const values = [judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm, id_pkm];
+    client.query(query, values, callback);
+}
+
+const deletePKM = (id_pkm, callback) => {
+    const query = 'DELETE FROM riwayat_pkm WHERE id_pkm = $1';
+    const values = [id_pkm];
+    client.query(query, values);
+
+    const query2 = 'DELETE FROM pkm WHERE id_pkm = $1';
+    const values2 = [id_pkm];
+    client.query(query2, values2, callback);
+}
+
+module.exports = {
+  getAllPKM,
+  getPKMById,
+  insertPKM,
+  updatePKM,
+  deletePKM
+};
