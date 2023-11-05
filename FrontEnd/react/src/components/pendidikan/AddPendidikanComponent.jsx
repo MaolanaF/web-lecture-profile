@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 
-const AddRiwayatComponent = () => {
+const AddRiwayatPendidikanComponent = ({ id }) => {
   const [formData, setFormData] = useState({
-    id_dosen:'',
+    id_dosen: id,
     jenjang_pendidikan: '',
     nama_institusi: '',
     tahun_lulus: ''
@@ -71,8 +71,8 @@ const AddRiwayatComponent = () => {
             onChange={handleChange}
             className="form-control"
             required
+            disabled
           >
-            <option value="">Pilih Dosen</option>
             {
               dosenList.map((element) => (
                 <option key={element.id_dosen} value={element.id_dosen}>{element.nama}</option>
@@ -92,22 +92,22 @@ const AddRiwayatComponent = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Tahun Lulus</label>
+          <label className="form-label">Nama Institusi</label>
           <input
             type="text"
-            name="tahun_lulus"
-            value={formData.tahun_lulus}
+            name="nama_institusi"
+            value={formData.nama_institusi}
             onChange={handleChange}
             className="form-control"
             required
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Nama Institusi</label>
+          <label className="form-label">Tahun Lulus</label>
           <input
             type="text"
-            name="nama_institusi"
-            value={formData.nama_institusi}
+            name="tahun_lulus"
+            value={formData.tahun_lulus}
             onChange={handleChange}
             className="form-control"
             required
@@ -119,4 +119,4 @@ const AddRiwayatComponent = () => {
   );
 };
 
-export default AddRiwayatComponent;
+export default AddRiwayatPendidikanComponent;

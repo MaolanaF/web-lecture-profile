@@ -4,13 +4,6 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Cookies from "js-cookie";
-import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian_Dosen";
-import {
-  FaGraduationCap,
-  FaChalkboardTeacher,
-  FaFlask,
-  FaBook,
-} from "react-icons/fa";
 
 function NavbarDosen({ id }) {
   const navigate = useNavigate();

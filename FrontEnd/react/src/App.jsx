@@ -13,6 +13,13 @@ import Pendidikan from './pages/pendidikan/Pendidikan';
 import AddPendidikan from './pages/pendidikan/AddPendidikan';
 import EditPendidikan from './pages/pendidikan/EditPendidikan';
 
+// Mata Kuliah & Riwayat Pengajaran
+import AddMatkul from './pages/mata_kuliah/AddMatkul';
+import Mata_Kuliah from './pages/mata_kuliah/Matkul';
+import EditMatkul from './pages/mata_kuliah/EditMatkul';
+import AddPengajaran from './pages/riwayat_pengajaran/AddRiwayatPengajaran';
+import EditRiwayatPengajaran from './pages/riwayat_pengajaran/EditRiwayatPengajaran'
+
 // Penelitian
 import Penelitian from './pages/penelitian/Penelitian';
 import AddPenelitian from './pages/penelitian/AddPenelitian';
@@ -20,12 +27,15 @@ import EditPenelitian from './pages/penelitian/EditPenelitian';
 import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitian';
 import DetailPenelitian from './pages/riwayat_penelitian/ListRiwayatPenelitianDetail';
 
-// Mata Kuliah & Riwayat Pengajaran
-import AddMatkul from './pages/mata_kuliah/AddMatkul';
-import Mata_Kuliah from './pages/mata_kuliah/Matkul';
-import EditMatkul from './pages/mata_kuliah/EditMatkul';
-import AddPengajaran from './pages/riwayat_pengajaran/AddRiwayatPengajaran';
-import EditRiwayatPengajaran from './pages/riwayat_pengajaran/EditRiwayatPengajaran'
+// PKM
+import AddPkm from './pages/pkm/AddPKM'
+import EditPkm from './pages/pkm/EditPKM'
+// import ListPkm from './pages/pkm/ListPKM'
+
+// Riwayat PKM
+// import EditRiwayatPkm from './pages/riwayatPkm/EditRiwayatPKM'
+import AddRiwayatPkm from './pages/riwayatPkm/AddRiwayatPKM'
+import DetailPKM from './pages/riwayatPkm/ListRiwayatPKMDetail'
 
 // Web Pages Viewer
 import Home from './pages/Home';
@@ -39,16 +49,6 @@ import DashboardAdmin_Matkul from './pages/DashboardAdmin_Matkul';
 // Dashboard Dosen
 import DashboardDosen_Dosen from './pages/DashboardDosen_Dosen';
 // import DashboardDosen_Penelitian from './pages/DashboardDosen_Penelitian';
-
-// PKM
-import EditPkm from './pages/pkm/EditPkm'
-import AddPkm from './pages/pkm/InputPkm'
-import ListPkm from './pages/pkm/ListPkms'
-
-// Riwayat PKM
-import EditRiwayatPkm from './pages/riwayatPkm/EditRiwayatPkm'
-import AddRiwayatPkm from './pages/riwayatPkm/InputRiwayatPkm'
-import ListRiwayatPkm from './pages/riwayatPkm/ListRiwayatPkms'
 
 function App() {
   return (
@@ -71,6 +71,14 @@ function App() {
             <Route path="/riwayat_penelitian/insert" element = {<AddRiwayatPenelitian/>} />
             <Route path="/detail_penelitian/:id_penelitian" element = {<DetailPenelitian/>} />
 
+            {/* PKM */}
+            {/* <Route path="/pkm/list" element={<ListPkm />} /> */}
+            <Route path="/pkm/insert" element={<AddPkm />} />
+            <Route path="/pkm/edit/:id_pkm" element={<EditPkm />} />
+            {/* <Route path="/riwayatpkm/list" element={<ListRiwayatPkm />} /> */}
+            <Route path="/riwayatpkm/insert" element={<AddRiwayatPkm />} />
+            <Route path="/detail_pkm/:id_pkm" element={<DetailPKM/>} />
+
             {/* Mata Kuliah & Pengajaran */}
             <Route path="/mata_kuliah/insert" element = {<AddMatkul/>} />
             <Route path="/mata_kuliah" element = {<Mata_Kuliah/>} />
@@ -91,13 +99,6 @@ function App() {
             <Route path="/dashboard_dosen/dosen/:id_dosen" element = {<DashboardDosen_Dosen/>} />
             {/* <Route path="/dashboard_dosen/penelitian/:id_dosen" element={<DashboardDosen_Penelitian />} /> */}
 
-            {/* PKM */}
-            <Route path="/pkm/list" element={<ListPkm />} />
-            <Route path="/pkm/insert" element={<AddPkm />} />
-            <Route path="/pkm/edit/:id_pkm" element={<EditPkm />} />
-            <Route path="/riwayatpkm/list" element={<ListRiwayatPkm />} />
-            <Route path="/riwayatpkm/insert" element={<AddRiwayatPkm />} />
-            <Route path="/riwayatpkm/edit/:id_riwayatpkm" element={<EditRiwayatPkm />} />
           </Routes>
       </Router>
       
