@@ -8,7 +8,7 @@ router.get('/riwayat_pendidikan/:id_pendidikan', pendidikanController.getPendidi
 router.post('/riwayat_pendidikan', pendidikanController.insertPendidikan);
 router.put('/riwayat_pendidikan/:id_pendidikan', pendidikanController.updatePendidikan);
 router.delete('/riwayat_pendidikan/:id_pendidikan', pendidikanController.deletePendidikan);
-router.get('/profile_dosen/riwayat_pendidikan/:id_dosen', pendidikanController.getPendidikanByIdDosen);
+//router.get('/profile_dosen/riwayat_pendidikan/:id_dosen', pendidikanController.getPendidikanByIdDosen);
 
 module.exports = router;
 
