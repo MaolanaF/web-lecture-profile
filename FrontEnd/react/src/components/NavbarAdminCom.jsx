@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
@@ -37,11 +37,11 @@ const NavbarAdmin = () => {
         <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
             {/* Beranda */}
-            <Nav.Link as={Link} to="/dashboard_admin/dosen" style={{ fontWeight:"bold" }}>
+            <Nav.Link as={Link} to="/dashboard_admin/dosen" style={{ fontWeight:"600" }}>
                 Dosen
             </Nav.Link>
             {/* Mata Kuliah */}
-            <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah" style={{ fontWeight:"bold" }}>
+            <Nav.Link as={Link} to="/dashboard_admin/mata_kuliah" style={{ fontWeight:"600" }}>
                 Mata Kuliah
               </Nav.Link>
             </Nav>

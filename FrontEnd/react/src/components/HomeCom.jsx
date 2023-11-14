@@ -9,8 +9,6 @@ const ListDosenComponent = () => {
     const [dosenList, setDosenList] = useState([]);
     const [penelitianList, setPenelitianList] = useState([]);
     const [pkmList, setPKMList] = useState([]);
-    const [latestPenelitian, setLatestPenelitian] = useState([]);
-    const [latestPKM, setLatestPKM] = useState([]);
     // Menghitung jumlah data dalam array dosenList
     const totalDosen = dosenList.length;
     const totalPenelitian = penelitianList.length;
@@ -33,9 +31,6 @@ const ListDosenComponent = () => {
       axios.get('http://localhost:3100/penelitian')
       .then((response) => {
         setPenelitianList(response.data);
-        // Ambil 3 penelitian terbaru
-        const sortedPenelitian = response.data.slice().sort((a, b) => b.tanggal_publikasi - a.tanggal_publikasi).slice(0, 3);
-        setLatestPenelitian(sortedPenelitian);
       })
       .catch((error) => {
         console.error(error);
@@ -44,20 +39,11 @@ const ListDosenComponent = () => {
       axios.get('http://localhost:3100/pkm')
       .then((response) => {
         setPKMList(response.data);
-        // Ambil 3 PKM terbaru
-        const sortedPKM = response.data.slice().sort((a, b) => b.tahun_pkm - a.tahun_pkm).slice(0, 3);
-        setLatestPKM(sortedPKM);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-
-   // Function to format the date
-   const formatDate = (dateString) => {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return new Date(dateString).toLocaleDateString('id-ID', options);
-  };
 
     return (
     <>
@@ -152,52 +138,6 @@ const ListDosenComponent = () => {
           </Row>
         </Container>
       </section>
-
-      <section id="penelitian" className="blog-mf sect-pt4 route">
-        <Container>
-          <Row>
-            <Col>
-              <div className="title-box text-center">
-                <h3 className="title-a mt-5">Penelitian</h3>
-                <p className="subtitle-a">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                <div className="line-mf mb-5"></div>
-              </div>
-            </Col>
-          </Row>
-          <Row>
-            {latestPenelitian.map((penelitian, index) => (
-              <Col md={4} key={index}>
-                <Card className="card-blog mt-2">
-                  <Card.Img variant="top" src={penelitian.image} alt="" className="img-fluid" />
-                  <Card.Body>
-                    <div className="card-category-box">
-                      <div className="card-category">
-                        <h6 className="category">{penelitian.bidang}</h6>
-                      </div>
-                    </div>
-                    <Card.Title>
-                      <a href={penelitian.link}>{penelitian.judul}</a>
-                    </Card.Title>
-                    <Card.Text>{penelitian.description}</Card.Text>
-                  </Card.Body>
-                  <Card.Footer>
-                    <div className="post-author">
-                      <a href={penelitian.authorProfileLink}>
-                        <Image src={penelitian.authorImage} alt="" className="avatar rounded-circle" />
-                        <span className="author">{penelitian.author}</span>
-                      </a>
-                    </div>
-                    <div className="post-date">
-                      <span className="bi bi-clock"></span> {formatDate(penelitian.tanggal_publikasi)}
-                    </div>
-                  </Card.Footer>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      </section>
-
     </>
     );
   };

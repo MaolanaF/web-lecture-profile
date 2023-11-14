@@ -127,7 +127,6 @@ const AddPenelitianComponent = ({ id }) => {
             accept='application/pdf'
             onChange={handleFileChange}
             className="form-control"
-            required
           />
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>

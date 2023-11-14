@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
-import { Link as ScrollLink } from "react-scroll"; // Import ScrollLink
-
-// const isHome = location.pathname === `/home`;
+import { Link as ScrollLink } from "react-scroll";
 
 const MyNavbar = () => {
+  const location = useLocation();
+  const isHome = location.pathname === "/home";
+
   return (
     <Navbar expand="lg" bg="light" variant="light" fixed="top">
       <Container>
@@ -24,64 +25,46 @@ const MyNavbar = () => {
         <Navbar.Toggle aria-controls="navbar" />
         <Navbar.Collapse id="navbar">
           <Nav className="me-auto">
-            {/* About */}
-            {/* <Nav.Link style={{ color: "black" }}>
+            {/* Beranda */}
+            <Nav.Link style={{ color: "black" }}>
               {isHome ? (
                 <ScrollLink
+                  activeClass=""
                   to="beranda"
                   spy={true}
                   smooth={true}
                   offset={-70}
-                  duration={500}
+                  duration={150}
                 >
-                Beranda
+                  Beranda
                 </ScrollLink>
               ) : (
-                <Link to={{ pathname: `/home` }}>Beranda</Link>
+                <Link to="/home">Beranda</Link>
               )}
-            </Nav.Link> */}
+            </Nav.Link>
+
+            {/* Dosen */}
             <Nav.Link style={{ color: "black" }}>
-            <ScrollLink
-              activeClass=""
-              to="beranda"
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-            >
-              Beranda
-            </ScrollLink>
-            </Nav.Link>
-            {/* About */}
-            <Nav.Link href="#" style={{ color: "black" }}>
-            <ScrollLink
-              activeClass=""
-              to="dosen"
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-            >
-              Dosen
-            </ScrollLink>
-            </Nav.Link>
-            <Nav.Link href="#" style={{ color: "black" }}>
-            <ScrollLink
-              activeClass="active"
-              to="penelitian"
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-            >
-              Penelitian
-            </ScrollLink>
+              {isHome ? (
+                <ScrollLink
+                  activeClass=""
+                  to="dosen"
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={150}
+                >
+                  Dosen
+                </ScrollLink>
+              ) : (
+                <Link to="/home">Dosen</Link>
+              )}
             </Nav.Link>
           </Nav>
 
           <Nav>
             {/* Login */}
-            <Link to={{ pathname: `/login` }}>
+            <Link to={{ pathname: "/login" }}>
               <Button variant="warning" style={{ fontWeight: "500" }}>
                 LOGIN
               </Button>
