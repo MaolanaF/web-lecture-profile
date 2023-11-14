@@ -23,6 +23,13 @@ const getDosenByIdPKM = (id_pkm, callback) => {
     client.query(query, values, callback);
 }
 
+const getRiwayatPKMExceptDosen = (id_dosen, callback) => {
+    const query = 'SELECT pkm.id_pkm, MIN(riwayat_pkm.id_riwayatpkm) AS id_riwayatpkm, MIN(pkm.judul_pkm) AS judul_pkm, MIN(pkm.tahun_pkm) AS tahun_pkm, MIN(pkm.bidang_pkm) AS bidang_pkm, MIN(pkm.link_pkm) AS link_pkm, MIN(pkm.kontributor) AS kontributor, MIN(dosen.nama) AS nama FROM pkm LEFT JOIN riwayat_pkm ON pkm.id_pkm = riwayat_pkm.id_pkm LEFT JOIN dosen ON riwayat_pkm.id_dosen = dosen.id_dosen WHERE pkm.id_pkm NOT IN (SELECT id_pkm FROM riwayat_pkm WHERE id_dosen = $1) OR dosen.id_dosen IS NULL GROUP BY pkm.id_pkm;';
+    const values = [id_dosen];
+    client.query(query, values, callback);
+}
+
+
 const insertRiwayatPKM = (id_pkm, id_dosen, callback) => {
     const query = 'INSERT INTO riwayat_pkm (id_pkm, id_dosen) VALUES ($1, $2)';
     const values = [id_pkm, id_dosen];
@@ -49,4 +56,5 @@ module.exports = {
     insertRiwayatPKM,
     updateRiwayatPKM,
     deleteRiwayatPKM,
+    getRiwayatPKMExceptDosen,
 };

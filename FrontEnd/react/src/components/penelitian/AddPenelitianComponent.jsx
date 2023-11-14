@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddPenelitianComponent = ({ id }) => {
 
@@ -52,7 +53,17 @@ const AddPenelitianComponent = ({ id }) => {
         },
       })
       .then((response) => {
-        alert("Data penelitian berhasil ditambah!");
+        Swal.fire({
+          title: 'Berhasil Menambah Data Penelitian',
+          text: 'Data penelitian berhasil ditambahkan.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
         console.log(response.data);
         // Handle success or redirection here
       })

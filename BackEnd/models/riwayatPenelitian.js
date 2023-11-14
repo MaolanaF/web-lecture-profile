@@ -13,6 +13,12 @@ const getRiwayatPenelitianById = (id_riwayatpenelitian, callback) => {
     client.query(query, values, callback);
 }
 
+const getRiwayatPenelitianExceptDosen = (id_dosen, callback) => {
+    const query = 'SELECT penelitian.id_penelitian, MIN(penelitian.judul) AS judul, MIN(penelitian.tanggal_publikasi) AS tanggal_publikasi, MIN(penelitian.bidang) AS bidang, MIN(penelitian.author) AS author, MIN(penelitian.link_penelitian) AS link_penelitian, MIN(dosen.nama) AS nama FROM penelitian LEFT JOIN riwayat_penelitian ON penelitian.id_penelitian = riwayat_penelitian.id_penelitian LEFT JOIN dosen ON riwayat_penelitian.id_dosen = dosen.id_dosen WHERE penelitian.id_penelitian NOT IN (SELECT id_penelitian FROM riwayat_penelitian WHERE id_dosen = $1) OR dosen.id_dosen IS NULL GROUP BY penelitian.id_penelitian; ';
+    const values = [id_dosen];
+    client.query(query, values, callback);
+}
+
 
 const insertRiwayatPenelitian = (id_dosen, id_penelitian, callback) => {
     const query = 'INSERT INTO riwayat_penelitian (id_dosen, id_penelitian) VALUES ($1, $2) RETURNING id_riwayatpenelitian';
@@ -51,5 +57,7 @@ module.exports = {
     insertRiwayatPenelitian,
     updateRiwayatPenelitian,
     deleteRiwayatPenelitian,
-    getPenelitianByIdDosen
+    getPenelitianByIdDosen,
+    getRiwayatPenelitianExceptDosen
+    
 };

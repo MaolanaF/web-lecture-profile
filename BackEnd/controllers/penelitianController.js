@@ -53,33 +53,7 @@ const insertPenelitian = (req, res) => {
       res.status(500).send(err.message);
     }
   });  
-  
-  // if(req.files === null) return res.status(400).json({msg: "No File Uploaded"});
-  // const name = req.body.title;
-  // const file = req.files.file;
-  // const fileSize = file.data.length;
-  // const ext = path.extname(file.name);
-  // const fileName = file.md5 + ext;
-  // const url = `${req.protocol}://${req.get("host")}/files/${fileName}`;
-  // const allowedType = ['.pdf','.jpg','.jpeg'];
 
-  // if(!allowedType.includes(ext.toLowerCase())) return res.status(422).json({msg: "Invalid Images"});
-  // if(fileSize > 5000000) return res.status(422).json({msg: "Image must be less than 5 MB"});
-
-  // file.mv(`./public/images/${fileName}`, async(err)=>{
-  //     if(err) return res.status(500).json({msg: err.message});
-  //     try {
-  //       penelitianModel.insertPenelitian(judul, tanggal_publikasi, bidang, author, fileName, (err, result) => {
-  //         if (!err) {
-  //           res.send('Insert success');
-  //         } else {
-  //           res.status(500).send(err.message);
-  //         }
-  //       })
-  //     } catch (error) {
-  //         console.log(error.message);
-  //     }
-  // })
 }
 
 const updatePenelitian = (req, res) => {

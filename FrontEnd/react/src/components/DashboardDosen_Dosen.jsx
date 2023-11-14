@@ -112,15 +112,15 @@ function DashboardDosenDetailComponent({ id }) {
                   <ListRiwayatPenelitian_Dosen id={id} />
               </div>
               </Tab>
-              <Tab eventKey="Tambah Auhor Penelitian" title={<><FaFlask /> Author Penelitian</>}>
+              {/* <Tab eventKey="Tambah Auhor Penelitian" title={<><FaFlask /> Author Penelitian</>}>
                     <AddAuthorRiwayatPenelitian/>
-              </Tab>
+              </Tab> */}
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
                 <ListRiwayatPkm_Dosen id={id} />
               </Tab>
-              <Tab eventKey="Tambah Kontributor PKM" title={<><FaBook/> Kontributor PKM</>}>
+              {/* <Tab eventKey="Tambah Kontributor PKM" title={<><FaBook/> Kontributor PKM</>}>
                     <AddAuthorRiwayatPkm/>
-              </Tab>
+              </Tab> */}
             </Tabs>
           </Col>
         </Row>

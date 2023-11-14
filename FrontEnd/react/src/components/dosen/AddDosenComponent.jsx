@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import Cookies from "js-cookie";
 
 const AddDosenComponent = () => {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const [formData, setFormData] = useState({
     nama: "",
     email: "",
@@ -25,9 +30,18 @@ const AddDosenComponent = () => {
     axios
       .post("http://localhost:3100/dosen", formData)
       .then((response) => {
-        alert("Data dosen berhasil ditambah!");
+        Swal.fire({
+          title: 'Berhasil Menambah Data Dosen',
+          text: 'Data dosen berhasil ditambahkan.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
         console.log(response.data);
-        // Handle success or redirection here
       })
       .catch((error) => {
         console.error(error);
@@ -88,6 +102,7 @@ const AddDosenComponent = () => {
         </button>
       </form>
     </div>
+    
   );
 };
 

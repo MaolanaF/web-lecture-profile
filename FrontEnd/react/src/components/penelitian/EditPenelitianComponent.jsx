@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Swal from 'sweetalert2';
 
 function EditPenelitianComponent({ id }) {
     const [formData, setFormData] = useState({
@@ -35,10 +35,12 @@ function EditPenelitianComponent({ id }) {
     async function fetchData() {
       try {
         const response = await axios.get(`http://localhost:3100/penelitian/${id}`);
-        const rows = response.data.rows[0];
-        setFormData(response.data.rows[0]);
-        console.log(id);
-        console.log(rows);
+        if (response.data.rows.length > 0) {
+          const rows = response.data.rows[0];
+          setFormData(response.data.rows[0]);
+          console.log(id);
+          console.log(rows);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -64,7 +66,17 @@ function EditPenelitianComponent({ id }) {
         },
       });
       console.log(response.data);
-      alert("Data penelitian berhasil diperbarui");
+      Swal.fire({
+        title: 'Berhasil Mengedit Data Penelitian',
+        text: 'Data penelitian berhasil diedit.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000, // 2000 milidetik (2 detik),
+        didClose: () => {
+          // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+          window.location.reload();
+        }
+      });
     } catch (error) {
       console.error("Error updating data:", error);
     }
@@ -91,6 +103,7 @@ function EditPenelitianComponent({ id }) {
             type="text"
             className="form-control"
             name="judul"
+            id="judul"
             value={formData.judul}
             onChange={handleInputChange}
           />
