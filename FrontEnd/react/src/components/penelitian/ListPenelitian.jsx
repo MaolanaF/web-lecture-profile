@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.css'; // Impor CSS Bootstrap
 import { Link } from "react-router-dom";
 
@@ -24,7 +25,24 @@ const ListPenelitianComponent = () => {
     axios.delete(`http://localhost:3100/penelitian/${id}`)
       .then(() => {
         // Hapus data dosen dari state
-        setPenelitianList((prevPenelitianList) => prevPenelitianList.filter((penelitian) => penelitian.id_penelitian !== id));
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setPenelitianList((prevPenelitianList) => prevPenelitianList.filter((penelitian) => penelitian.id_penelitian !== id));
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          }
+        });
       })
       .catch((error) => {
         console.error(error);

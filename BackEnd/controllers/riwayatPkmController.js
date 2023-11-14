@@ -10,6 +10,21 @@ const getAllRiwayatPKM = (req, res) => {
   });
 }
 
+const getRiwayatPKMExceptDosen = (req, res) => {
+  const id_dosen = req.params.id_dosen;
+  riwayatPkmModel.getRiwayatPKMExceptDosen(id_dosen, (err, result) => {
+    if (!err) {
+      if (result.rows.length > 0) {
+        res.send(result.rows);
+      } else {
+        res.status(404).send('Data PKM tidak ditemukan untuk dosen dengan ID tertentu');
+      }
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+}
+
 const getRiwayatPKMById = (req, res) => {
   const id_riwayatpkm = req.params.id_riwayatpkm;
   riwayatPkmModel.getRiwayatPKMById(id_riwayatpkm, (err, result) => {
@@ -93,4 +108,5 @@ module.exports = {
   deleteRiwayatPKM,
   insertRiwayatPKM,
   updateRiwayatPKM,
+  getRiwayatPKMExceptDosen,
 };

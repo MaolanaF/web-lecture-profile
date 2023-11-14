@@ -9,5 +9,6 @@ router.get('/profile_dosen/riwayatpkm/detail/:id_pkm', riwayatPkmController.getD
 router.post('/riwayatpkm', riwayatPkmController.insertRiwayatPKM);
 router.put('/riwayatpkm/:id_riwayatpkm', riwayatPkmController.updateRiwayatPKM);
 router.delete('/riwayatpkm/:id_riwayatpkm', riwayatPkmController.deleteRiwayatPKM);
+router.get('/profile_dosen/riwayatpkm/addAuthor/:id_dosen', riwayatPkmController.getRiwayatPKMExceptDosen);
 
 module.exports = router;

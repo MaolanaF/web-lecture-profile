@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
-const AddRiwayatPKMComponent = () => {
+const AddRiwayatPKMComponent = ({ id }) => {
   // State untuk daftar dosen
   const [dosenList, setDosenList] = useState([]);
 
@@ -35,7 +36,7 @@ const AddRiwayatPKMComponent = () => {
   // State untuk data formulir
   const [formData, setFormData] = useState({
     id_dosen: '',
-    id_pkm: ''
+    id_pkm: id
   });
 
   // Fungsi untuk meng-handle perubahan input
@@ -56,7 +57,17 @@ const AddRiwayatPKMComponent = () => {
     // Melakukan permintaan POST ke endpoint backend
     axios.post('http://localhost:3100/riwayatpkm', { id_pkm, id_dosen })
       .then((response) => {
-        alert("Data Kontributor PKM berhasil ditambah!");
+        Swal.fire({
+          title: 'Berhasil Menambah Penulis',
+          text: 'Penulis berhasil ditambahkan.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
         console.log(response.data);
         // Handle success or redirection here
       })
@@ -95,6 +106,7 @@ const AddRiwayatPKMComponent = () => {
             onChange={handleChange}
             className="form-control"
             required
+            disabled
           >
             <option value="">Pilih Judul PKM</option>
             {

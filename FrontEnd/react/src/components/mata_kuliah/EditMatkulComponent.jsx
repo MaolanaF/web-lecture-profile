@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 function EditMatkulComponent({ id }) {
     const [formData, setFormData] = useState({
@@ -40,10 +41,22 @@ function EditMatkulComponent({ id }) {
     try {
       const response = await axios.put(`http://localhost:3100/mata_kuliah/${id}`, formData);
       console.log(response.data);
-      alert("Data mata kuliah berhasil diperbarui");
+      Swal.fire({
+        title: 'Berhasil Mengedit Data Mata Kuliah',
+        text: 'Data mata kuliah berhasil diedit.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000, // 2000 milidetik (2 detik),
+        didClose: () => {
+          // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+          window.location.reload();
+        }
+      });
     } catch (error) {
       console.error("Error updating data:", error);
     }
+
+    window.location = "http://localhost:5173/mata_kuliah"
   };
 
   return (

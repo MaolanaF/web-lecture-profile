@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
 import { Modal } from 'react-bootstrap';
-import { FaSearch, FaEdit, FaTrash, FaFile } from 'react-icons/fa';
+import { FaSearch, FaEdit, FaTrash, FaFile, FaPlus } from 'react-icons/fa';
+import AddPenulisPkmComponent from '../riwayatPkm/AddRiwayatPKMComponent';
 import AddPKMComponent from '../pkm/AddPKMComponent';
 import EditPKMComponent from '../pkm/EditPKMComponent';
 
 const ListRiwayatPKMComponentDosen = ({ id }) => {
   // State untuk menyimpan data riwayat PKM
   const [listRiwayatPKM, setlistRiwayatPKM] = useState([]);
+  const [pkmList, setPkmList] = useState([]);
   
   // State untuk menangani input pencarian
   const [searchText, setSearchText] = useState("");
@@ -17,6 +20,7 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
   
   // State untuk menangani modal edit data PKM
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showAddAuthorModal, setAddAuthorModal] = useState(false);
   
   // State untuk menyimpan ID PKM yang akan diubah
   const [selectedPKMId, setSelectedPKMId] = useState(null);
@@ -35,6 +39,15 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
 
   const handleCloseEditModal = () => {
     setShowEditModal(false);
+  };
+
+  const handleShowAddAuthorModal = (id) => {
+    setSelectedPKMId(id);
+    setAddAuthorModal(true);
+  };
+
+  const handleCloseAddAuthorModal = () => {
+    setAddAuthorModal(false);
   };
 
   useEffect(() => {
@@ -56,13 +69,80 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
       });
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3100/profile_dosen/riwayatpkm/addAuthor/${id}`)
+      .then((response) => {
+        const sortedRiwayatPKMList = response.data.sort((a, b) => {
+          if (a.tahun_pkm === b.tahun_pkm) {
+            return a.judul_pkm.localeCompare(b.judul_pkm);
+          }
+          return a.tahun_pkm - b.tahun_pkm;
+        });
+        setPkmList(sortedRiwayatPKMList); // Mengatur data dosen ke dalam state
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  const handleSubmit = (id_dosen, id_pkm) => {
+    // Make a POST request to your backend endpoint
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan berkontribusi dalam penulisan PKM!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, add it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post('http://localhost:3100/riwayatpkm', {
+          id_dosen,
+          id_pkm,
+        })
+        Swal.fire({
+          title: 'Berhasil!',
+          text: 'Berhasil menambahkan PKM.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
+      }
+    });
+  };
+
+
   // Fungsi untuk menghapus data PKM berdasarkan ID
   const handleDelete = (id) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
     axios.delete(`http://localhost:3100/riwayatpkm/${id}`)
       .then(() => {
         // Hapus data PKM dari state
-        setlistRiwayatPKM((prevRiwayatPKMList) => prevRiwayatPKMList.filter((riwayat_pkm) => riwayat_pkm.id_riwayatpkm !== id));
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setlistRiwayatPKM((prevRiwayatPKMList) => prevRiwayatPKMList.filter((riwayat_pkm) => riwayat_pkm.id_riwayatpkm !== id));
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          }
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -71,6 +151,10 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
 
   // Menghasilkan daftar riwayat PKM yang sudah difilter berdasarkan input pencarian
   const filteredPKMList = listRiwayatPKM.filter((riwayat_pkm) => {
+    const fullName = `${riwayat_pkm.judul_pkm} ${riwayat_pkm.tahun_pkm} ${riwayat_pkm.bidang_pkm} ${riwayat_pkm.nama}`;
+    return fullName.toLowerCase().includes(searchText.toLowerCase());
+  });
+  const filteredRiwayatPKMList = pkmList.filter((riwayat_pkm) => {
     const fullName = `${riwayat_pkm.judul_pkm} ${riwayat_pkm.tahun_pkm} ${riwayat_pkm.bidang_pkm} ${riwayat_pkm.nama}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
@@ -120,6 +204,9 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
               <td>
                 <a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/pkm/'+riwayat_pkm.link_pkm}><FaFile></FaFile> Lihat File</a></td>
               <td>
+                <button className="btn btn-success btn-sm" onClick={() => { handleShowAddAuthorModal(riwayat_pkm.id_pkm);}}>
+                  <FaPlus  />
+                </button>
                 <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(riwayat_pkm.id_pkm)}>
                   <FaEdit />
                 </button>
@@ -150,6 +237,14 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
         </Modal.Header>
         <Modal.Body>
           <EditPKMComponent id={selectedPKMId} handleClose={handleCloseEditModal} />
+        </Modal.Body>
+      </Modal>
+      <Modal show={showAddAuthorModal} onHide={handleShowAddAuthorModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Tambah Penulis PKM</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddPenulisPkmComponent id={selectedPKMId} handleClose={handleCloseAddAuthorModal} />
         </Modal.Body>
       </Modal>
     </div>

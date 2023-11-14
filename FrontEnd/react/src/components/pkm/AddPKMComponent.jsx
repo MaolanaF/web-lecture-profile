@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddPKMComponent = ({ id }) => {
 
@@ -52,7 +53,17 @@ const AddPKMComponent = ({ id }) => {
         },
       })
       .then((response) => {
-        alert("Data PKM berhasil ditambah!");
+        Swal.fire({
+          title: 'Berhasil Menambah Data PKM',
+          text: 'Data pkm berhasil ditambahkan.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
         console.log(response.data);
         // Handle success or redirection here
       })

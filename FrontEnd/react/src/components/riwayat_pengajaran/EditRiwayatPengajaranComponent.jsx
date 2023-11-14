@@ -93,7 +93,17 @@ function EditRiwayatPengajaranComponent({ id }) {
     try {
       const response = await axios.put(`http://localhost:3100/riwayat_pengajaran/${id}`, { id_dosen, id_matkul, semester, tahun });
       console.log(response.data);
-      alert("Data riwayat pengajaran berhasil diperbarui");
+      Swal.fire({
+        title: 'Berhasil Mengedit Data PKM',
+        text: 'Data PKM berhasil diedit.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000, // 2000 milidetik (2 detik),
+        didClose: () => {
+          // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+          window.location.reload();
+        }
+      });
     } catch (error) {
       console.error("Error updating data:", error);
     }

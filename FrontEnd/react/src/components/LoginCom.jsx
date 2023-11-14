@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
+import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { FaLock, FaUser } from "react-icons/fa";
@@ -35,10 +36,15 @@ function LoginCom() {
         const userData = response.data[0];
 
         Cookies.set("role", userData.role, { expires: 1 });
+        
 
         // navigate("/dashboard_admin/dosen"); // Navigate to home page
         if (userData.role === "Admin") {
-          alert("Login berhasil!");
+          Swal.fire({
+            title: "Yippie!",
+            text: "Login berhasil!",
+            icon: "success"
+          });
           navigate("/dashboard_admin/dosen");
         } else if (userData.role === "Dosen") {
           try {
@@ -47,7 +53,11 @@ function LoginCom() {
             );
             const idDosen = response.data[0].id_dosen;
             Cookies.set("userAuth", idDosen, { expires: 1 });
-            alert("Login berhasil!");
+            Swal.fire({
+              title: "Yippie!",
+              text: "Login berhasil!",
+              icon: "success"
+            });
             navigate("/dashboard_dosen/dosen/" + idDosen);
           } catch (err) {
             console.error(err);
@@ -57,12 +67,22 @@ function LoginCom() {
           console.log("Role tidak valid");
         }
       } else {
-        alert("Tidak Ada User");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "User tidak ditemukan!",
+          footer: '<a href="#">Why do I have this issue?</a>'
+        });
         console.log("Tidak Ada User");
       }
       // You can perform actions like redirecting the user after successful login
     } catch (err) {
-      alert("Username atau Password Salah!");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Username atau password salah!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
       setError("Login failed. Please check your credentials."); // Handle errors
       console.error("Login failed:", err);
     }

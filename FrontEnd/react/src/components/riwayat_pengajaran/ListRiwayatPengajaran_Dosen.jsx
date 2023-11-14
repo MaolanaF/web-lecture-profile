@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
 import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddPengajaranComponent from '../riwayat_pengajaran/AddRiwayatPengajaranComponent';
@@ -60,8 +61,24 @@ const ListRiwayatPengajaranCom = ({ id }) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
     axios.delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
       .then(() => {
-        setlistRiwayatPengajaran((prevRiwayatPengajaranList) => prevRiwayatPengajaranList.filter((riwayat_pengajaran) => riwayat_pengajaran.id_pengajaran !== id));
-        alert("Riwayat pengajaran berhasil dihapus!");
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setlistRiwayatPengajaran((prevRiwayatPengajaranList) => prevRiwayatPengajaranList.filter((riwayat_pengajaran) => riwayat_pengajaran.id_pengajaran !== id));
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          }
+        });
       })
       .catch((error) => {
         console.error(error);
