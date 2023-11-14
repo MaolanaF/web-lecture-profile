@@ -15,6 +15,21 @@ const getRiwayatPenelitianById = (req, res) => {
   });
 }
 
+const getRiwayatPenelitianExceptDosen = (req, res) => {
+  const id_dosen = req.params.id_dosen;
+  riwayatPenelitianModel.getRiwayatPenelitianExceptDosen(id_dosen, (err, result) => {
+      if (!err) {
+          if (result.rows.length > 0) {
+              res.send(result.rows);
+          } else {
+              res.status(404).send('Data penelitian tidak ditemukan untuk dosen dengan ID tertentu');
+          }
+      } else {
+          res.status(500).send(err.message);
+      }
+  });
+}
+
 const getDosenByIdPenelitian = (req, res) => {
   const id_penelitian = req.params.id_penelitian;
   riwayatPenelitianModel.getDosenByIdPenelitian(id_penelitian, (err, result) => {
@@ -96,7 +111,8 @@ module.exports = {
   insertRiwayatPenelitian,
   updateRiwayatPenelitian,
   deleteRiwayatPenelitian,
-  getPenelitianByIdDosen
+  getPenelitianByIdDosen,
+  getRiwayatPenelitianExceptDosen
 };
 
 

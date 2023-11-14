@@ -176,16 +176,16 @@ const ListDosenComponent = () => {
                       </div>
                     </div>
                     <Card.Title>
-                      <a href={penelitian.link}>{penelitian.judul}</a>
+                      <h6>{penelitian.link}{penelitian.judul}</h6>
                     </Card.Title>
+
                     <Card.Text>{penelitian.description}</Card.Text>
                   </Card.Body>
                   <Card.Footer>
                     <div className="post-author">
-                      <a href={penelitian.authorProfileLink}>
+                      <h6>{penelitian.authorProfileLink}</h6>
                         <Image src={penelitian.authorImage} alt="" className="avatar rounded-circle" />
                         <span className="author">{penelitian.author}</span>
-                      </a>
                     </div>
                     <div className="post-date">
                       <span className="bi bi-clock"></span> {formatDate(penelitian.tanggal_publikasi)}

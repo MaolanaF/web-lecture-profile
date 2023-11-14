@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 function EditPKMComponent({ id }) {
   // State untuk menyimpan data PKM yang akan diedit
@@ -63,13 +64,20 @@ function EditPKMComponent({ id }) {
         },
       });
       console.log(response.data);
-      alert("Data PKM berhasil diperbarui");
+      Swal.fire({
+        title: 'Berhasil Mengedit Data PKM',
+        text: 'Data PKM berhasil diedit.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000, // 2000 milidetik (2 detik),
+        didClose: () => {
+          // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+          window.location.reload();
+        }
+      });
     } catch (error) {
       console.error("Error updating data:", error);
     }
-    
-    // // Mengarahkan pengguna kembali ke halaman daftar PKM setelah pembaruan
-    // window.location = "http://localhost:5173/pkm/list"
   };
 
   return (

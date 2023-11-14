@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
-const AddRiwayatPenelitianComponent = () => {
+const AddRiwayatPenelitianComponent = ({ id }) => {
 
   const [dosenList, setDosenList] = useState([]);
 
@@ -33,7 +34,7 @@ const AddRiwayatPenelitianComponent = () => {
 
   const [formData, setFormData] = useState({
     id_dosen: '',
-    id_penelitian: ''
+    id_penelitian: id
   });
 
   const handleChange = (e) => {
@@ -52,7 +53,17 @@ const AddRiwayatPenelitianComponent = () => {
     // Make a POST request to your backend endpoint
     axios.post('http://localhost:3100/riwayat_penelitian', { id_dosen, id_penelitian })
       .then((response) => {
-        alert("Data author penelitian berhasil ditambah!");
+        Swal.fire({
+          title: 'Berhasil Menambah Penulis',
+          text: 'Penulis berhasil ditambahkan.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
         console.log(response.data);
         // Handle success or redirection here
       })
@@ -60,7 +71,10 @@ const AddRiwayatPenelitianComponent = () => {
         console.error(error);
         // Handle error
       });
+
+    
   };
+
 
   return (
     <div className="container">
@@ -91,8 +105,8 @@ const AddRiwayatPenelitianComponent = () => {
             onChange={handleChange}
             className="form-control"
             required
+            disabled
           >
-            <option value="">Pilih Judul Penelitian</option>
             {
               penelitianList.map((element) => (
                 <option key={element.id_penelitian} value={element.id_penelitian}>{element.judul}</option>

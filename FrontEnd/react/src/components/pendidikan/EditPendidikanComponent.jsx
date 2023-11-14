@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 
 function EditRiwayatComponent({ id }) {
@@ -41,7 +42,17 @@ function EditRiwayatComponent({ id }) {
     try {
       const response = await axios.put(`http://localhost:3100/riwayat_pendidikan/${id}`, { jenjang_pendidikan, nama_institusi, tahun_lulus });
       console.log(response.data);
-      alert("Data pendidikan berhasil diperbarui");
+      Swal.fire({
+        title: 'Berhasil Mengedit Data Pendidikan',
+        text: 'Data pendidikan berhasil diedit.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 2000, // 2000 milidetik (2 detik),
+        didClose: () => {
+          // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+          window.location.reload();
+        }
+      });
     } catch (error) {
       console.error("Error updating data:", error);
     }

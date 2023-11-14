@@ -27,7 +27,7 @@ CREATE TABLE dosen (
 );
 
 -- Menambahkan kolom id user ke tabel dosen
-ALTER TABLE dosen ADD COLUMN id_user VARCHAR(10); 
+ALTER TABLE dosen ADD COLUMN id_user VARCHAR(10) NOT NULL; 
 
 -- Set foreign key id_user ke tabel dosen
 ALTER TABLE dosen ADD CONSTRAINT fk_dosen_id_user FOREIGN KEY (id_user) REFERENCES "user" (id_user);
@@ -50,8 +50,9 @@ EXECUTE FUNCTION generate_dosen_id_user();
 
 -- Memasukkan data dosen ke dalam tabel "user" 
 INSERT INTO "user" (id_user, username, password, role)
-VALUES ('USR0001', 'admin@example.com', 'admin123', 'admin');
- INSERT INTO dosen (id_dosen, nama, email, jabatan, jurusan) VALUES
+VALUES ('ADM0001', 'admin', 'admin', 'Admin');
+
+INSERT INTO dosen (id_dosen, nama, email, jabatan, jurusan) VALUES
     ('DSN0001', 'John Doe', 'john.doe@email.com', 'Profesor', 'Teknik'),
     ('DSN0002', 'Alice Johnson', 'alice.johnson@email.com', 'Asisten Prof.', 'Ekonomi'),
     ('DSN0003', 'Robert Smith', 'robert.smith@email.com', 'Lektor', 'Hukum'),
@@ -89,18 +90,6 @@ CREATE TABLE riwayat_pengajaran (
     tahun VARCHAR(10) NOT NULL
 );
 
--- Menambahkan kolom id dosen ke tabel riwayat pengajaran
-ALTER TABLE riwayat_pengajaran ADD COLUMN id_dosen VARCHAR(10);
-
--- Set foreign key id dosen ke tabel riwayat pengajaran
-ALTER TABLE riwayat_pengajaran ADD CONSTRAINT fk_pengajaran_id_dosen FOREIGN KEY (id_dosen) REFERENCES dosen (id_dosen);
-
--- Menambahkan kolom id matkul ke tabel riwayat pengajaran
-ALTER TABLE riwayat_pengajaran ADD COLUMN id_matkul VARCHAR(10);
-
--- Set foreign key id matkul ke tabel riwayat pengajaran
-ALTER TABLE riwayat_pengajaran ADD CONSTRAINT fk_pengajaran_id_matkul FOREIGN KEY (id_matkul) REFERENCES mata_kuliah (id_matkul);
-
 -- Memasukkan data mata kuliah ke dalam tabel "mata_kuliah"  
 INSERT INTO mata_kuliah (id_matkul, kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi)
 VALUES
@@ -119,25 +108,83 @@ VALUES
     ('MK013', '21MK013', 'Analisis dan Desain Sistem', '4ATI3', 'Politeknik Negeri Bandung'),
     ('MK014', '21MK014', 'Pengantar Keamanan Informasi', '4ATI4', 'Politeknik Negeri Bandung'),
     ('MK015', '21MK015', 'Manajemen Database', '4BTI3', 'Politeknik Negeri Bandung');
+
+-- Insert data ke dalam tabel riwayat_pengajaran
     
--- Memasukkan relasi antara data mata kuliah dan dosen
-INSERT INTO riwayat_pengajaran (id_pengajaran, id_matkul, id_dosen)
+INSERT INTO riwayat_pengajaran (id_pengajaran, semester, tahun)
 VALUES
-    ('RPG001', 'MK001', 'DSN0001'),
-    ('RPG002', 'MK002', 'DSN0002'),
-    ('RPG003', 'MK003', 'DSN0003'),
-    ('RPG004', 'MK004', 'DSN0004'),
-    ('RPG005', 'MK005', 'DSN0005'),
-    ('RPG006', 'MK006', 'DSN0006'),
-    ('RPG007', 'MK007', 'DSN0007'),
-    ('RPG008', 'MK008', 'DSN0008'),
-    ('RPG009', 'MK009', 'DSN0009'),
-    ('RPG010', 'MK010', 'DSN0010'),
-    ('RPG011', 'MK011', 'DSN0011'),
-    ('RPG012', 'MK012', 'DSN0012'),
-    ('RPG013', 'MK013', 'DSN0013'),
-    ('RPG014', 'MK014', 'DSN0014'),
-    ('RPG015', 'MK015', 'DSN0015');
+    ('RPG001', 'Ganjil', 2021),
+    ('RPG002', 'Genap', 2021),
+    ('RPG003', 'Ganjil', 2018),
+    ('RPG004', 'Ganjil', 2017),
+    ('RPG005', 'Genap', 2018),
+    ('RPG006', 'Genap', 2017),
+    ('RPG007', 'Ganjil', 2015),
+    ('RPG008', 'Genap', 2015),
+    ('RPG009', 'Ganjil', 2012),
+    ('RPG010', 'Genap', 2012),
+    ('RPG011', 'Ganjil', 2011),
+    ('RPG012', 'Genap', 2011),
+    ('RPG013', 'Ganjil', 2016),
+    ('RPG014', 'Genap', 2016),
+    ('RPG015', 'Ganjil', 2014);
+
+-- Menambahkan kolom id dosen ke tabel riwayat pengajaran
+ALTER TABLE riwayat_pengajaran ADD COLUMN id_dosen VARCHAR(10) NOT NULL;
+
+-- Set foreign key id dosen ke tabel riwayat pengajaran
+ALTER TABLE riwayat_pengajaran ADD CONSTRAINT fk_pengajaran_id_dosen FOREIGN KEY (id_dosen) REFERENCES dosen (id_dosen);
+
+-- Menambahkan kolom id matkul ke tabel riwayat pengajaran
+ALTER TABLE riwayat_pengajaran ADD COLUMN id_matkul VARCHAR(10) NOT NULL;
+
+-- Set foreign key id matkul ke tabel riwayat pengajaran
+ALTER TABLE riwayat_pengajaran ADD CONSTRAINT fk_pengajaran_id_matkul FOREIGN KEY (id_matkul) REFERENCES mata_kuliah (id_matkul);
+
+--SET ID_MATKUL SESUAI DENGAN ID_PENGAJARAN*
+    
+UPDATE riwayat_pengajaran
+SET id_matkul = CASE
+    WHEN id_pengajaran = 'RPG001' THEN 'MK001'
+    WHEN id_pengajaran = 'RPG002' THEN 'MK002'
+    WHEN id_pengajaran = 'RPG003' THEN 'MK003'
+    WHEN id_pengajaran = 'RPG004' THEN 'MK004'
+    WHEN id_pengajaran = 'RPG005' THEN 'MK005'
+    WHEN id_pengajaran = 'RPG006' THEN 'MK006'
+    WHEN id_pengajaran = 'RPG007' THEN 'MK007'
+    WHEN id_pengajaran = 'RPG008' THEN 'MK008'
+    WHEN id_pengajaran = 'RPG009' THEN 'MK009'
+    WHEN id_pengajaran = 'RPG010' THEN 'MK010'
+    WHEN id_pengajaran = 'RPG011' THEN 'MK011'
+    WHEN id_pengajaran = 'RPG012' THEN 'MK012'
+    WHEN id_pengajaran = 'RPG013' THEN 'MK013'
+    WHEN id_pengajaran = 'RPG014' THEN 'MK014'
+    WHEN id_pengajaran = 'RPG015' THEN 'MK015'
+    ELSE NULL
+END;
+
+
+--SET ID_DOSEN SESUAI DENGAN ID_PENGAJARAN*
+
+UPDATE riwayat_pengajaran
+SET id_dosen = CASE
+    WHEN id_pengajaran = 'RPG001' THEN 'DSN0001'
+    WHEN id_pengajaran = 'RPG002' THEN 'DSN0002'
+    WHEN id_pengajaran = 'RPG003' THEN 'DSN0003'
+    WHEN id_pengajaran = 'RPG004' THEN 'DSN0004'
+    WHEN id_pengajaran = 'RPG005' THEN 'DSN0005'
+    WHEN id_pengajaran = 'RPG006' THEN 'DSN0006'
+    WHEN id_pengajaran = 'RPG007' THEN 'DSN0007'
+    WHEN id_pengajaran = 'RPG008' THEN 'DSN0008'
+    WHEN id_pengajaran = 'RPG009' THEN 'DSN0009'
+    WHEN id_pengajaran = 'RPG010' THEN 'DSN0010'
+    WHEN id_pengajaran = 'RPG011' THEN 'DSN0011'
+    WHEN id_pengajaran = 'RPG012' THEN 'DSN0012'
+    WHEN id_pengajaran = 'RPG013' THEN 'DSN0013'
+    WHEN id_pengajaran = 'RPG014' THEN 'DSN0014'
+    WHEN id_pengajaran = 'RPG015' THEN 'DSN0015'
+    ELSE NULL
+END;
 
 -- Membuat trigger untuk id mata kuliah
 CREATE OR REPLACE FUNCTION generate_mata_kuliah_id() RETURNS TRIGGER AS $$
@@ -159,7 +206,7 @@ CREATE OR REPLACE FUNCTION generate_riwayat_pengajaran_id() RETURNS TRIGGER AS $
 DECLARE
     new_id VARCHAR(6);
 BEGIN
-    SELECT 'RPA' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_pengajaran FROM 4)::INT), 0) + 1) AS TEXT), 3, '0') INTO new_id FROM riwayat_pengajaran;
+    SELECT 'RPG' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_pengajaran FROM 4)::INT), 0) + 1) AS TEXT), 3, '0') INTO new_id FROM riwayat_pengajaran;
     NEW.id_pengajaran := new_id;
     RETURN NEW;
 END;
@@ -190,13 +237,13 @@ CREATE TABLE riwayat_penelitian (
 );
 
 -- Menambahkan kolom id dosen ke tabel riwayat penelitian
-ALTER TABLE riwayat_penelitian ADD COLUMN id_dosen VARCHAR(10);
+ALTER TABLE riwayat_penelitian ADD COLUMN id_dosen VARCHAR(10) NOT NULL;
 
 -- Set foreign key id dosen ke tabel riwayat penelitian
 ALTER TABLE riwayat_penelitian ADD CONSTRAINT fk_penelitian_id_dosen FOREIGN KEY (id_dosen) REFERENCES dosen (id_dosen);
 
 -- Menambahkan kolom id penelitian ke tabel riwayat pengajaran
-ALTER TABLE riwayat_penelitian ADD COLUMN id_penelitian VARCHAR(10);
+ALTER TABLE riwayat_penelitian ADD COLUMN id_penelitian VARCHAR(10) NOT NULL;
 
 -- Set foreign key id penelitian ke tabel riwayat penelitian
 ALTER TABLE riwayat_penelitian ADD CONSTRAINT fk_penelitian_id_penelitian FOREIGN KEY (id_penelitian) REFERENCES penelitian (id_penelitian);
@@ -258,7 +305,7 @@ CREATE OR REPLACE FUNCTION generate_penelitian_id() RETURNS TRIGGER AS $$
 DECLARE
     new_id VARCHAR(6);
 BEGIN
-    SELECT 'PEN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_penelitian FROM 4)::INT), 0) + 1) AS TEXT), 3, '0') INTO new_id FROM penelitian;
+    SELECT 'PEN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_penelitian FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM penelitian;
     NEW.id_penelitian := new_id;
     RETURN NEW;
 END;
@@ -273,7 +320,7 @@ CREATE OR REPLACE FUNCTION generate_riwayatpenelitian_id() RETURNS TRIGGER AS $$
 DECLARE
     new_id VARCHAR(6);
 BEGIN
-    SELECT 'RWL' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_riwayatpenelitian FROM 4)::INT), 0) + 1) AS TEXT), 3, '0') INTO new_id FROM riwayat_penelitian;
+    SELECT 'RWL' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_riwayatpenelitian FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM riwayat_penelitian;
     NEW.id_riwayatpenelitian := new_id;
     RETURN NEW;
 END;
@@ -290,14 +337,14 @@ EXECUTE FUNCTION generate_riwayatpenelitian_id();
 ----------------------------------------------------------------------------------------------------------------
 -- Membuat tabel mata kuliah
 CREATE TABLE riwayat_pendidikan (
-    id_pendidikan VARCHAR(10) PRIMARY KEY,
-    jenjang_pendidikan VARCHAR(100),
-    nama_institusi VARCHAR(100),
-    tahun_lulus INT
+    id_pendidikan VARCHAR(10) PRIMARY KEY NOT NULL,
+    jenjang_pendidikan VARCHAR(100) NOT NULL,
+    nama_institusi VARCHAR(100) NOT NULL,
+    tahun_lulus INT NOT NULL
 );
 
 -- Menambahkan kolom id dosen ke tabel riwayat pendidikan
-ALTER TABLE riwayat_pendidikan ADD COLUMN id_dosen VARCHAR(10);
+ALTER TABLE riwayat_pendidikan ADD COLUMN id_dosen VARCHAR(10) NOT NULL;
 
 -- Set foreign key id dosen ke tabel riwayat pendidikan
 ALTER TABLE riwayat_pendidikan ADD CONSTRAINT fk_pendidikan_id_dosen FOREIGN KEY (id_dosen) REFERENCES dosen (id_dosen);
@@ -318,18 +365,17 @@ FOR EACH ROW
 EXECUTE FUNCTION generate_riwayatpendidikan_id();
 
 
-
 ----------------------------------------------------------------------------------------------------------------
 --                                            PKM  & RIWAYAT PKM
 ----------------------------------------------------------------------------------------------------------------
 -- Membuat tabel pkm
 CREATE TABLE pkm(
-    id_pkm VARCHAR(10) PRIMARY KEY,
-    judul_pkm VARCHAR(200),
-    bidang_pkm VARCHAR(50),
-    tahun_pkm INT,
-    link_pkm VARCHAR(100),
-    kontributor VARCHAR(100)
+    id_pkm VARCHAR(10) PRIMARY KEY NOT NULL,
+    judul_pkm VARCHAR(200) NOT NULL,
+    bidang_pkm VARCHAR(50) NOT NULL,
+    tahun_pkm INT NOT NULL,
+    link_pkm VARCHAR(100) NOT NULL,
+    kontributor VARCHAR(100) NOT NULL
 );
 
 -- Membuat tabel riwayat pkm
@@ -338,13 +384,13 @@ CREATE TABLE riwayat_pkm (
 );
 
 -- Menambahkan kolom id dosen ke tabel riwayat riwayat pkm
-ALTER TABLE riwayat_pkm ADD COLUMN id_dosen VARCHAR(10);
+ALTER TABLE riwayat_pkm ADD COLUMN id_dosen VARCHAR(10) NOT NULL;
 
 -- Set foreign key id dosen ke tabel riwayat pkm
 ALTER TABLE riwayat_pkm ADD CONSTRAINT fk_pkm_id_dosen FOREIGN KEY (id_dosen) REFERENCES dosen (id_dosen);
 
 -- Menambahkan kolom id pkm ke tabel riwayat pkm
-ALTER TABLE riwayat_pkm ADD COLUMN id_pkm VARCHAR(10);
+ALTER TABLE riwayat_pkm ADD COLUMN id_pkm VARCHAR(10) NOT NULL;
 
 -- Set foreign key id pkm ke tabel riwayat pkm
 ALTER TABLE riwayat_pkm ADD CONSTRAINT fk_pkm_id_pkm FOREIGN KEY (id_pkm) REFERENCES pkm (id_pkm);
@@ -371,32 +417,64 @@ VALUES
 -- Memasukkan relasi antara data pkm dan dosen
 INSERT INTO riwayat_pkm (id_riwayatPKM, id_pkm, id_dosen)
 VALUES
-    ('RWL001', 'PKM001', 'DSN0001'),
-    ('RWL002', 'PKM001', 'DSN0002'),
-    ('RWL003', 'PKM001', 'DSN0003'),
-    ('RWL004', 'PKM002', 'DSN0004'),
-    ('RWL005', 'PKM002', 'DSN0005'),
-    ('RWL006', 'PKM003', 'DSN0006'),
-    ('RWL007', 'PKM003', 'DSN0007'),
-    ('RWL008', 'PKM004', 'DSN0008'),
-    ('RWL009', 'PKM004', 'DSN0009'),
-    ('RWL010', 'PKM005', 'DSN0010'),
-    ('RWL011', 'PKM005', 'DSN0011'),
-    ('RWL012', 'PKM006', 'DSN0012'),
-    ('RWL013', 'PKM006', 'DSN0013'),
-    ('RWL014', 'PKM007', 'DSN0014'),
-    ('RWL015', 'PKM007', 'DSN0015'),
-    ('RWL016', 'PKM008', 'DSN0009'),
-    ('RWL017', 'PKM008', 'DSN0010'),
-    ('RWL018', 'PKM009', 'DSN0011'),
-    ('RWL019', 'PKM009', 'DSN0012'),
-    ('RWL020', 'PKM010', 'DSN0013'),
-    ('RWL021', 'PKM010', 'DSN0014'),
-    ('RWL022', 'PKM011', 'DSN0015'),
-    ('RWL023', 'PKM012', 'DSN0009'),
-    ('RWL024', 'PKM012', 'DSN0010'),
-    ('RWL025', 'PKM013', 'DSN0011'),
-    ('RWL026', 'PKM013', 'DSN0012'),
-    ('RWL027', 'PKM014', 'DSN0013'),
-    ('RWL028', 'PKM015', 'DSN0014'),
-    ('RWL029', 'PKM015', 'DSN0015');
+    ('RWK001', 'PKM001', 'DSN0001'),
+    ('RWK002', 'PKM001', 'DSN0002'),
+    ('RWK003', 'PKM001', 'DSN0003'),
+    ('RWK004', 'PKM002', 'DSN0004'),
+    ('RWK005', 'PKM002', 'DSN0005'),
+    ('RWK006', 'PKM003', 'DSN0006'),
+    ('RWK007', 'PKM003', 'DSN0007'),
+    ('RWK008', 'PKM004', 'DSN0008'),
+    ('RWK009', 'PKM004', 'DSN0009'),
+    ('RWK010', 'PKM005', 'DSN0010'),
+    ('RWK011', 'PKM005', 'DSN0011'),
+    ('RWK012', 'PKM006', 'DSN0012'),
+    ('RWK013', 'PKM006', 'DSN0013'),
+    ('RWK014', 'PKM007', 'DSN0014'),
+    ('RWK015', 'PKM007', 'DSN0015'),
+    ('RWK016', 'PKM008', 'DSN0009'),
+    ('RWK017', 'PKM008', 'DSN0010'),
+    ('RWK018', 'PKM009', 'DSN0011'),
+    ('RWK019', 'PKM009', 'DSN0012'),
+    ('RWK020', 'PKM010', 'DSN0013'),
+    ('RWK021', 'PKM010', 'DSN0014'),
+    ('RWK022', 'PKM011', 'DSN0015'),
+    ('RWK023', 'PKM012', 'DSN0009'),
+    ('RWK024', 'PKM012', 'DSN0010'),
+    ('RWK025', 'PKM013', 'DSN0011'),
+    ('RWK026', 'PKM013', 'DSN0012'),
+    ('RWK027', 'PKM014', 'DSN0013'),
+    ('RWK028', 'PKM015', 'DSN0014'),
+    ('RWK029', 'PKM015', 'DSN0015');
+
+
+-- Fungsi untuk menghasilkan ID PKM
+CREATE OR REPLACE FUNCTION generate_pkm_id() RETURNS TRIGGER AS $$
+DECLARE
+    new_id VARCHAR(8);
+BEGIN
+    SELECT 'PKM' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_pkm FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM pkm;
+    NEW.id_pkm := new_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER pkm_id_trigger
+BEFORE INSERT ON pkm
+FOR EACH ROW
+EXECUTE FUNCTION generate_pkm_id();
+
+-- Fungsi untuk menghasilkan ID riwayat PKM
+CREATE OR REPLACE FUNCTION generate_riwayatpkm_id() RETURNS TRIGGER AS $$
+DECLARE
+    new_id VARCHAR(12);
+BEGIN
+    SELECT 'RWK' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_riwayatpkm FROM 6)::INT), 0) + 1) AS TEXT), 6, '0') INTO new_id FROM riwayat_pkm;
+    NEW.id_riwayatpkm := new_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER riwayatpkm_id_trigger
+BEFORE INSERT ON riwayat_pkm
+FOR EACH ROW
+EXECUTE FUNCTION generate_riwayatpkm_id();
+

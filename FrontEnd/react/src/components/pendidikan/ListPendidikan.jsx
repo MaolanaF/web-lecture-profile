@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 const ListRiwayatPendidikanCom = ({ id }) => {
   const [listRiwayatPendidikan, setlistRiwayatPendidikan] = useState([]);

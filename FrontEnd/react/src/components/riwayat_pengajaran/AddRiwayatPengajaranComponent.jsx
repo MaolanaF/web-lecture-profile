@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddRiwayatPengajaranComponent = ({ id }) => {
 
@@ -86,10 +87,19 @@ const AddRiwayatPengajaranComponent = ({ id }) => {
     // Make a POST request to your backend endpoint with id_dosen and id_matkul
     axios.post('http://localhost:3100/riwayat_pengajaran', { id_dosen, id_matkul, semester, tahun })
       .then((response) => {
-        alert("Data riwayat pengajaran berhasil ditambah!");
+        Swal.fire({
+          title: 'Berhasil Menambah Data Dosen',
+          text: 'Data dosen berhasil ditambahkan.',
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 2000, // 2000 milidetik (2 detik),
+          didClose: () => {
+            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+            window.location.reload();
+          }
+        });
         console.log(response.data);
-        console
-        // Handle success or redirection here
+        
       })
       .catch((error) => {
         console.error(error);
