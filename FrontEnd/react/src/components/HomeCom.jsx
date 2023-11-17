@@ -60,7 +60,7 @@ const ListDosenComponent = () => {
   };
 
     return (
-    <>
+    <div>
       {/* Background image */}
       <section id="beranda">
         <div className="my-jumbotron">
@@ -198,7 +198,7 @@ const ListDosenComponent = () => {
         </Container>
       </section>
 
-    </>
+    </div>
     );
   };
   
