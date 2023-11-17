@@ -1,6 +1,6 @@
 import EditDosen from "../components/dosen/EditDosenComponent";
 import NavbarDosen from "../components/NavbarDosenCom";
-import DashboardDosenDetailComponent from "../components/DashboardDosen_Dosen";
+import DashboardDosenDetailComponent from "../components/DashboardDosen";
 import { useParams } from 'react-router-dom';
 
 function DashboardDosen_Dosen(){

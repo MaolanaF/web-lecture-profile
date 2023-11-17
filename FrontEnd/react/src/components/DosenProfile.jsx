@@ -5,7 +5,7 @@ import ListRiwayatPendidikan from "../components/pendidikan/ListPendidikan";
 import ListRiwayatPengajaran from "../components/riwayat_pengajaran/ListRiwayatPengajaran";
 import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatPenelitian";
 import ListRiwayatPKM from "../components/riwayatPkm/ListRiwayatPKM"
-import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
+import { FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
 
 function DosenDetailComponent({ id }) {
@@ -34,7 +34,7 @@ function DosenDetailComponent({ id }) {
 
   return (
     <section>
-      <Container className="margin-class">
+      <Container className="margin-class" style={{ zIndex:9999 }}>
         <Row>
           <Col lg={12}>
             <div className="title-box">
@@ -47,30 +47,31 @@ function DosenDetailComponent({ id }) {
           </Col>
         </Row>
         <Row>
-          <Col lg={12}>
+          <Col md={7}>
             <Card>
               <Card.Body>
                 <Row>
-                    <Col md={6} style={{ textAlign:"center"}}>
-                    <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
-                    style={{ width: "45%", height: "auto" }} />
+                    <Col md={5} style={{ textAlign:"center" }}>
+                      <Image src="https://travellersworldwide.com/wp-content/uploads/2023/02/Shutterstock_1765167053.jpg"
+                      style={{ width: "80%", height: "auto" }}/>
                     </Col>
-                    <Col md={6}>
+                    <Col md={7}>
                       <Row>
-                      <p className="h1 mb-3">{formData.nama}</p>
-                        <Col sm={3} style={{ fontWeight:"normal" }}>
-                          <p>Jurusan</p>
-                          <p>Jabatan</p>
-                          <p>Email</p>
-                        </Col>
-                        <Col sm={9}>
-                          <p>: {formData.jurusan}</p>
-                          <p>: {formData.jabatan}</p>
-                          <p>: {formData.email}</p>
-                        </Col>
+                      <p className="h1 mb-3" style={{ fontSize: "1.7rem" }}>{formData.nama}</p>
+                      <p>Jurusan&nbsp;&nbsp;&nbsp;: {formData.jurusan}</p>
+                      <p>Jabatan&nbsp;&nbsp;&nbsp;: {formData.jabatan}</p>
+                      <p>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {formData.email}</p>
                       </Row>
                   </Col>
                 </Row>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={5}>
+            <Card>
+              <Card.Body>
+                <p className="h1 mb-3" style={{ fontSize: "1.3rem" }}>Riwayat Pendidikan</p>
+                <ListRiwayatPendidikan id={id} />
               </Card.Body>
             </Card>
           </Col>
@@ -78,14 +79,14 @@ function DosenDetailComponent({ id }) {
         <Row>
           <Col lg={12}>
             <Tabs
-              defaultActiveKey="Riwayat Pendidikan"
+              defaultActiveKey="Riwayat Pengajaran"
               id="fill-tab-example"
               className="mb-3 mt-5 tab-nav h6"
               fill
             >
-              <Tab eventKey="Riwayat Pendidikan" title={<><FaGraduationCap /> Riwayat Pendidikan</>}>
+              {/* <Tab eventKey="Riwayat Pendidikan" title={<><FaGraduationCap /> Riwayat Pendidikan</>}>
                 <ListRiwayatPendidikan id={id} />
-              </Tab>
+              </Tab> */}
               <Tab eventKey="Riwayat Pengajaran" title={<><FaChalkboardTeacher /> Riwayat Pengajaran</>}>
                 <ListRiwayatPengajaran id={id} />
               </Tab>
