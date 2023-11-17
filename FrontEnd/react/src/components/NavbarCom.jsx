@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link as ScrollLink } from "react-scroll";
@@ -6,6 +6,11 @@ import { Link as ScrollLink } from "react-scroll";
 const MyNavbar = () => {
   const location = useLocation();
   const isHome = location.pathname === "/home";
+
+  useEffect(() => {
+    // Scroll to the top when the location changes
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <Navbar expand="lg" bg="light" variant="light" fixed="top">

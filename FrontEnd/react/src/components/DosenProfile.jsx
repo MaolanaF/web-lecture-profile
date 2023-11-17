@@ -34,7 +34,7 @@ function DosenDetailComponent({ id }) {
 
   return (
     <section>
-      <Container className="margin-class">
+      <Container className="margin-class" style={{ zIndex:9999 }}>
         <Row>
           <Col lg={12}>
             <div className="title-box">
