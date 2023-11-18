@@ -18,26 +18,17 @@ const ListRiwayatPendidikanCom = ({ id }) => {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <table className="table table-striped mt-3">
-        <thead className="thead-dark">
-          <tr>
-            <th>Jenjang Pendidikan</th>
-            <th>Nama Institusi</th>
-            <th>Tahun Lulus</th>
-          </tr>
-        </thead>
-        <tbody>
-          {listRiwayatPendidikan.map((riwayat_pendidikan) => (
-            <tr key={riwayat_pendidikan.id_pendidikan}>
-              <td>{riwayat_pendidikan.jenjang_pendidikan}</td>
-              <td>{riwayat_pendidikan.nama_institusi}</td>
-              <td>{riwayat_pendidikan.tahun_lulus}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <div className="mt-4" style={{ textAlign: "left" }}>
+      <ul style={{ paddingLeft: "20px" }}>
+        {listRiwayatPendidikan.map((riwayat_pendidikan) => (
+          <li key={riwayat_pendidikan.id_pendidikan}>
+            <div>
+              <p>{riwayat_pendidikan.jenjang_pendidikan}, {riwayat_pendidikan.tahun_lulus}, {riwayat_pendidikan.nama_institusi}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>  
   );
 };
 
