@@ -42,8 +42,7 @@ function EditMatkulComponent({ id }) {
       const response = await axios.put(`http://localhost:3100/mata_kuliah/${id}`, formData);
       console.log(response.data);
       Swal.fire({
-        title: 'Berhasil Mengedit Data Mata Kuliah',
-        text: 'Data mata kuliah berhasil diedit.',
+        title: 'Berhasil mengedit data mata kuliah',
         icon: 'success',
         showConfirmButton: false,
         timer: 2000, // 2000 milidetik (2 detik),
@@ -53,7 +52,7 @@ function EditMatkulComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Error updating data:", error);
+      console.error("Gagal mengedit data mata kuliah", error);
     }
 
     window.location = "http://localhost:5173/mata_kuliah"

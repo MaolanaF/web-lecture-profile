@@ -41,9 +41,10 @@ function LoginCom() {
         // navigate("/dashboard_admin/dosen"); // Navigate to home page
         if (userData.role === "Admin") {
           Swal.fire({
-            title: "Yippie!",
-            text: "Login berhasil!",
-            icon: "success"
+            title: "Login berhasil!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000, // 2000 milidetik (2 detik),
           });
           navigate("/dashboard_admin/dosen");
         } else if (userData.role === "Dosen") {
@@ -54,9 +55,10 @@ function LoginCom() {
             const idDosen = response.data[0].id_dosen;
             Cookies.set("userAuth", idDosen, { expires: 1 });
             Swal.fire({
-              title: "Yippie!",
-              text: "Login berhasil!",
-              icon: "success"
+              title: "Login berhasil!",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 2000, // 2000 milidetik (2 detik),
             });
             navigate("/dashboard_dosen/dosen/" + idDosen);
           } catch (err) {

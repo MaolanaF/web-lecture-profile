@@ -43,8 +43,7 @@ function EditRiwayatComponent({ id }) {
       const response = await axios.put(`http://localhost:3100/riwayat_pendidikan/${id}`, { jenjang_pendidikan, nama_institusi, tahun_lulus });
       console.log(response.data);
       Swal.fire({
-        title: 'Berhasil Mengedit Data Pendidikan',
-        text: 'Data pendidikan berhasil diedit.',
+        title: 'Berhasil mengedit data pendidikan',
         icon: 'success',
         showConfirmButton: false,
         timer: 2000, // 2000 milidetik (2 detik),
@@ -54,7 +53,7 @@ function EditRiwayatComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Error updating data:", error);
+      console.error("Gagal menghapus data pendidikan", error);
     }
   };
 

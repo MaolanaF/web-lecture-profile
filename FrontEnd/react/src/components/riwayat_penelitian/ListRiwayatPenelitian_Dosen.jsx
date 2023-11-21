@@ -72,8 +72,8 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       .then(() => {
         // Hapus data dosen dari state
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin?",
+          text: "Anda akan menghapus data penelitian!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -83,15 +83,14 @@ const ListRiwayatPenelitianCom = ({ id }) => {
           if (result.isConfirmed) {
             setlistRiwayatPenelitian((prevRiwayatPenelitianList) => prevRiwayatPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Berhasil menghapus data penelitian",
               icon: "success"
             });
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menghapus data penelitian",error);
         // Handle error
       });
   };
@@ -101,7 +100,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
   return (
-    <div className="container" style={{ marginTop: "-100px" }}>
+    <div className="container" style={{ marginTop: "-80px" }}>
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Penelitian</h2>
       </div>

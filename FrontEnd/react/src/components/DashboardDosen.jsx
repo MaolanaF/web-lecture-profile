@@ -93,7 +93,7 @@ function DashboardDosenDetailComponent({ id }) {
         <Row>
           <Col lg={12}>
             <Tabs
-              defaultActiveKey="Riwayat Pengajaran"
+              defaultActiveKey="Riwayat Pendidikan"
               id="fill-tab-example"
               className="mb-3 mt-5 tab-nav h6"
               fill

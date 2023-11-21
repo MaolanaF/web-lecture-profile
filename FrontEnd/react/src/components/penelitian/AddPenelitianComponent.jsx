@@ -54,8 +54,7 @@ const AddPenelitianComponent = ({ id }) => {
       })
       .then((response) => {
         Swal.fire({
-          title: 'Berhasil Menambah Data Penelitian',
-          text: 'Data penelitian berhasil ditambahkan.',
+          title: 'Berhasil menambah data penelitian',
           icon: 'success',
           showConfirmButton: false,
           timer: 2000, // 2000 milidetik (2 detik),
@@ -68,7 +67,7 @@ const AddPenelitianComponent = ({ id }) => {
         // Handle success or redirection here
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menambah data penelitian",error);
         // Handle error
       });
   };

@@ -41,8 +41,7 @@ function EditDosenComponent({ id }) {
       const response = await axios.put(`http://localhost:3100/dosen/${id}`, formData);
       console.log(response.data);
       Swal.fire({
-        title: 'Berhasil Mengedit Data Dosen',
-        text: 'Data dosen berhasil diedit.',
+        title: 'Berhasil mengedit data dosen',
         icon: 'success',
         showConfirmButton: false,
         timer: 2000, // 2000 milidetik (2 detik),
@@ -52,7 +51,7 @@ function EditDosenComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Error updating data:", error);
+      console.error("Gagal menambahkan data dosen", error);
     }
 
     window.location = "http://localhost:5173/dosen"

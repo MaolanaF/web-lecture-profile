@@ -55,7 +55,6 @@ const AddPKMComponent = ({ id }) => {
       .then((response) => {
         Swal.fire({
           title: 'Berhasil Menambah Data PKM',
-          text: 'Data pkm berhasil ditambahkan.',
           icon: 'success',
           showConfirmButton: false,
           timer: 2000, // 2000 milidetik (2 detik),
@@ -68,7 +67,7 @@ const AddPKMComponent = ({ id }) => {
         // Handle success or redirection here
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menambah data PKM",error);
         // Handle error
       });
   };
