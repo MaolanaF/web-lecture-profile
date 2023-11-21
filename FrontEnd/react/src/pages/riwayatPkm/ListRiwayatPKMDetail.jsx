@@ -1,5 +1,5 @@
 import ListRiwayatPKMComponentDetail from "../../components/riwayatPkm/ListRiwayatPKM_Detail";
-// import Navbar from "../../components/NavbarCom";
+import Navbar from "../../components/NavbarCom";
 import { useParams } from 'react-router-dom';
 
 function ListRiwayatPKMDetail(){
@@ -7,7 +7,7 @@ function ListRiwayatPKMDetail(){
 
     return (
         <>
-        {/* <Navbar /> */}
+        <Navbar />
         <ListRiwayatPKMComponentDetail id={id_pkm} />
         </>
     );

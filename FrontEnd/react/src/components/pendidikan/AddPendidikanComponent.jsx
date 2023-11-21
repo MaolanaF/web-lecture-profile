@@ -26,8 +26,7 @@ const AddRiwayatPendidikanComponent = ({ id }) => {
     axios.post('http://localhost:3100/riwayat_pendidikan', formData)
       .then((response) => {
         Swal.fire({
-          title: 'Berhasil Menambah Data Pendidikan',
-          text: 'Data pendidikan berhasil ditambahkan.',
+          title: 'Berhasil menambah data pendidikan',
           icon: 'success',
           showConfirmButton: false,
           timer: 2000, // 2000 milidetik (2 detik),
@@ -40,7 +39,7 @@ const AddRiwayatPendidikanComponent = ({ id }) => {
         // Handle success or redirection here
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menambah data pendidikan",error);
         // Handle error
       });
   };

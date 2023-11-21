@@ -49,20 +49,35 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
     <div className="container margin-class">
       <Row>
         <Col md={12}>
-          <Card.Title>{penelitian[0]?.judul}</Card.Title>
           <Card className="card-blog mt-2">
-            {riwayatPenelitian.map((author) => (
-              <Link key={author.id_riwayatpenelitian} to={`/DosenProfile/${author.id_dosen}`}>
-                <Card.Title >{author.nama}</Card.Title>
-              </Link>
+          <h5>{penelitian[0]?.judul}</h5>
+          <div className="post-date">
+              <span className="bi bi-clock"></span>{" "}
+              {formatDate(riwayatPenelitian[0]?.tanggal_publikasi)}
+          </div>
+          <div>   
+            <h6 style={{ marginBottom: '0px', marginTop: '15px' }}>Ditulis oleh :</h6>
+            {riwayatPenelitian.map((author, index) => (
+              <React.Fragment key={author.id_riwayatpenelitian}>
+                <Link to={`/DosenProfile/${author.id_dosen}`}>
+                  <span>{author.nama}</span>
+                </Link>
+                {index < riwayatPenelitian.length - 1 && <span>, </span>}
+              </React.Fragment>
             ))}
-            <div className="post-date">
-                <span className="bi bi-clock"></span>{" "}
-                {formatDate(riwayatPenelitian[0]?.tanggal_publikasi)}
-              </div>
-            <Card.Body>
-              <Card.Text><a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayatPenelitian[0]?.link_penelitian}><FaFile></FaFile> Lihat File</a></Card.Text>
-            </Card.Body>
+          </div>
+
+              <Card.Body>
+                  <Card.Text>
+                      <iframe 
+                          src={`http://localhost:3100/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`} 
+                          width="100%" 
+                          height="500px" 
+                          title="PDF Viewer"
+                      />
+                  </Card.Text>
+              </Card.Body>
+
             <Card.Footer>
               
             </Card.Footer>

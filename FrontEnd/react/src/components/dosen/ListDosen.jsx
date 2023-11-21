@@ -48,19 +48,18 @@ const ListDosenComponent = () => {
     axios.delete(`http://localhost:3100/dosen/${id}`)
       .then(() => {
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin?",
+          text: "Anda akan menghapus data dosen!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+          confirmButtonText: "Ya"
         }).then((result) => {
           if (result.isConfirmed) {
             setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Dosen data has been deleted.",
+              title: "Berhasil menghapus data dosen!",
               icon: "success"
             });
           }

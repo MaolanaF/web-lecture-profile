@@ -12,8 +12,6 @@ import { Link } from "react-router-dom";
 
 const ListRiwayatPenelitianCom = ({ id }) => {
   const [listRiwayatPenelitian, setlistRiwayatPenelitian] = useState([]);
-  const [penelitianList, setPenelitianList] = useState([]);
-
   const [searchText, setSearchText] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -67,20 +65,6 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/addAuthor/${id}`)
-      .then((response) => {
-        const sortedPenelitianList = response.data.sort((a, b) =>
-          b.tanggal_publikasi.localeCompare(a.tanggal_publikasi, undefined, { numeric: false })
-        );
-        setPenelitianList(sortedPenelitianList); // Mengatur data dosen ke dalam state
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
    // Fungsi untuk menghapus data penelitian berdasarkan ID
    const handleDelete = (id) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
@@ -88,8 +72,8 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       .then(() => {
         // Hapus data dosen dari state
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin?",
+          text: "Anda akan menghapus data penelitian!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -99,26 +83,20 @@ const ListRiwayatPenelitianCom = ({ id }) => {
           if (result.isConfirmed) {
             setlistRiwayatPenelitian((prevRiwayatPenelitianList) => prevRiwayatPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Berhasil menghapus data penelitian",
               icon: "success"
             });
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menghapus data penelitian",error);
         // Handle error
       });
   };
 
   const filteredRiwayatPenelitianList = listRiwayatPenelitian.filter((riwayat_penelitian) => {
     const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.nama}`;
-    return fullName.toLowerCase().includes(searchText.toLowerCase());
-  });
-
-  const filteredPenelitianList = penelitianList.filter((penelitian_list) => {
-    const fullName = `${penelitian_list.judul} ${penelitian_list.tanggal_publikasi} ${penelitian_list.bidang} ${penelitian_list.nama}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
   return (

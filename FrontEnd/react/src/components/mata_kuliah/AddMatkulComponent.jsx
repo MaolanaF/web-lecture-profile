@@ -27,8 +27,7 @@ const AddMatkulComponent = () => {
     axios.post('http://localhost:3100/mata_kuliah', formData)
       .then((response) => {
         Swal.fire({
-          title: 'Berhasil Menambah Data Mata Kuliah',
-          text: 'Data mata kuliah berhasil ditambahkan.',
+          title: 'Berhasil menambah data mata kuliah',
           icon: 'success',
           showConfirmButton: false,
           timer: 2000, // 2000 milidetik (2 detik),
@@ -41,7 +40,7 @@ const AddMatkulComponent = () => {
         // Handle success or redirection here
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menambah data mata kuliah",error);
         // Handle error
       });
   };

@@ -26,26 +26,25 @@ const ListPenelitianComponent = () => {
       .then(() => {
         // Hapus data dosen dari state
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin",
+          text: "Anda akan menghapus data penelitian",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+          confirmButtonText: "Ya"
         }).then((result) => {
           if (result.isConfirmed) {
             setPenelitianList((prevPenelitianList) => prevPenelitianList.filter((penelitian) => penelitian.id_penelitian !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Berhasil menghapus data penelitian",
               icon: "success"
             });
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menghapus data penelitian",error);
         // Handle error
       });
   };

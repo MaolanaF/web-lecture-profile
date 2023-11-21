@@ -67,8 +67,7 @@ function EditPenelitianComponent({ id }) {
       });
       console.log(response.data);
       Swal.fire({
-        title: 'Berhasil Mengedit Data Penelitian',
-        text: 'Data penelitian berhasil diedit.',
+        title: 'Berhasil mengedit data penelitian',
         icon: 'success',
         showConfirmButton: false,
         timer: 2000, // 2000 milidetik (2 detik),
@@ -78,7 +77,7 @@ function EditPenelitianComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Error updating data:", error);
+      console.error("Gagal mengedit data penelitian", error);
     }
   };
 

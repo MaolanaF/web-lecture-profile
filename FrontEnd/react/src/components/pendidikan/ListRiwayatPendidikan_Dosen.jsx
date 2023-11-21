@@ -55,26 +55,25 @@ const ListRiwayatPendidikanCom = ({ id }) => {
     axios.delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
       .then(() => {
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin?",
+          text: "Anda akan menghapus data pendidikan",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+          confirmButtonText: "Ya"
         }).then((result) => {
           if (result.isConfirmed) {
             setlistRiwayatPendidikan((prevRiwayatPendidikanList) => prevRiwayatPendidikanList.filter((riwayat_pendidikan) => riwayat_pendidikan.id_pendidikan !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Berhasil menghapus data pendidikan",
               icon: "success"
             });
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menghapus data pendidikan",error);
       });
   };
 
