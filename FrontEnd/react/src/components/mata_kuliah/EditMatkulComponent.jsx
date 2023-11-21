@@ -59,11 +59,11 @@ function EditMatkulComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       {/* <h2>Edit Dosen</h2> */}
       <form onSubmit={handleUpdateMatkul}>
-      <div className="form-group">
-          <label>id_matkul</label>
+      {/* <div className="form-group">
+          <label>ID Mata Kuliah</label>
           <input
             type="text"
             className="form-control"
@@ -72,7 +72,7 @@ function EditMatkulComponent({ id }) {
             // onChange={handleInputChange}
             disabled
           />
-        </div>
+        </div> */}
         <div className="form-group">
           <label>Kode Mata Kuliah</label>
           <input

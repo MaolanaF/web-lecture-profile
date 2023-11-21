@@ -10,6 +10,16 @@ const getAllDosen = (req, res) => {
   });
 };
 
+const getAllUser = (req, res) => {
+  dosenModel.getAllUser((err, result) => {
+    if (!err) {
+      res.send(result.rows);
+    } else {
+      res.status(500).send(err.message);
+    }
+  });
+};
+
 const getDosenById = (req, res) => {
   const id_dosen = req.params.id_dosen;
   dosenModel.getDosenById(id_dosen, (err, result) => {
@@ -104,5 +114,5 @@ module.exports = {
   updateDosen,
   deleteDosen,
   getUserByUsername,
-  getDosenByIdUser,
+  getDosenByIdUser
 };

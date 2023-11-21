@@ -104,7 +104,6 @@ const ListMatkulComponent = () => {
             <th>ID Mata Kuliah</th>
             <th>Kode Mata Kuliah</th>
             <th>Nama Mata Kuliah</th>
-            <th>Semester</th>
             <th>Kode Kelas</th>
             <th>Perguruan Tinggi</th>
             <th>Action</th>
@@ -116,7 +115,6 @@ const ListMatkulComponent = () => {
               <td>{mata_kuliah.id_matkul}</td>
               <td>{mata_kuliah.kode_matkul}</td>
               <td>{mata_kuliah.nama_matkul}</td>
-              <td>{mata_kuliah.semester}</td>
               <td>{mata_kuliah.kode_kelas}</td>
               <td>{mata_kuliah.perguruan_tinggi}</td>
               <td>

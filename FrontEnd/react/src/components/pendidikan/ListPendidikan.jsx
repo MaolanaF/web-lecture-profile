@@ -9,8 +9,13 @@ const ListRiwayatPendidikanCom = ({ id }) => {
     axios
       .get(`http://localhost:3100/profile_dosen/riwayat_pendidikan/${id}`)
       .then((response) => {
-        setlistRiwayatPendidikan(response.data);
-        console.log(response.data);
+        const sortedRiwayatPendidikan = response.data.sort((a, b) => {
+          if (a.tahun_lulus === b.tahun_lulus) {
+            return a.jenjang_pendidikan.localeCompare(b.jenjang_pendidikan);
+          }
+          return a.tahun_lulus - b.tahun_lulus;
+        });
+        setlistRiwayatPendidikan(sortedRiwayatPendidikan);
       })
       .catch((error) => {
         console.error(error);
