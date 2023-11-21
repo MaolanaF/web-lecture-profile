@@ -10,7 +10,6 @@ import EditPKMComponent from '../pkm/EditPKMComponent';
 const ListRiwayatPKMComponentDosen = ({ id }) => {
   // State untuk menyimpan data riwayat PKM
   const [listRiwayatPKM, setlistRiwayatPKM] = useState([]);
-  const [pkmList, setPkmList] = useState([]);
   
   // State untuk menangani input pencarian
   const [searchText, setSearchText] = useState("");
@@ -69,56 +68,6 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
       });
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:3100/profile_dosen/riwayatpkm/addAuthor/${id}`)
-      .then((response) => {
-        const sortedRiwayatPKMList = response.data.sort((a, b) => {
-          if (a.tahun_pkm === b.tahun_pkm) {
-            return a.judul_pkm.localeCompare(b.judul_pkm);
-          }
-          return a.tahun_pkm - b.tahun_pkm;
-        });
-        setPkmList(sortedRiwayatPKMList); // Mengatur data dosen ke dalam state
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  const handleSubmit = (id_dosen, id_pkm) => {
-    // Make a POST request to your backend endpoint
-    Swal.fire({
-      title: "Apakah anda yakin?",
-      text: "Anda akan berkontribusi dalam penulisan PKM!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, add it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axios.post('http://localhost:3100/riwayatpkm', {
-          id_dosen,
-          id_pkm,
-        })
-        Swal.fire({
-          title: 'Berhasil!',
-          text: 'Berhasil menambahkan PKM.',
-          icon: 'success',
-          showConfirmButton: false,
-          timer: 2000, // 2000 milidetik (2 detik),
-          didClose: () => {
-            // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
-            window.location.reload();
-          }
-        });
-      }
-    });
-  };
-
-
   // Fungsi untuk menghapus data PKM berdasarkan ID
   const handleDelete = (id) => {
     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
@@ -126,26 +75,25 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
       .then(() => {
         // Hapus data PKM dari state
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin?",
+          text: "Anda akan menghapus data PKM!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+          confirmButtonText: "Ya"
         }).then((result) => {
           if (result.isConfirmed) {
             setlistRiwayatPKM((prevRiwayatPKMList) => prevRiwayatPKMList.filter((riwayat_pkm) => riwayat_pkm.id_riwayatpkm !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Berhasil menghapus data PKM",
               icon: "success"
             });
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menghapus data PKM",error);
       });
   };
 
@@ -154,11 +102,6 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
     const fullName = `${riwayat_pkm.judul_pkm} ${riwayat_pkm.tahun_pkm} ${riwayat_pkm.bidang_pkm} ${riwayat_pkm.nama}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
-  const filteredRiwayatPKMList = pkmList.filter((riwayat_pkm) => {
-    const fullName = `${riwayat_pkm.judul_pkm} ${riwayat_pkm.tahun_pkm} ${riwayat_pkm.bidang_pkm} ${riwayat_pkm.nama}`;
-    return fullName.toLowerCase().includes(searchText.toLowerCase());
-  });
-
   return (
     <div className="container" style={{marginTop:'30px'}}>
       <div className="d-flex justify-content-between align-items-center mb-2">

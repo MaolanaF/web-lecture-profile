@@ -46,25 +46,38 @@ const ListRiwayatPKMComponent = ({ id }) => {
   }
 
   return (
-    <div className="container">
+    <div className="container margin-class">
       <Row>
         <Col md={12}>
           <Card.Title>{pkm[0]?.judul_pkm}</Card.Title>
-          <Card className="card-blog mt-2">
-            {riwayatPKM.map((kontributor) => (
-              // Link ke profil dosen berdasarkan ID dosen
-              <Link key={kontributor.id_riwayatpkm} to={`/DosenProfile/${kontributor.id_dosen}`}>
-                <Card.Title>{kontributor.nama}</Card.Title>
-              </Link>
-            ))}
-            <Card.Body>
-              <Card.Text>{pkm[0]?.link_pkm}</Card.Text>
-            </Card.Body>
-            <Card.Footer>
-              <div className="post-date">
+          <div className="post-date">
                 <span className="bi bi-clock"></span>{" "}
                 {riwayatPKM[0]?.tahun_pkm}
-              </div>
+          </div>
+          <Card className="card-blog mt-2">
+          <div>
+            <h6 style={{ marginBottom: '0px', marginTop: '15px' }}>Ditulis oleh :</h6>
+            {riwayatPKM.map((kontributor, index) => (
+              <React.Fragment key={kontributor.id_riwayatpkm}>
+                <Link to={`/DosenProfile/${kontributor.id_dosen}`}>
+                  <span>{kontributor.nama}</span>
+                </Link>
+                {index < riwayatPKM.length - 1 && <span>, </span>}
+              </React.Fragment>
+            ))}
+          </div>
+            <Card.Body>
+                  <Card.Text>
+                      <iframe 
+                          src={`http://localhost:3100/static/uploads/pkm/${riwayatPKM[0]?.link_pkm}`} 
+                          width="100%" 
+                          height="500px" 
+                          title="PDF Viewer"
+                      />
+                  </Card.Text>
+              </Card.Body>
+            <Card.Footer>
+              
             </Card.Footer>
           </Card>
         </Col>

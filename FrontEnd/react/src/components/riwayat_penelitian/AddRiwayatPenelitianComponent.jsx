@@ -54,8 +54,7 @@ const AddRiwayatPenelitianComponent = ({ id }) => {
     axios.post('http://localhost:3100/riwayat_penelitian', { id_dosen, id_penelitian })
       .then((response) => {
         Swal.fire({
-          title: 'Berhasil Menambah Penulis',
-          text: 'Penulis berhasil ditambahkan.',
+          title: 'Berhasil menambah Penulis',
           icon: 'success',
           showConfirmButton: false,
           timer: 2000, // 2000 milidetik (2 detik),
@@ -68,7 +67,7 @@ const AddRiwayatPenelitianComponent = ({ id }) => {
         // Handle success or redirection here
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menambah Penulis",error);
         // Handle error
       });
 

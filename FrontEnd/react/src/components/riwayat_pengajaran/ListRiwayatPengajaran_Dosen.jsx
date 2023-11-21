@@ -62,26 +62,25 @@ const ListRiwayatPengajaranCom = ({ id }) => {
     axios.delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
       .then(() => {
         Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
+          title: "Apakah anda yakin?",
+          text: "Anda akan menghapus data pendidikan!",
           icon: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
+          confirmButtonText: "Ya"
         }).then((result) => {
           if (result.isConfirmed) {
             setlistRiwayatPengajaran((prevRiwayatPengajaranList) => prevRiwayatPengajaranList.filter((riwayat_pengajaran) => riwayat_pengajaran.id_pengajaran !== id));
             Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
+              title: "Berhasil menghapus data pengajaran",
               icon: "success"
             });
           }
         });
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Gagal menghapus data pengajaran",error);
         // Handle error
       });
   };
@@ -122,6 +121,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
             <th>Semester</th>
             <th>Kode Kelas</th>
             <th>Perguruan Tinggi</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>

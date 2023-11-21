@@ -65,8 +65,7 @@ function EditPKMComponent({ id }) {
       });
       console.log(response.data);
       Swal.fire({
-        title: 'Berhasil Mengedit Data PKM',
-        text: 'Data PKM berhasil diedit.',
+        title: 'Berhasil mengedit data PKM',
         icon: 'success',
         showConfirmButton: false,
         timer: 2000, // 2000 milidetik (2 detik),
@@ -76,7 +75,7 @@ function EditPKMComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Error updating data:", error);
+      console.error("Gagal mengedit data PKM", error);
     }
   };
 

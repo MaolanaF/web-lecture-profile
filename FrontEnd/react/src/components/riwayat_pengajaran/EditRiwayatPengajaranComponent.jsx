@@ -94,8 +94,7 @@ function EditRiwayatPengajaranComponent({ id }) {
       const response = await axios.put(`http://localhost:3100/riwayat_pengajaran/${id}`, { id_dosen, id_matkul, semester, tahun });
       console.log(response.data);
       Swal.fire({
-        title: 'Berhasil Mengedit Data PKM',
-        text: 'Data PKM berhasil diedit.',
+        title: 'Berhasil mengedit data pengajaran',
         icon: 'success',
         showConfirmButton: false,
         timer: 2000, // 2000 milidetik (2 detik),
@@ -105,7 +104,7 @@ function EditRiwayatPengajaranComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Error updating data:", error);
+      console.error("Gagal menghapus data pengajaran", error);
     }
   };
 
