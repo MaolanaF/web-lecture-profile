@@ -3,7 +3,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Link } from "react-router-dom";
 import { Card, Modal, Button } from 'react-bootstrap'
-import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
+import { FaSearch, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import AddDosenComponent from './AddDosenComponent';
 import EditDosenComponent from './EditDosenComponent';
 import './../style.css';
@@ -25,7 +25,6 @@ const ListDosenComponent = () => {
   };
 
   const handleCloseEditModal = () => {
-    
     setShowEditModal(false);
   };
 
@@ -42,6 +41,7 @@ const ListDosenComponent = () => {
       .catch((error) => {
         console.error(error);
       });
+      
   }, []);
 
   const handleDelete = (id) => {
@@ -60,7 +60,7 @@ const ListDosenComponent = () => {
             setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "Dosen data has been deleted.",
               icon: "success"
             });
           }
@@ -104,9 +104,10 @@ const ListDosenComponent = () => {
           <tr>
             <th>ID Dosen</th>
             <th>Nama</th>
-            <th>Email</th>
             <th>Jabatan</th>
             <th>Jurusan</th>
+            <th>Email</th>
+            <th>Password</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -115,15 +116,14 @@ const ListDosenComponent = () => {
             <tr key={dosen.id_dosen}>
               <td>{dosen.id_dosen}</td>
               <td>{dosen.nama}</td>
-              <td>{dosen.email}</td>
               <td>{dosen.jabatan}</td>
               <td>{dosen.jurusan}</td>
+              <td>{dosen.email}</td>
+              <td>{dosen.password}</td>
               <td>
-                {/* <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}> */}
-                  <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(dosen.id_dosen)}>
-                    <FaEdit />
-                  </button>
-                {/* </Link> */}
+                <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(dosen.id_dosen)}>
+                  <FaEdit />
+                 </button>
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {

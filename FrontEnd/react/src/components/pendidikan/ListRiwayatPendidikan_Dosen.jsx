@@ -42,11 +42,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
           }
           return a.tahun_lulus - b.tahun_lulus;
         });
-        // const sortedRiwayatPendidikanList = response.data.sort((a, b) => a.tahun - b.tahun);
-        // const sortedRiwayatPendidikanList = response.data.sort((a, b) =>
-        //   a.tahun.localeCompare(b.tahun, undefined, { numeric: false })
-        // );
-        setlistRiwayatPendidikan(sortedRiwayatPendidikanList); // Mengatur data dosen ke dalam state
+        setlistRiwayatPendidikan(sortedRiwayatPendidikanList);
         console.log(response.data);
       })
       .catch((error) => {

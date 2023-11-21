@@ -122,7 +122,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
     return fullName.toLowerCase().includes(searchText.toLowerCase());
   });
   return (
-    <div className="container" style={{ marginTop: "-100px" }}>
+    <div className="container" style={{ marginTop: "-80px" }}>
       <div className="d-flex justify-content-between align-items-center mb-2">
         <h2>Daftar Penelitian</h2>
       </div>
