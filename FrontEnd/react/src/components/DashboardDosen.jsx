@@ -9,8 +9,10 @@ import ListRiwayatPenelitian_Dosen from "./riwayat_penelitian/ListRiwayatPenelit
 import AddAuthorRiwayatPenelitian from "./riwayat_penelitian/AddRiwayatPenelitianComponent";
 import ListRiwayatPkm_Dosen from "./riwayatPkm/ListRiwayatPKM_Dosen"
 import AddAuthorRiwayatPkm from "./riwayatPkm/AddRiwayatPKMComponent";
-import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook, FaEdit } from 'react-icons/fa';
+import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 function DashboardDosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -24,7 +26,8 @@ function DashboardDosenDetailComponent({ id }) {
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedDosenId, setSelectedDosenId] = useState(null);
-
+  const navigate = useNavigate();
+  
   const handleShowEditModal = (id) => {
     setSelectedDosenId(id);
     setShowEditModal(true);
@@ -34,10 +37,17 @@ function DashboardDosenDetailComponent({ id }) {
     setShowEditModal(false);
   };
 
-
   useEffect(() => {
     async function fetchData() {
       try {
+        // Pengecekan otentikasi
+        const userAuth = Cookies.get("userAuth");
+        if (!userAuth) {
+          // Redirect ke halaman login jika tidak terotentikasi
+          navigate("/home");
+          return;
+        }
+
         const response = await axios.get(`http://localhost:3100/dosen/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
@@ -47,7 +57,21 @@ function DashboardDosenDetailComponent({ id }) {
     }
 
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+  //       const rows = response.data.rows[0];
+  //       setFormData(response.data.rows[0]);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, [id]);
 
   return (
     <section>
@@ -75,6 +99,9 @@ function DashboardDosenDetailComponent({ id }) {
                       <p>Jurusan&nbsp;&nbsp;&nbsp;: {formData.jurusan}</p>
                       <p>Jabatan&nbsp;&nbsp;&nbsp;: {formData.jabatan}</p>
                       <p>Email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {formData.email}</p>
+                      <button type="button" className="btn btn-primary btn-sm ml-5" onClick={() => handleShowEditModal(id)}>
+                            Edit Profil
+                      </button>
                       </Row>
                   </Col>
                 </Row>
@@ -93,7 +120,7 @@ function DashboardDosenDetailComponent({ id }) {
         <Row>
           <Col lg={12}>
             <Tabs
-              defaultActiveKey="Riwayat Pengajaran"
+              defaultActiveKey="Riwayat Pendidikan"
               id="fill-tab-example"
               className="mb-3 mt-5 tab-nav h6"
               fill
@@ -109,15 +136,9 @@ function DashboardDosenDetailComponent({ id }) {
                   <ListRiwayatPenelitian_Dosen id={id} />
               </div>
               </Tab>
-              {/* <Tab eventKey="Tambah Auhor Penelitian" title={<><FaFlask /> Author Penelitian</>}>
-                    <AddAuthorRiwayatPenelitian/>
-              </Tab> */}
               <Tab eventKey="Riwayat PKM" title={<><FaBook /> Riwayat PKM</>}>
                 <ListRiwayatPkm_Dosen id={id} />
               </Tab>
-              {/* <Tab eventKey="Tambah Kontributor PKM" title={<><FaBook/> Kontributor PKM</>}>
-                    <AddAuthorRiwayatPkm/>
-              </Tab> */}
             </Tabs>
           </Col>
         </Row>

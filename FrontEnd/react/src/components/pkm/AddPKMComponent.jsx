@@ -55,7 +55,7 @@ const AddPKMComponent = ({ id }) => {
       .then((response) => {
         Swal.fire({
           title: 'Berhasil Menambah Data PKM',
-          text: 'Data pkm berhasil ditambahkan.',
+          text: 'Data PKM berhasil ditambahkan.',
           icon: 'success',
           showConfirmButton: false,
           timer: 2000, // 2000 milidetik (2 detik),

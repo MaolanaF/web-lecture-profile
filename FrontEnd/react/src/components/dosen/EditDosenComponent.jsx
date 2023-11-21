@@ -54,25 +54,12 @@ function EditDosenComponent({ id }) {
     } catch (error) {
       console.error("Error updating data:", error);
     }
-
-    window.location = "http://localhost:5173/dosen"
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       {/* <h2>Edit Dosen</h2> */}
       <form onSubmit={handleUpdateDosen}>
-      <div className="form-group">
-          <label>id_dosen</label>
-          <input
-            type="text"
-            className="form-control"
-            name="id_dosen"
-            value={id}
-            // onChange={handleInputChange}
-            disabled
-          />
-        </div>
         <div className="form-group">
           <label>Nama</label>
           <input
@@ -84,12 +71,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Jurusan</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="jurusan"
+            value={formData.jurusan}
             onChange={handleInputChange}
           />
         </div>
@@ -104,12 +91,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Jurusan</label>
+          <label>Email</label>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            name="jurusan"
-            value={formData.jurusan}
+            name="email"
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>

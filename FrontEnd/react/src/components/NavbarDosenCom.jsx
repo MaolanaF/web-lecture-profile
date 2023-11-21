@@ -34,7 +34,6 @@ function NavbarDosen({ id }) {
     Cookies.remove("role");
     Cookies.remove("username");
     Cookies.remove("userAuth");
-    alert("Logout Berhasil !");
     navigate("/home");
   }
   return (

@@ -2,7 +2,10 @@
 const client = require("../connection");
 
 const getAllDosen = (callback) => {
-  client.query("SELECT * FROM dosen", callback);
+  client.query(
+    'SELECT d.*, u.password FROM dosen d JOIN "user" u ON d.id_user = u.id_user',
+    callback
+  );
 };
 
 // Mendapatkan data dosen dari database berdasarkan ID
@@ -51,5 +54,5 @@ module.exports = {
   updateDosen,
   deleteDosen,
   getUserByUsername,
-  getDosenByIdUser,
+  getDosenByIdUser
 };
