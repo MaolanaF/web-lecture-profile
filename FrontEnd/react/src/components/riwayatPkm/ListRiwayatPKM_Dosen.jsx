@@ -186,7 +186,7 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
       </Modal>
       <Modal show={showAddAuthorModal} onHide={handleCloseAddAuthorModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Tambah Penulis PKM</Modal.Title>
+          <Modal.Title>Tambah Kontributor PKM</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddPenulisPkmComponent id={selectedPKMId} handleClose={handleCloseAddAuthorModal} />

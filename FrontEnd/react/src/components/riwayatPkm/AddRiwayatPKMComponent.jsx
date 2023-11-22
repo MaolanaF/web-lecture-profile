@@ -78,7 +78,7 @@ const AddRiwayatPKMComponent = ({ id }) => {
 
   return (
     <div className="container">
-      <h2 className="mt-4">Add Kontributor PKM</h2>
+      {/* <h2 className="mt-4">Add Kontributor PKM</h2> */}
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Nama Dosen</label>

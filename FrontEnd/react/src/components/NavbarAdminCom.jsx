@@ -3,6 +3,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 
 const NavbarAdmin = () => {
   const navigate = useNavigate();
@@ -10,6 +11,13 @@ const NavbarAdmin = () => {
     Cookies.remove("role");
     Cookies.remove("username");
     Cookies.remove("userAuth");
+    Swal.fire({
+      title: "Logout berhasil!",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 2000, // 2000 milidetik (2 detik),
+    });
+    navigate("/dashboard_admin/dosen");
     navigate("/home");
   }
 

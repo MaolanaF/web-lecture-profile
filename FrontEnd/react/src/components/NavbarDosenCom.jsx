@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Cookies from "js-cookie";
+import Swal from 'sweetalert2';
 
 function NavbarDosen({ id }) {
   const navigate = useNavigate();
@@ -34,8 +35,15 @@ function NavbarDosen({ id }) {
     Cookies.remove("role");
     Cookies.remove("username");
     Cookies.remove("userAuth");
+    Swal.fire({
+      title: "Logout berhasil!",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 2000, // 2000 milidetik (2 detik),
+    });
     navigate("/home");
   }
+
   return (
     <header>
       {/* Navbar */}

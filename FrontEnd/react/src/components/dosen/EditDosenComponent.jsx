@@ -70,12 +70,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Jurusan</label>
+          <label>Email</label>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            name="jurusan"
-            value={formData.jurusan}
+            name="email"
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>
@@ -90,12 +90,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Jurusan</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="jurusan"
+            value={formData.jurusan}
             onChange={handleInputChange}
           />
         </div>

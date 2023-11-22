@@ -182,7 +182,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
       </Modal>
       <Modal show={showTambahPenulisModal} onHide={handleCloseAddAuthorModal}>
         <Modal.Header closeButton>
-        <Modal.Title>Tambah Penulis</Modal.Title>
+        <Modal.Title>Tambah Author Penelitian</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AddPenulisPenelitianComponent id={selectedPenelitianId} handleClose={handleCloseAddAuthorModal} />
