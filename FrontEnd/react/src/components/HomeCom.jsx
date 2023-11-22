@@ -109,7 +109,7 @@ const ListDosenComponent = () => {
             <Col xs={12}>
               <div className="title-box text-center">
                 <h4 className="title-a mt-2">Dosen</h4>
-                <p className="subtitle-a">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                {/* <p className="subtitle-a">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p> */}
                 <div className="line-mf"></div>
               </div>
             </Col>

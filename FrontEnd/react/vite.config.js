@@ -41,7 +41,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => true,
-            handler: "CacheFirst",
+            handler: "NetworkFirst",
             options: {
               cacheName: "api-cache",
               cacheableResponse: {

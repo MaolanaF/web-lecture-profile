@@ -54,8 +54,6 @@ function EditMatkulComponent({ id }) {
     } catch (error) {
       console.error("Gagal mengedit data mata kuliah", error);
     }
-
-    window.location = "http://localhost:5173/mata_kuliah"
   };
 
   return (

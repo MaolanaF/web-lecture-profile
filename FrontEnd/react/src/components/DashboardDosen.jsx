@@ -11,7 +11,7 @@ import ListRiwayatPkm_Dosen from "./riwayatPkm/ListRiwayatPKM_Dosen"
 import AddAuthorRiwayatPkm from "./riwayatPkm/AddRiwayatPKMComponent";
 import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
 function DashboardDosenDetailComponent({ id }) {
@@ -37,31 +37,17 @@ function DashboardDosenDetailComponent({ id }) {
     setShowEditModal(false);
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Pengecekan otentikasi
-        const userAuth = Cookies.get("userAuth");
-        if (!userAuth) {
-          // Redirect ke halaman login jika tidak terotentikasi
-          navigate("/home");
-          return;
-        }
-
-        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
-        const rows = response.data.rows[0];
-        setFormData(response.data.rows[0]);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
-  }, [id, navigate]);
-
   // useEffect(() => {
   //   async function fetchData() {
   //     try {
+  //       // Pengecekan otentikasi
+  //       const userAuth = Cookies.get("userAuth");
+  //       if (!userAuth) {
+  //         // Redirect ke halaman login jika tidak terotentikasi
+  //         navigate("/home");
+  //         return;
+  //       }
+
   //       const response = await axios.get(`http://localhost:3100/dosen/${id}`);
   //       const rows = response.data.rows[0];
   //       setFormData(response.data.rows[0]);
@@ -71,7 +57,21 @@ function DashboardDosenDetailComponent({ id }) {
   //   }
 
   //   fetchData();
-  // }, [id]);
+  // }, [id, navigate]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+        const rows = response.data.rows[0];
+        setFormData(response.data.rows[0]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
+
+    fetchData();
+  }, [id]);
 
   return (
     <section>
@@ -86,11 +86,11 @@ function DashboardDosenDetailComponent({ id }) {
         </Row>
         <Row>
           <Col md={7}>
-            <Card>
+            <Card style={{ height: '270px' }}>
               <Card.Body>
                 <Row>
                     <Col md={5} style={{ textAlign:"center" }}>
-                      <Image src="https://travellersworldwide.com/wp-content/uploads/2023/02/Shutterstock_1765167053.jpg"
+                      <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
                       style={{ width: "80%", height: "auto" }}/>
                     </Col>
                     <Col md={7}>
@@ -109,7 +109,7 @@ function DashboardDosenDetailComponent({ id }) {
             </Card>
           </Col>
           <Col md={5}>
-            <Card>
+            <Card style={{ height: '270px' }}>
               <Card.Body>
                 <p className="h1 mb-3" style={{ fontSize: "1.3rem" }}>Riwayat Pendidikan</p>
                 <ListRiwayatPendidikan id={id} />

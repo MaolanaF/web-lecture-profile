@@ -45,30 +45,34 @@ const ListDosenComponent = () => {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3100/dosen/${id}`)
-      .then(() => {
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data dosen!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setDosenList((prevDosenList) => prevDosenList.filter((dosen) => dosen.id_dosen !== id));
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data dosen!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/dosen/${id}`)
+          .then(() => {
+            setDosenList((prevDosenList) =>
+              prevDosenList.filter((dosen) => dosen.id_dosen !== id)
+            );
             Swal.fire({
               title: "Berhasil menghapus data dosen!",
-              icon: "success"
+              icon: "success",
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    });
   };
+  
 
   const filteredDosenList = dosenList.filter((dosen) => {
     const fullName = `${dosen.nama} ${dosen.email} ${dosen.jabatan} ${dosen.jurusan}`;

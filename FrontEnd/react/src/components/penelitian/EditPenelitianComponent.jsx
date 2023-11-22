@@ -82,7 +82,7 @@ function EditPenelitianComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       {/* <h2>Edit Penelitian</h2> */}
       <form onSubmit={handleUpdatePenelitian}>
       {/* <div className="form-group">

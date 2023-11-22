@@ -45,30 +45,36 @@ const ListMatkulComponent = () => {
   }, []);
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3100/mata_kuliah/${id}`)
-      .then(() => {
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data ini",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setMatkulList((prevMatkulList) => prevMatkulList.filter((mata_kuliah) => mata_kuliah.id_matkul !== id));
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data ini",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/mata_kuliah/${id}`)
+          .then(() => {
+            setMatkulList((prevMatkulList) =>
+              prevMatkulList.filter(
+                (mata_kuliah) => mata_kuliah.id_matkul !== id
+              )
+            );
             Swal.fire({
               title: "Berhasil menghapus data mata kuliah",
-              icon: "success"
+              icon: "success",
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data mata kuliah",error);
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data mata kuliah", error);
+          });
+      }
+    });
   };
+  
 
   const filteredMatkulList = matkulList.filter((mata_kuliah) => {
     const fullName = `${mata_kuliah.nama_matkul} ${mata_kuliah.kode_matkul} ${mata_kuliah.kode_kelas} ${mata_kuliah.semester} ${mata_kuliah.perguruan_tinggi}`;

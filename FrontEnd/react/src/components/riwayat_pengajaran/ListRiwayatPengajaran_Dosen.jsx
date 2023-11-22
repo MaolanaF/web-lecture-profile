@@ -43,10 +43,6 @@ const ListRiwayatPengajaranCom = ({ id }) => {
           }
           return a.tahun - b.tahun;
         });
-        // const sortedRiwayatPengajaranList = response.data.sort((a, b) => a.tahun - b.tahun);
-        // const sortedRiwayatPengajaranList = response.data.sort((a, b) =>
-        //   a.tahun.localeCompare(b.tahun, undefined, { numeric: false })
-        // );
         setlistRiwayatPengajaran(sortedRiwayatPengajaranList); // Mengatur data dosen ke dalam state
         console.log(response.data);
       })
@@ -58,33 +54,37 @@ const ListRiwayatPengajaranCom = ({ id }) => {
 
    // Fungsi untuk menghapus data penelitian berdasarkan ID
    const handleDelete = (id) => {
-    // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
-      .then(() => {
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data pendidikan!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setlistRiwayatPengajaran((prevRiwayatPengajaranList) => prevRiwayatPengajaranList.filter((riwayat_pengajaran) => riwayat_pengajaran.id_pengajaran !== id));
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data pengajaran",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
+          .then(() => {
+            setlistRiwayatPengajaran((prevRiwayatPengajaranList) =>
+              prevRiwayatPengajaranList.filter(
+                (riwayat_pengajaran) =>
+                  riwayat_pengajaran.id_pengajaran !== id
+              )
+            );
             Swal.fire({
               title: "Berhasil menghapus data pengajaran",
-              icon: "success"
+              icon: "success",
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data pengajaran",error);
-        // Handle error
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data pengajaran", error);
+          });
+      }
+    });
   };
-
+  
   const filteredPengajaranList = listRiwayatPengajaran.filter((riwayat_pengajaran) => {
     const fullName = `${riwayat_pengajaran.kode_matkul} ${riwayat_pengajaran.nama_matkul} ${riwayat_pengajaran.semester} ${riwayat_pengajaran.tahun} ${riwayat_pengajaran.kode_kelas} ${riwayat_pengajaran.perguruan_tinggi}`;
     return fullName.toLowerCase().includes(searchText.toLowerCase());

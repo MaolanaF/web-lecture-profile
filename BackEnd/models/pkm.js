@@ -24,7 +24,7 @@ const insertPKM = (judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm, call
     });
 }
 
-const updatePKM = (id_pkm, judul_pkm, tahun_pkm, bidang_pkm, link_pkm, kontributor, callback) => {
+const updatePKM = (id_pkm, judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm, callback) => {
     const query = 'UPDATE pkm SET judul_pkm = $1, tahun_pkm = $2, bidang_pkm = $3, kontributor = $4, link_pkm = $5 WHERE id_pkm = $6';
     const values = [judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm, id_pkm];
     client.query(query, values, callback);

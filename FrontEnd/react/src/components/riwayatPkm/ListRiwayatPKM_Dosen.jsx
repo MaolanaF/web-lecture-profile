@@ -70,32 +70,34 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
 
   // Fungsi untuk menghapus data PKM berdasarkan ID
   const handleDelete = (id) => {
-    // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/riwayatpkm/${id}`)
-      .then(() => {
-        // Hapus data PKM dari state
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data PKM!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setlistRiwayatPKM((prevRiwayatPKMList) => prevRiwayatPKMList.filter((riwayat_pkm) => riwayat_pkm.id_riwayatpkm !== id));
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data PKM!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/riwayatpkm/${id}`)
+          .then(() => {
+            setlistRiwayatPKM((prevRiwayatPKMList) =>
+              prevRiwayatPKMList.filter((riwayat_pkm) => riwayat_pkm.id_riwayatpkm !== id)
+            );
             Swal.fire({
               title: "Berhasil menghapus data PKM",
-              icon: "success"
+              icon: "success",
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data PKM",error);
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data PKM", error);
+          });
+      }
+    });
   };
+  
 
   // Menghasilkan daftar riwayat PKM yang sudah difilter berdasarkan input pencarian
   const filteredPKMList = listRiwayatPKM.filter((riwayat_pkm) => {
@@ -182,7 +184,7 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
           <EditPKMComponent id={selectedPKMId} handleClose={handleCloseEditModal} />
         </Modal.Body>
       </Modal>
-      <Modal show={showAddAuthorModal} onHide={handleShowAddAuthorModal}>
+      <Modal show={showAddAuthorModal} onHide={handleCloseAddAuthorModal}>
         <Modal.Header closeButton>
           <Modal.Title>Tambah Penulis PKM</Modal.Title>
         </Modal.Header>

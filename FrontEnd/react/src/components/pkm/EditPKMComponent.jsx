@@ -80,7 +80,7 @@ function EditPKMComponent({ id }) {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="container">
       {/* Formulir penyuntingan PKM */}
       <form onSubmit={handleUpdatePKM}>
         {/* <div className="form-group">

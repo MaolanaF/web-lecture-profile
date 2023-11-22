@@ -67,33 +67,37 @@ const ListRiwayatPenelitianCom = ({ id }) => {
 
    // Fungsi untuk menghapus data penelitian berdasarkan ID
    const handleDelete = (id) => {
-    // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/riwayat_penelitian/${id}`)
-      .then(() => {
-        // Hapus data dosen dari state
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data penelitian!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Yes, delete it!"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setlistRiwayatPenelitian((prevRiwayatPenelitianList) => prevRiwayatPenelitianList.filter((riwayat_penelitian) => riwayat_penelitian.id_riwayatpenelitian !== id));
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data penelitian",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/riwayat_penelitian/${id}`)
+          .then(() => {
+            setlistRiwayatPenelitian((prevRiwayatPenelitianList) =>
+              prevRiwayatPenelitianList.filter(
+                (riwayat_penelitian) =>
+                  riwayat_penelitian.id_riwayatpenelitian !== id
+              )
+            );
             Swal.fire({
               title: "Berhasil menghapus data penelitian",
-              icon: "success"
+              icon: "success",
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data penelitian",error);
-        // Handle error
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data penelitian", error);
+          });
+      }
+    });
   };
+  
 
   const filteredRiwayatPenelitianList = listRiwayatPenelitian.filter((riwayat_penelitian) => {
     const fullName = `${riwayat_penelitian.judul} ${riwayat_penelitian.tanggal_publikasi} ${riwayat_penelitian.bidang} ${riwayat_penelitian.nama}`;

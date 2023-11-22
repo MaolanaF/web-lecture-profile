@@ -51,31 +51,42 @@ const ListRiwayatPendidikanCom = ({ id }) => {
       });
   }, []);
 
-   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
-      .then(() => {
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data pendidikan",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setlistRiwayatPendidikan((prevRiwayatPendidikanList) => prevRiwayatPendidikanList.filter((riwayat_pendidikan) => riwayat_pendidikan.id_pendidikan !== id));
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data pendidikan",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
+          .then(() => {
+            setlistRiwayatPendidikan((prevRiwayatPendidikanList) =>
+              prevRiwayatPendidikanList.filter(
+                (riwayat_pendidikan) =>
+                  riwayat_pendidikan.id_pendidikan !== id
+              )
+            );
             Swal.fire({
               title: "Berhasil menghapus data pendidikan",
-              icon: "success"
+              icon: "success",
+              didClose: () => {
+                // Logika untuk pindah ke halaman tertentu setelah SweetAlert ditutup
+                window.location.reload();
+              },
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data pendidikan",error);
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data pendidikan", error);
+          });
+      }
+    });
   };
+  
 
   const filteredPendidikanList = listRiwayatPendidikan.filter((riwayat_pendidikan) => {
     const fullName = `${riwayat_pendidikan.jenjang_pendidikan} ${riwayat_pendidikan.nama_institusi} ${riwayat_pendidikan.tahun_lulus}`;
@@ -85,7 +96,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
   return (
     <div className="container" style={{marginTop:'30px'}}>
       <div className="d-flex justify-content-between align-items-center mb-2">
-        <h2>Riwayat Pendidikan</h2>
+        <h2>Daftar Pendidikan</h2>
       </div>
       <div className="d-flex justify-content-between align-items-center">
         <div>
