@@ -54,6 +54,7 @@ function App() {
   return (
       <Router>
           <Routes>
+            <Route path="/" element = {<Home/>} />
             {/* Dosen */}
             <Route path="/dosen" element = {<Dosen />} />
             <Route path="/dosen/insert" element = {<AddDosen/>} />
