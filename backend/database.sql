@@ -33,15 +33,26 @@ ALTER TABLE dosen ADD COLUMN id_user VARCHAR(10) NOT NULL;
 ALTER TABLE dosen ADD CONSTRAINT fk_dosen_id_user FOREIGN KEY (id_user) REFERENCES "user" (id_user);
 
 -- Membuat trigger untuk id dosen dan id user
-CREATE OR REPLACE FUNCTION generate_dosen_id_user()
-RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION generate_dosen_id_user() RETURNS TRIGGER AS $$
+DECLARE
+   new_id_dosen VARCHAR(7);
+   new_id_user VARCHAR(7);
 BEGIN
-    NEW.id_dosen = CONCAT('DSN', LPAD((SELECT COUNT(*) + 1 FROM dosen)::text, 4, '0'));
-    NEW.id_user = CONCAT('USR', LPAD((SELECT COUNT(*) + 1 FROM dosen)::text, 4, '0'));
-    INSERT INTO "user" (id_user, username, password, role)
-    VALUES (NEW.id_user, NEW.email, LPAD(FLOOR(random() * 10000)::text, 6, '0'), 'Dosen');
-    RETURN NEW;
+   -- Generate new id_dosen
+   SELECT 'DSN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_dosen FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id_dosen FROM dosen;
+   NEW.id_dosen := new_id_dosen;
+
+   -- Generate new id_user
+   SELECT 'USR' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_user FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id_user FROM "user";
+   NEW.id_user := new_id_user;
+
+   -- Insert into "user" table
+   INSERT INTO "user" (id_user, username, password, role)
+   VALUES (NEW.id_user, NEW.email, LPAD(FLOOR(random()*10000)::text, 6, '0'), 'Dosen');
+
+   RETURN NEW;
 END;
+
 $$ LANGUAGE plpgsql;
 CREATE TRIGGER trigger_generate_dosen_id_user
 BEFORE INSERT ON dosen
@@ -303,7 +314,7 @@ VALUES
 -- Membuat trigger untuk id penelitian
 CREATE OR REPLACE FUNCTION generate_penelitian_id() RETURNS TRIGGER AS $$
 DECLARE
-    new_id VARCHAR(6);
+    new_id VARCHAR(8);
 BEGIN
     SELECT 'PEN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_penelitian FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM penelitian;
     NEW.id_penelitian := new_id;
@@ -318,9 +329,9 @@ EXECUTE FUNCTION generate_penelitian_id();
 -- Membuat trigger untuk id riwayat penelitian
 CREATE OR REPLACE FUNCTION generate_riwayatpenelitian_id() RETURNS TRIGGER AS $$
 DECLARE
-    new_id VARCHAR(6);
+    new_id VARCHAR(12);
 BEGIN
-    SELECT 'RWL' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_riwayatpenelitian FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM riwayat_penelitian;
+    SELECT 'RWL' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_riwayatpenelitian FROM 6)::INT), 0) + 1) AS TEXT), 6, '0') INTO new_id FROM riwayat_penelitian;
     NEW.id_riwayatpenelitian := new_id;
     RETURN NEW;
 END;
@@ -478,3 +489,37 @@ BEFORE INSERT ON riwayat_pkm
 FOR EACH ROW
 EXECUTE FUNCTION generate_riwayatpkm_id();
 
+--------------------
+-- Trigger
+--------------------
+
+-- trigger untuk menghapus data yang berhubungan dengan dosen
+CREATE OR REPLACE FUNCTION delete_related_dosen_data()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Delete from riwayat_penelitian
+    DELETE FROM riwayat_penelitian WHERE id_dosen = OLD.id_dosen;
+    
+    -- Delete from penelitian
+    DELETE FROM penelitian WHERE author = OLD.id_dosen;
+    
+    -- Delete from riwayat_pengajaran
+    DELETE FROM riwayat_pengajaran WHERE id_dosen = OLD.id_dosen;
+    
+    -- Delete from riwayat_pkm
+    DELETE FROM riwayat_pkm WHERE id_dosen = OLD.id_dosen;
+    
+    -- Delete from pkm
+    DELETE FROM pkm WHERE kontributor = OLD.id_dosen;
+    
+    -- Delete from riwayat_pendidikan
+    DELETE FROM riwayat_pendidikan WHERE id_dosen = OLD.id_dosen;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_related_dosen_data_trigger
+BEFORE DELETE ON dosen
+FOR EACH ROW
+EXECUTE FUNCTION delete_related_dosen_data();

@@ -1,4 +1,5 @@
 import React from "react";
+import Swal from 'sweetalert2'
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -10,6 +11,12 @@ const NavbarAdmin = () => {
     Cookies.remove("role");
     Cookies.remove("username");
     Cookies.remove("userAuth");
+    Swal.fire({
+      title: "Logout berhasil!",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500, // 2000 milidetik (2 detik),
+    });
     navigate("/home");
   }
 

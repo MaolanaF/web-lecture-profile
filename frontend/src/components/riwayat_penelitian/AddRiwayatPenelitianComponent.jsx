@@ -77,7 +77,6 @@ const AddRiwayatPenelitianComponent = ({ id }) => {
 
   return (
     <div className="container">
-      <h2 className="mt-4">Add Author Penelitian</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Nama Dosen</label>

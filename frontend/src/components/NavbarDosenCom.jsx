@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
@@ -34,6 +35,12 @@ function NavbarDosen({ id }) {
     Cookies.remove("role");
     Cookies.remove("username");
     Cookies.remove("userAuth");
+    Swal.fire({
+      title: "Logout berhasil!",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 1500, // 2000 milidetik (2 detik),
+    });
     navigate("/home");
   }
   return (

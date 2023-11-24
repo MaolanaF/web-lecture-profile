@@ -21,32 +21,32 @@ const ListPenelitianComponent = () => {
 
   // Fungsi untuk menghapus data penelitian berdasarkan ID
   const handleDelete = (id) => {
-    // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-    axios.delete(`http://localhost:3100/penelitian/${id}`)
-      .then(() => {
-        // Hapus data dosen dari state
-        Swal.fire({
-          title: "Apakah anda yakin",
-          text: "Anda akan menghapus data penelitian",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            setPenelitianList((prevPenelitianList) => prevPenelitianList.filter((penelitian) => penelitian.id_penelitian !== id));
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data penelitian",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/penelitian/${id}`)
+          .then(() => {
+            setPenelitianList((prevPenelitianList) => 
+              prevPenelitianList.filter((penelitian) => penelitian.id_penelitian !== id
+            ));
             Swal.fire({
               title: "Berhasil menghapus data penelitian",
               icon: "success"
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data penelitian",error);
-        // Handle error
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data penelitian", error);
+          });
+      }
+    });
   };
 
   

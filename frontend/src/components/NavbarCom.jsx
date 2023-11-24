@@ -71,7 +71,7 @@ const MyNavbar = () => {
             {/* Login */}
             <Link to={{ pathname: "/login" }}>
               <Button variant="warning" style={{ fontWeight: "500" }}>
-                LOGIN
+                Login
               </Button>
             </Link>
           </Nav>

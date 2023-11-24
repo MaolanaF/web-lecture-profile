@@ -43,29 +43,30 @@ const ListPKMComponent = () => {
 
   // Fungsi untuk menghapus PKM
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3100/pkm/${id}`)
-      .then(() => {
-        Swal.fire({
-          title: "Apakah anda yakin?",
-          text: "Anda akan menghapus data PKM!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "Ya"
-        }).then((result) => {
-          if (result.isConfirmed) {
+    Swal.fire({
+      title: "Apakah anda yakin?",
+      text: "Anda akan menghapus data PKM",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Ya",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3100/pkm/${id}`)
+          .then(() => {
             setPKMList((prevPKMList) => prevPKMList.filter((pkm) => pkm.id_pkm !== id));
             Swal.fire({
               title: "Berhasil menghapus data PKM",
               icon: "success"
             });
-          }
-        });
-      })
-      .catch((error) => {
-        console.error("Gagal menghapus data PKM",error);
-      });
+          })
+          .catch((error) => {
+            console.error("Gagal menghapus data PKM", error);
+          });
+      }
+    });
   };
 
   // Membuat daftar PKM yang difilter berdasarkan kata kunci pencarian

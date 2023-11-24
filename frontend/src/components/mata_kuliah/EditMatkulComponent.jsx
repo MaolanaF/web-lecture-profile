@@ -93,13 +93,29 @@ function EditMatkulComponent({ id }) {
         </div>
         <div className="form-group">
           <label>Kode Kelas</label>
-          <input
-            type="text"
-            className="form-control"
-            name="kode_kelas"
-            value={formData.kode_kelas}
-            onChange={handleInputChange}
-          />
+          <select
+              name="kode_kelas"
+              value={formData.kode_kelas}
+              onChange={handleInputChange}
+              className="form-control"
+              required
+            >
+            <option value="">Pilih Kode Kelas</option>
+            <option value="1ATI3">1ATI3</option>
+            <option value="1BTI3">1BTI3</option>
+            <option value="1ATI4">1ATI4</option>
+            <option value="1BTI4">1BTI4</option>
+            <option value="2ATI3">2ATI3</option>
+            <option value="2BTI3">2BTI3</option>
+            <option value="2ATI4">2ATI4</option>
+            <option value="2BTI4">2BTI4</option>
+            <option value="3ATI3">3ATI3</option>
+            <option value="3BTI3">3BTI3</option>
+            <option value="3ATI4">3ATI4</option>
+            <option value="3BTI4">3BTI4</option>
+            <option value="4ATI4">4ATI4</option>
+            <option value="4BTI4">4BTI4</option>
+            </select>
         </div>
         <div className="form-group">
           <label>Perguruan Tinggi</label>

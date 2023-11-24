@@ -67,7 +67,7 @@ const ListDosenComponent = () => {
             });
           })
           .catch((error) => {
-            console.error(error);
+            console.error("Gagal menghapus data dosen", error);
           });
       }
     });
