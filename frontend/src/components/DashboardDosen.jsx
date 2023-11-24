@@ -13,7 +13,7 @@ import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-ico
 import './style.css';
 // import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import BASE_URL from '../../../config';
+import BASE_URL from '../../config';
 
 function DashboardDosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({

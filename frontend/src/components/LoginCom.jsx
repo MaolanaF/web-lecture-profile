@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { FaLock, FaUser } from "react-icons/fa";
 import { Card } from "react-bootstrap";
-import BASE_URL from '../../../config';
+import BASE_URL from '../../config';
 
 function LoginCom() {
   const navigate = useNavigate(); // Use useNavigate

@@ -7,7 +7,7 @@ import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatP
 import ListRiwayatPKM from "../components/riwayatPkm/ListRiwayatPKM"
 import { FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
-import BASE_URL from '../../../config';
+import BASE_URL from '../../config';
 
 function DosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({

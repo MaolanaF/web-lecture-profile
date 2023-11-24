@@ -4,7 +4,7 @@ import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom"; 
 import { FaUsers, FaFlask, FaBook} from 'react-icons/fa';  
 import "./style.css"; 
-import BASE_URL from '../../../config';
+import BASE_URL from '../../config';
 
 const ListDosenComponent = () => {
     const [dosenList, setDosenList] = useState([]);

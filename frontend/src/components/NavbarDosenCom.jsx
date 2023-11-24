@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Cookies from "js-cookie";
-import BASE_URL from '../../../config';
+import BASE_URL from '../../config';
 
 function NavbarDosen({ id }) {
   const navigate = useNavigate();

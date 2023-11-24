@@ -28,13 +28,13 @@ import AddRiwayatPenelitian from './pages/riwayat_penelitian/AddRiwayatPenelitia
 import DetailPenelitian from './pages/riwayat_penelitian/ListRiwayatPenelitianDetail';
 
 // PKM
-import AddPkm from './pages/pkm/AddPKM'
-import EditPkm from './pages/pkm/EditPKM'
+import AddPKM from './pages/pkm/AddPKM'
+import EditPKM from './pages/pkm/EditPKM'
 // import ListPkm from './pages/pkm/ListPKM'
 
 // Riwayat PKM
 // import EditRiwayatPkm from './pages/riwayatPkm/EditRiwayatPKM'
-import AddRiwayatPkm from './pages/riwayatPkm/AddRiwayatPKM'
+import AddRiwayatPKM from './pages/riwayatPkm/AddRiwayatPKM'
 import DetailPKM from './pages/riwayatPkm/ListRiwayatPKMDetail'
 
 // Web Pages Viewer
@@ -73,10 +73,10 @@ function App() {
 
             {/* PKM */}
             {/* <Route path="/pkm/list" element={<ListPkm />} /> */}
-            <Route path="/pkm/insert" element={<AddPkm />} />
-            <Route path="/pkm/edit/:id_pkm" element={<EditPkm />} />
+            <Route path="/pkm/insert" element={<AddPKM />} />
+            <Route path="/pkm/edit/:id_pkm" element={<EditPKM />} />
             {/* <Route path="/riwayatpkm/list" element={<ListRiwayatPkm />} /> */}
-            <Route path="/riwayatpkm/insert" element={<AddRiwayatPkm />} />
+            <Route path="/riwayatpkm/insert" element={<AddRiwayatPKM />} />
             <Route path="/detail_pkm/:id_pkm" element={<DetailPKM/>} />
 
             {/* Mata Kuliah & Pengajaran */}

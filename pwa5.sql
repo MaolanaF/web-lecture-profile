@@ -24,16 +24,25 @@ CREATE FUNCTION public.delete_related_dosen_data() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
 BEGIN
-  -- Delete the corresponding user
-  DELETE FROM "user" WHERE id_user = OLD.id_user;
+    -- Delete from riwayat_penelitian
+    DELETE FROM riwayat_penelitian WHERE id_dosen = OLD.id_dosen;
+    
+    -- Delete from penelitian
+    DELETE FROM penelitian WHERE author = OLD.id_dosen;
+    
+    -- Delete from riwayat_pengajaran
+    DELETE FROM riwayat_pengajaran WHERE id_dosen = OLD.id_dosen;
+    
+    -- Delete from riwayat_pkm
+    DELETE FROM riwayat_pkm WHERE id_dosen = OLD.id_dosen;
+    
+    -- Delete from pkm
+    DELETE FROM pkm WHERE kontributor = OLD.id_dosen;
+    
+    -- Delete from riwayat_pendidikan
+    DELETE FROM riwayat_pendidikan WHERE id_dosen = OLD.id_dosen;
 
-  -- Delete related records from riwayat_pengajaran
-  DELETE FROM riwayat_pengajaran WHERE id_dosen = OLD.id_dosen;
-
-  -- Delete related records from riwayat_penelitian
-  DELETE FROM riwayat_penelitian WHERE id_dosen = OLD.id_dosen;
-
-  RETURN OLD;
+    RETURN OLD;
 END;
 $$;
 
@@ -62,13 +71,23 @@ ALTER FUNCTION public.delete_user_on_dosen_delete() OWNER TO postgres;
 
 CREATE FUNCTION public.generate_dosen_id_user() RETURNS trigger
     LANGUAGE plpgsql
-    AS $$
+    AS $$DECLARE
+   new_id_dosen VARCHAR(7);
+   new_id_user VARCHAR(7);
 BEGIN
-    NEW.id_dosen = CONCAT('DSN', LPAD((SELECT COUNT(*) + 1 FROM dosen)::text, 4, '0'));
-    NEW.id_user = CONCAT('USR', LPAD((SELECT COUNT(*) + 1 FROM dosen)::text, 4, '0'));
-    INSERT INTO "user" (id_user, username, password, role)
-    VALUES (NEW.id_user, NEW.email, LPAD(FLOOR(random() * 10000)::text, 6, '0'), 'Dosen');
-    RETURN NEW;
+   -- Generate new id_dosen
+   SELECT 'DSN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_dosen FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id_dosen FROM dosen;
+   NEW.id_dosen := new_id_dosen;
+
+   -- Generate new id_user
+   SELECT 'USR' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_user FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id_user FROM "user";
+   NEW.id_user := new_id_user;
+
+   -- Insert into "user" table
+   INSERT INTO "user" (id_user, username, password, role)
+   VALUES (NEW.id_user, NEW.email, LPAD(FLOOR(random()*10000)::text, 6, '0'), 'Dosen');
+
+   RETURN NEW;
 END;
 $$;
 
@@ -100,15 +119,13 @@ ALTER FUNCTION public.generate_mata_kuliah_id() OWNER TO postgres;
 
 CREATE FUNCTION public.generate_penelitian_id() RETURNS trigger
     LANGUAGE plpgsql
-    AS $$
-DECLARE
-    new_id VARCHAR(6);
+    AS $$DECLARE
+    new_id VARCHAR(8);
 BEGIN
-    SELECT 'PEN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_penelitian FROM 4)::INT), 0) + 1) AS TEXT), 3, '0') INTO new_id FROM penelitian;
+    SELECT 'PEN' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_penelitian FROM 4)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM penelitian;
     NEW.id_penelitian := new_id;
     RETURN NEW;
-END;
-$$;
+END;$$;
 
 
 ALTER FUNCTION public.generate_penelitian_id() OWNER TO postgres;
@@ -138,15 +155,13 @@ ALTER FUNCTION public.generate_pkm_id() OWNER TO postgres;
 
 CREATE FUNCTION public.generate_riwayat_pendidikan_id() RETURNS trigger
     LANGUAGE plpgsql
-    AS $$
-DECLARE
+    AS $$DECLARE
     new_id VARCHAR(6);
 BEGIN
     SELECT 'PD' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_pendidikan FROM 3)::INT), 0) + 1) AS TEXT), 4, '0') INTO new_id FROM riwayat_pendidikan;
     NEW.id_pendidikan := new_id;
     RETURN NEW;
-END;
-$$;
+END;$$;
 
 
 ALTER FUNCTION public.generate_riwayat_pendidikan_id() OWNER TO postgres;
@@ -157,15 +172,13 @@ ALTER FUNCTION public.generate_riwayat_pendidikan_id() OWNER TO postgres;
 
 CREATE FUNCTION public.generate_riwayat_penelitian_id() RETURNS trigger
     LANGUAGE plpgsql
-    AS $$
-DECLARE
-    new_id VARCHAR(6);
+    AS $$DECLARE
+    new_id VARCHAR(12);
 BEGIN
-    SELECT 'RWL' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_penelitian FROM 4)::INT), 0) + 1) AS TEXT), 3, '0') INTO new_id FROM riwayat_penelitian;
+    SELECT 'RWL' || LPAD(CAST((COALESCE(MAX(SUBSTRING(id_riwayatpenelitian FROM 6)::INT), 0) + 1) AS TEXT), 6, '0') INTO new_id FROM riwayat_penelitian;
     NEW.id_riwayatpenelitian := new_id;
     RETURN NEW;
-END;
-$$;
+END;$$;
 
 
 ALTER FUNCTION public.generate_riwayat_penelitian_id() OWNER TO postgres;
@@ -253,7 +266,7 @@ CREATE TABLE public.penelitian (
     tanggal_publikasi date NOT NULL,
     bidang character varying(100) NOT NULL,
     author character varying(50) NOT NULL,
-    link_penelitian character varying(200) NOT NULL
+    link_penelitian character varying(200)
 );
 
 
@@ -265,11 +278,11 @@ ALTER TABLE public.penelitian OWNER TO postgres;
 
 CREATE TABLE public.pkm (
     id_pkm character varying(10) NOT NULL,
-    judul_pkm character varying(200),
-    tahun_pkm integer,
-    bidang_pkm character varying(100),
+    judul_pkm character varying(200) NOT NULL,
+    tahun_pkm integer NOT NULL,
+    bidang_pkm character varying(100) NOT NULL,
     link_pkm character varying(200),
-    kontributor character varying(50)
+    kontributor character varying(50) NOT NULL
 );
 
 
@@ -360,11 +373,8 @@ DSN0009	Daniel Evans	daniel.evans@email.com	Profesor	Biologi	USR0009
 DSN0010	Laura Turner	laura.turner@email.com	Asisten Prof.	Matematika	USR0010
 DSN0011	Evelyn Anderson	evelyn.anderson@email.com	Profesor	Kimia	USR0011
 DSN0012	William Harris	william.harris@email.com	Asisten Prof.	Fisika	USR0012
-DSN0013	Olivia Wilson	olivia.wilson@email.com	Lektor	Ekonomi	USR0013
-DSN0014	James Martin	james.martin@email.com	Profesor	Sastra	USR0014
-DSN0015	Sophia Moore	sophia.moore@email.com	Lektor	Sosiologi	USR0015
-DSN0002	Alice Johnsons Ph.D	alice.johnson@email.com	Asisten Prof.	Ekonomi	USR0002
-DSN0001	John Doe, S.Pd, M.Pd	john.doe@email.com	Profesor	Teknik Kimia	USR0001
+DSN0013	Olivia Wilson	olivia.wilson@email.com	Profesor	Kimia	USR0013
+DSN0002	Alice Johnsons	alice.johnson@email.com	Profesor	Ekonomi	USR0002
 \.
 
 
@@ -373,7 +383,6 @@ DSN0001	John Doe, S.Pd, M.Pd	john.doe@email.com	Profesor	Teknik Kimia	USR0001
 --
 
 COPY public.mata_kuliah (id_matkul, kode_matkul, nama_matkul, kode_kelas, perguruan_tinggi) FROM stdin;
-MK001	21MK001	Statistika dan Probabilitas	1ATI3	Politeknik Negeri Bandung
 MK002	21MK002	Pemrograman Dasar	1ATI4	Politeknik Negeri Bandung
 MK003	21MK003	Basis Data	1BTI3	Politeknik Negeri Bandung
 MK004	21MK004	Sistem Operasi	1BTI4	Politeknik Negeri Bandung
@@ -388,8 +397,6 @@ MK012	21MK012	Sistem Informasi	3BTI4	Politeknik Negeri Bandung
 MK013	21MK013	Analisis dan Desain Sistem	4ATI3	Politeknik Negeri Bandung
 MK014	21MK014	Pengantar Keamanan Informasi	4ATI4	Politeknik Negeri Bandung
 MK015	21MK015	Manajemen Database	4BTI3	Politeknik Negeri Bandung
-MK017	21MK022	Pengolahan Citra Digital	3BTI4	Politeknik Negeri Bandung
-MK018	21MK777	Pengantar Musik	1ATI4	Politeknik Negeri Bandung
 \.
 
 
@@ -398,13 +405,14 @@ MK018	21MK777	Pengantar Musik	1ATI4	Politeknik Negeri Bandung
 --
 
 COPY public.penelitian (id_penelitian, judul, tanggal_publikasi, bidang, author, link_penelitian) FROM stdin;
-PEN002	awikwok	2023-10-02	Sains	DSN0002	FILE-1698738458490.pdf
-PEN003	ABC	2023-10-06	AAAAA	DSN0002	FILE-1698739997884.pdf
-PEN001	ABD	2023-10-01	Pengabdian Kepada Masyarakat	DSN0002	FILE-1699026428843.pdf
-PEN004	NLP 	2023-11-07	Kecerdasan Buatan	DSN0001	FILE-1699338641764.pdf
-PEN005	NLP 	2023-11-07	Kecerdasan Buatan	DSN0001	FILE-1699338656840.pdf
-PEN006	NLP 	2023-11-01	Kecerdasan Buatan	DSN0001	FILE-1699338772842.pdf
-PEN007	NLP 	2023-11-30	Kecerdasan Buatan	DSN0001	FILE-1699338884587.pdf
+PEN001	nlp	2023-11-01	kecerdasan buatan	DSN0002	FILE-1700656191823.pdf
+PEN002	NLP	2023-11-22	Kecerdasan Buatan	DSN0002	FILE-1700656220882.pdf
+PEN003	nlp	2023-11-01	kecerdasan buatan	DSN0002	FILE-1700656270371.pdf
+PEN004	NLP	2023-11-22	Kecerdasan Buatan	DSN0002	FILE-1700656349155.pdf
+PEN005	NLP	2023-11-24	Kecerdasan Buatan	DSN0002	FILE-1700796389096.pdf
+PEN006	NLP	2023-11-02	Kecerdasan Buatan	DSN0002	FILE-1700796968274.pdf
+PEN0007	NLP	2023-11-02	Kecerdasan Buatan	DSN0002	FILE-1700821289339.pdf
+PEN0008	NLP	2023-11-02	Kecerdasan Buatan	DSN0002	FILE-1700821335305.pdf
 \.
 
 
@@ -413,21 +421,6 @@ PEN007	NLP 	2023-11-30	Kecerdasan Buatan	DSN0001	FILE-1699338884587.pdf
 --
 
 COPY public.pkm (id_pkm, judul_pkm, tahun_pkm, bidang_pkm, link_pkm, kontributor) FROM stdin;
-PKM001	Pengembangan Aplikasi E-Learning	2023	Pendidikan	\N	\N
-PKM002	Pengolahan Limbah Plastik	2023	Lingkungan	\N	\N
-PKM003	Pengembangan Sistem Manajemen Perpustakaan	2022	Teknologi	\N	\N
-PKM004	Studi Kualitas Air Sungai XYZ	2022	Lingkungan	\N	\N
-PKM005	Pengembangan Aplikasi Penjualan Online	2023	Teknologi	\N	\N
-PKM006	Promosi Pariwisata Lokal	2022	Pariwisata	\N	\N
-PKM007	Pengembangan Sistem Keamanan Rumah Cerdas	2023	Teknologi	\N	\N
-PKM008	Peningkatan Kualitas Pendidikan Anak Usia Dini	2022	Pendidikan	\N	\N
-PKM009	Penelitian Potensi Tanaman Obat	2023	Kesehatan	\N	\N
-PKM010	Pengelolaan Sampah Organik di Perkotaan	2022	Lingkungan	\N	\N
-PKM011	Aplikasi Pemantauan Cuaca	2023	Teknologi	\N	\N
-PKM012	Studi Perilaku Konsumen di Era Digital	2022	Sosial	\N	\N
-PKM013	Pengembangan Buku Interaktif Anak-Anak	2023	Pendidikan	\N	\N
-PKM014	Konservasi Satwa Langka	2022	Lingkungan	\N	\N
-PKM015	b	2020	b	a	\N
 PKM016	AB	2012	Pengabdian Kepada Masyarakat	FILE-.pdf	DSN0002
 PKM018	AB	2012	Pengabdian Kepada Masyarakat	FILE-1698737115467.pdf	DSN0002
 PKM019	AB	2012	Pengabdian Kepada Masyarakat	FILE-1698737115467.pdf	DSN0002
@@ -437,8 +430,15 @@ PKM022	Reka	2021	Reka	FILE-1698738542659.pdf	DSN0002
 PKM023	Reka	2021	Reka	FILE-1698738542659.pdf	DSN0002
 PKM024	Dyran	2021	Sains	FILE-1698738812613.pdf	DSN0002
 PKM025	Dyran	2021	Sains	FILE-1698738812613.pdf	DSN0002
-PKM017	ABCDE	2012	Pengabdian Kepada Masyarakay	DSN0002	FILE-1699026975809.pdf
-PKM026	Dyran	2021	A	FILE-1699338795466.pdf	DSN0001
+PKM027	NLP 	2021	Kecerdasan Buatan	FILE-1700207246316.pdf	DSN0002
+PKM030	Aplikasi Kursus Online	2020	PKM-K	FILE-1700582903707.pdf	DSN0002
+PKM031	Aplikasi Kursus Online	2020	PKM-K	DSN0002	FILE-1700587093236.pdf
+PKM033	PKM2	2020	PKM-PM	FILE-1700588764419.pdf	DSN0002
+PKM034	Aplikasi Kursus Online 3	2016	PKM-K	FILE-1700646474994.pdf	DSN0002
+PKM032	Aplikasi Kursus	2018	PKM-K	FILE-1700649448254.pdf	DSN0002
+PKM035	Aplikasi Kursus Online	2020	PKM-K	FILE-1700654225020.pdf	DSN0002
+PKM036	PKM1	2013	PKM-K	FILE-1700654288483.pdf	DSN0002
+PKM037	PKM1	2013	PKM-K	FILE-1700796498037.pdf	DSN0002
 \.
 
 
@@ -447,9 +447,10 @@ PKM026	Dyran	2021	A	FILE-1699338795466.pdf	DSN0001
 --
 
 COPY public.riwayat_pendidikan (id_pendidikan, jenjang_pendidikan, nama_institusi, tahun_lulus, id_dosen) FROM stdin;
-PD0003	S1	Universitas Gadjah Mada	2008	DSN0002
-PD0005	S2	University of Tokyo	2016	DSN0002
-PD0006	S3	University of Toronto	2021	DSN0002
+PD0003	S1	Universitas Gadjah Mada	2012	DSN0002
+PD0004	S2	Universitas Indonesia	2018	DSN0002
+PD0005	S1	University of Tokyo	2003	DSN0009
+PD0006	S2	University of Tokyo	2015	DSN0009
 \.
 
 
@@ -458,10 +459,10 @@ PD0006	S3	University of Toronto	2021	DSN0002
 --
 
 COPY public.riwayat_penelitian (id_riwayatpenelitian, id_penelitian, id_dosen) FROM stdin;
-RWL001	PEN001	DSN0002
-RWL002	PEN002	DSN0002
-RWL003	PEN003	DSN0003
-RWL004	PEN001	DSN0003
+RWL005	PEN004	DSN0009
+RWL000008	PEN0007	DSN0003
+RWL000009	PEN0007	DSN0006
+RWL000010	PEN0008	DSN0002
 \.
 
 
@@ -470,30 +471,7 @@ RWL004	PEN001	DSN0003
 --
 
 COPY public.riwayat_pengajaran (id_pengajaran, id_matkul, id_dosen, semester, tahun) FROM stdin;
-RPA003	MK002	DSN0003	Genap	2015
-RPA004	MK003	DSN0004	Genap	2015
-RPA005	MK003	DSN0005	Ganjil	2016
-RPA006	MK004	DSN0006	Ganjil	2016
-RPA007	MK005	DSN0007	Genap	2017
-RPA008	MK006	DSN0008	Genap	2017
-RPA009	MK006	DSN0009	Ganjil	2018
-RPA010	MK007	DSN0010	Ganjil	2018
-RPA011	MK008	DSN0011	Genap	2019
-RPA012	MK013	DSN0012	Genap	2019
-RPA013	MK013	DSN0013	Ganjil	2020
-RPA014	MK014	DSN0014	Ganjil	2020
-RPA015	MK015	DSN0015	Genap	2021
-RPA016	MK002	DSN0003	Ganjil	2014
-RPA017	MK002	DSN0003	Genap	2014
-RPA018	MK002	DSN0003	Ganjil	2015
-RPA019	MK002	DSN0003	Genap	2015
-RPA020	MK002	DSN0003	Ganjil	2016
-RPA021	MK001	DSN0003	Ganjil	2016
-RPA022	MK001	DSN0003	Ganjil	2013
-RPA025	MK002	DSN0001	Genap	2013
-RPA026	MK003	DSN0001	Ganjil	2017
-RPA027	MK001	DSN0002	Genap	2013
-RPA028	MK008	DSN0002	Ganjil	2016
+RPA002	MK002	DSN0002	Genap	2013
 \.
 
 
@@ -502,13 +480,11 @@ RPA028	MK008	DSN0002	Ganjil	2016
 --
 
 COPY public.riwayat_pkm (id_riwayatpkm, id_pkm, id_dosen) FROM stdin;
-RPKM003	PKM003	DSN0003
-RPKM004	PKM004	DSN0004
-RPKM005	PKM005	DSN0005
-RPKM006	PKM017	DSN0002
-RPKM007	PKM025	DSN0002
-RPKM008	PKM025	DSN0003
-RPKM009	PKM026	DSN0001
+RPKM005	PKM032	DSN0006
+RPKM007	PKM035	DSN0005
+RPKM008	PKM035	DSN0004
+RPKM009	PKM035	DSN0003
+RPKM010	PKM037	DSN0002
 \.
 
 
@@ -517,7 +493,6 @@ RPKM009	PKM026	DSN0001
 --
 
 COPY public."user" (id_user, username, password, role) FROM stdin;
-USR0001	john.doe@email.com	123456	Dosen
 USR0002	alice.johnson@email.com	789012	Dosen
 USR0003	robert.smith@email.com	345678	Dosen
 USR0004	mary.white@email.com	901234	Dosen
@@ -529,10 +504,8 @@ USR0009	daniel.evans@email.com	012345	Dosen
 USR0010	laura.turner@email.com	678901	Dosen
 USR0011	evelyn.anderson@email.com	123456	Dosen
 USR0012	william.harris@email.com	789012	Dosen
-USR0013	olivia.wilson@email.com	345678	Dosen
-USR0014	james.martin@email.com	901234	Dosen
-USR0015	sophia.moore@email.com	567890	Dosen
 ADM0001	admin	admin	Admin
+USR0013	olivia.wilson@email.com	004120	Dosen
 \.
 
 
@@ -606,6 +579,13 @@ ALTER TABLE ONLY public.riwayat_pkm
 
 ALTER TABLE ONLY public."user"
     ADD CONSTRAINT user_pkey PRIMARY KEY (id_user);
+
+
+--
+-- Name: dosen delete_related_dosen_data_trigger; Type: TRIGGER; Schema: public; Owner: postgres
+--
+
+CREATE TRIGGER delete_related_dosen_data_trigger BEFORE DELETE ON public.dosen FOR EACH ROW EXECUTE FUNCTION public.delete_related_dosen_data();
 
 
 --
