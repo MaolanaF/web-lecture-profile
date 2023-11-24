@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { FaLock, FaUser } from "react-icons/fa";
 import { Card } from "react-bootstrap";
+import BASE_URL from '../../../config';
 
 function LoginCom() {
   const navigate = useNavigate(); // Use useNavigate
@@ -29,7 +30,7 @@ function LoginCom() {
 
     try {
       const response = await axios.post(
-        `http://localhost:3100/login`,
+        `${BASE_URL}/login`,
         formData
       ); // Replace with your API endpoint
       if (response.data) {
@@ -50,7 +51,7 @@ function LoginCom() {
         } else if (userData.role === "Dosen") {
           try {
             const response = await axios.get(
-              `http://localhost:3100/login/` + userData.id_user
+              `${BASE_URL}/login/` + userData.id_user
             );
             const idDosen = response.data[0].id_dosen;
             Cookies.set("userAuth", idDosen, { expires: 1 });

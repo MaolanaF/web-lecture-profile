@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 function EditMatkulComponent({ id }) {
     const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ function EditMatkulComponent({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/mata_kuliah/${id}`);
+        const response = await axios.get(`${BASE_URL}/mata_kuliah/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
         console.log(id);
@@ -39,7 +40,7 @@ function EditMatkulComponent({ id }) {
   const handleUpdateMatkul = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/mata_kuliah/${id}`, formData);
+      const response = await axios.put(`${BASE_URL}/mata_kuliah/${id}`, formData);
       console.log(response.data);
       Swal.fire({
         title: 'Berhasil mengedit data mata kuliah',

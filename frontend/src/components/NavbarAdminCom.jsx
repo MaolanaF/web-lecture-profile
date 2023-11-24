@@ -4,6 +4,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import BASE_URL from '../../../config';
 
 const NavbarAdmin = () => {
   const navigate = useNavigate();

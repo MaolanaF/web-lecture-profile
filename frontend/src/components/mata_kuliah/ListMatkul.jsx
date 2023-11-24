@@ -7,7 +7,7 @@ import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddMatkulComponent from './AddMatkulComponent';
 import EditMatkulComponent from './EditMatkulComponent';
 import './../style.css';
-
+import BASE_URL from '../../../config';
 
 const ListMatkulComponent = () => {
   const [matkulList, setMatkulList] = useState([]);
@@ -32,7 +32,7 @@ const ListMatkulComponent = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3100/mata_kuliah')
+      .get(`${BASE_URL}/mata_kuliah`)
       .then((response) => {
         const sortedMatkulList = response.data.sort((a, b) =>
           a.id_matkul.localeCompare(b.id_matkul, undefined, { numeric: true })
@@ -56,7 +56,7 @@ const ListMatkulComponent = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/mata_kuliah/${id}`)
+          .delete(`${BASE_URL}/mata_kuliah/${id}`)
           .then(() => {
             setMatkulList((prevMatkulList) =>
               prevMatkulList.filter(
@@ -174,7 +174,7 @@ export default ListMatkulComponent;
 
 //   useEffect(() => {
 //     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-//     axios.get('http://localhost:3100/mata_kuliah')
+//     axios.get('${BASE_URL}/mata_kuliah')
 //       .then((response) => {
 //         setMatkulList(response.data); // Mengatur data dosen ke dalam state
 //       })
@@ -187,7 +187,7 @@ export default ListMatkulComponent;
 //   // Fungsi untuk menghapus data dosen berdasarkan ID
 //   const handleDelete = (id) => {
 //     // Lakukan permintaan DELETE ke backend endpoint dengan ID yang sesuai
-//     axios.delete(`http://localhost:3100/mata_kuliah/${id}`)
+//     axios.delete(`${BASE_URL}/mata_kuliah/${id}`)
 //       .then(() => {
 //         // Hapus data dosen dari state
 //         setMatkulList((prevMatkulList) => prevMatkulList.filter((mata_kuliah) => mata_kuliah.id_matkul !== id));

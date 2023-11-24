@@ -5,6 +5,7 @@ import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddPendidikanComponent from '../pendidikan/AddPendidikanComponent';
 import EditPendidikanComponent from '../pendidikan/EditPendidikanComponent';
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 import { Link } from "react-router-dom";
 
@@ -34,7 +35,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_pendidikan/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayat_pendidikan/${id}`)
       .then((response) => {
         const sortedRiwayatPendidikanList = response.data.sort((a, b) => {
           if (a.tahun_lulus === b.tahun_lulus) {
@@ -63,7 +64,7 @@ const ListRiwayatPendidikanCom = ({ id }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/riwayat_pendidikan/${id}`)
+          .delete(`${BASE_URL}/riwayat_pendidikan/${id}`)
           .then(() => {
             setlistRiwayatPendidikan((prevRiwayatPendidikanList) =>
               prevRiwayatPendidikanList.filter(

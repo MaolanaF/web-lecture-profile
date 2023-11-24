@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 const AddRiwayatPKMComponent = ({ id }) => {
   // State untuk daftar dosen
@@ -8,7 +9,7 @@ const AddRiwayatPKMComponent = ({ id }) => {
 
   // Mengambil data dosen dari backend
   useEffect(() => {
-    axios.get('http://localhost:3100/dosen')
+    axios.get(`${BASE_URL}/dosen`)
       .then((response) => {
         setDosenList(response.data); // Menyimpan data dosen dalam state
       })
@@ -23,7 +24,7 @@ const AddRiwayatPKMComponent = ({ id }) => {
 
   // Mengambil data PKM dari backend
   useEffect(() => {
-    axios.get('http://localhost:3100/pkm')
+    axios.get(`${BASE_URL}/pkm`)
       .then((response) => {
         setPKMList(response.data); // Menyimpan data PKM dalam state
       })
@@ -55,7 +56,7 @@ const AddRiwayatPKMComponent = ({ id }) => {
     const { id_pkm, id_dosen } = formData;
 
     // Melakukan permintaan POST ke endpoint backend
-    axios.post('http://localhost:3100/riwayatpkm', { id_pkm, id_dosen })
+    axios.post(`${BASE_URL}/riwayatpkm`, { id_pkm, id_dosen })
       .then((response) => {
         Swal.fire({
           title: 'Berhasil menambah Penulis',

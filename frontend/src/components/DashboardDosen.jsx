@@ -13,6 +13,7 @@ import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-ico
 import './style.css';
 // import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import BASE_URL from '../../../config';
 
 function DashboardDosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -48,7 +49,7 @@ function DashboardDosenDetailComponent({ id }) {
   //         return;
   //       }
 
-  //       const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+  //       const response = await axios.get(`${BASE_URL}/dosen/${id}`);
   //       const rows = response.data.rows[0];
   //       setFormData(response.data.rows[0]);
   //     } catch (error) {
@@ -62,7 +63,7 @@ function DashboardDosenDetailComponent({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+        const response = await axios.get(`${BASE_URL}/dosen/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
       } catch (error) {

@@ -4,6 +4,7 @@ import { Row, Col, Card } from "react-bootstrap";
 import { FaFile } from 'react-icons/fa';
 import { Link } from "react-router-dom";
 import "../style.css";
+import BASE_URL from '../../../config';
 
 const ListRiwayatPenelitianDetailCom = ({ id }) => {
   const [riwayatPenelitian, setRiwayatPenelitian] = useState([]);
@@ -20,8 +21,8 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
     const fetchData = async () => {
       try {
         const [riwayatResponse, penelitianResponse] = await Promise.all([
-          axios.get(`http://localhost:3100/profile_dosen/riwayat_penelitian/detail/${id}`),
-          axios.get(`http://localhost:3100/penelitian/dosen/${id}`)
+          axios.get(`${BASE_URL}/profile_dosen/riwayat_penelitian/detail/${id}`),
+          axios.get(`${BASE_URL}/penelitian/dosen/${id}`)
         ]);
 
         setRiwayatPenelitian(riwayatResponse.data);
@@ -70,7 +71,7 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
               <Card.Body>
                   <Card.Text>
                       <iframe 
-                          src={`http://localhost:3100/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`} 
+                          src={`${BASE_URL}/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`} 
                           width="100%" 
                           height="500px" 
                           title="PDF Viewer"

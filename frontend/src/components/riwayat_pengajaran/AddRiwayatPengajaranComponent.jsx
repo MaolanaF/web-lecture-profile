@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 const AddRiwayatPengajaranComponent = ({ id }) => {
 
@@ -8,7 +9,7 @@ const AddRiwayatPengajaranComponent = ({ id }) => {
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/dosen')
+    axios.get(`${BASE_URL}/dosen`)
       .then((response) => {
         setDosenList(response.data); // Mengatur data dosen ke dalam state
       })
@@ -22,7 +23,7 @@ const AddRiwayatPengajaranComponent = ({ id }) => {
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar mata_kuliah
-    axios.get('http://localhost:3100/mata_kuliah')
+    axios.get(`${BASE_URL}/mata_kuliah`)
       .then((response) => {
         setMatkulList(response.data); // Mengatur data dosen ke dalam state
       })
@@ -85,7 +86,7 @@ const AddRiwayatPengajaranComponent = ({ id }) => {
     const { id_matkul } = formDataMatkul;
   
     // Make a POST request to your backend endpoint with id_dosen and id_matkul
-    axios.post('http://localhost:3100/riwayat_pengajaran', { id_dosen, id_matkul, semester, tahun })
+    axios.post(`${BASE_URL}/riwayat_pengajaran`, { id_dosen, id_matkul, semester, tahun })
       .then((response) => {
         Swal.fire({
           title: 'Berhasil menambah data pengajaran',

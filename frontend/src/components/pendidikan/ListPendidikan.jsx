@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 const ListRiwayatPendidikanCom = ({ id }) => {
   const [listRiwayatPendidikan, setlistRiwayatPendidikan] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_pendidikan/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayat_pendidikan/${id}`)
       .then((response) => {
         const sortedRiwayatPendidikan = response.data.sort((a, b) => {
           if (a.tahun_lulus === b.tahun_lulus) {

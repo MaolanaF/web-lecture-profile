@@ -7,6 +7,7 @@ import ListRiwayatPenelitian from "../components/riwayat_penelitian/ListRiwayatP
 import ListRiwayatPKM from "../components/riwayatPkm/ListRiwayatPKM"
 import { FaChalkboardTeacher, FaFlask, FaBook } from 'react-icons/fa';
 import './style.css';
+import BASE_URL from '../../../config';
 
 function DosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -21,7 +22,7 @@ function DosenDetailComponent({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+        const response = await axios.get(`${BASE_URL}/dosen/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
       } catch (error) {

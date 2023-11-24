@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import BASE_URL from '../../../config';
 
 const AddRiwayatPendidikanComponent = ({ id }) => {
   const [formData, setFormData] = useState({
@@ -23,7 +23,7 @@ const AddRiwayatPendidikanComponent = ({ id }) => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post('http://localhost:3100/riwayat_pendidikan', formData)
+    axios.post(`${BASE_URL}/riwayat_pendidikan`, formData)
       .then((response) => {
         Swal.fire({
           title: 'Berhasil menambah data pendidikan',
@@ -48,7 +48,7 @@ const AddRiwayatPendidikanComponent = ({ id }) => {
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/dosen')
+    axios.get(`${BASE_URL}/dosen`)
       .then((response) => {
         setDosenList(response.data); // Mengatur data dosen ke dalam state
       })

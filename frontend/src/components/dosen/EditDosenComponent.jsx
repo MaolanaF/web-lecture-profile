@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 function EditDosenComponent({ id }) {
     const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ function EditDosenComponent({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+        const response = await axios.get(`${BASE_URL}/dosen/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
         console.log(id);
@@ -38,7 +39,7 @@ function EditDosenComponent({ id }) {
   const handleUpdateDosen = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3100/dosen/${id}`, formData);
+      const response = await axios.put(`${BASE_URL}/dosen/${id}`, formData);
       console.log(response.data);
       Swal.fire({
         title: 'Berhasil mengedit data dosen',
@@ -70,12 +71,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Jurusan</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="jurusan"
+            value={formData.jurusan}
             onChange={handleInputChange}
           />
         </div>
@@ -90,12 +91,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Jurusan</label>
+          <label>Email</label>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            name="jurusan"
-            value={formData.jurusan}
+            name="email"
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>

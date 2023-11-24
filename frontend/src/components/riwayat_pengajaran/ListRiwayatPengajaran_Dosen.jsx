@@ -5,6 +5,7 @@ import { Card, Modal, Button } from 'react-bootstrap'
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddPengajaranComponent from '../riwayat_pengajaran/AddRiwayatPengajaranComponent';
 import EditPengajaranComponent from '../riwayat_pengajaran/EditRiwayatPengajaranComponent';
+import BASE_URL from '../../../config';
 
 import { Link } from "react-router-dom";
 
@@ -35,7 +36,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_pengajaran/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayat_pengajaran/${id}`)
       .then((response) => {
         const sortedRiwayatPengajaranList = response.data.sort((a, b) => {
           if (a.tahun === b.tahun) {
@@ -65,7 +66,7 @@ const ListRiwayatPengajaranCom = ({ id }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/riwayat_pengajaran/${id}`)
+          .delete(`${BASE_URL}/riwayat_pengajaran/${id}`)
           .then(() => {
             setlistRiwayatPengajaran((prevRiwayatPengajaranList) =>
               prevRiwayatPengajaranList.filter(

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 function EditRiwayatPengajaranComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ function EditRiwayatPengajaranComponent({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/riwayat_pengajaran/${id}`);
+        const response = await axios.get(`${BASE_URL}/riwayat_pengajaran/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
         setFormDataMatkul(response.data.rows[0]);
@@ -37,7 +38,7 @@ function EditRiwayatPengajaranComponent({ id }) {
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar mata_kuliah
-    axios.get('http://localhost:3100/mata_kuliah')
+    axios.get(`${BASE_URL}/mata_kuliah`)
       .then((response) => {
         setMatkulList(response.data); // Mengatur data dosen ke dalam state
       })
@@ -92,7 +93,7 @@ function EditRiwayatPengajaranComponent({ id }) {
     const { id_dosen, semester, tahun } = formData;
     const { id_matkul } = formDataMatkul;
     try {
-      const response = await axios.put(`http://localhost:3100/riwayat_pengajaran/${id}`, { id_dosen, id_matkul, semester, tahun });
+      const response = await axios.put(`${BASE_URL}/riwayat_pengajaran/${id}`, { id_dosen, id_matkul, semester, tahun });
       console.log(response.data);
       Swal.fire({
         title: 'Berhasil mengedit data pengajaran',
