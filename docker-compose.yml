@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  pwa5_frontend:
+    image: pwa5/reactjs:1.0.0
+    ports:
+      - "21053:3000"  # Ganti port sesuai dengan port yang digunakan oleh aplikasi React jika diperlukan
+
+  pwa5_backend:
+    image: pwa5/nodejs:1.0.4
+    ports:
+      - "21054:3100"  # Ganti port sesuai dengan port yang digunakan oleh aplikasi Node.js jika diperlukan
+    environment:
+      - NODE_ENV=production  # Atur environment variables yang diperlukan oleh backend jika ada
+    depends_on:
+      - pwa5_postgres  # Menjadikan layanan backend bergantung pada layanan PostgreSQL
+
+  pwa5_postgres:
+    image: postgres:latest
+    ports:
+      - "21051:5432"  # Port PostgreSQL
+    environment:
+      POSTGRES_DB: lectureProfile
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - pwa5_postgres_data:/var/lib/postgresql/data  # Volume untuk menyimpan data PostgreSQL
+
+  pwa5_pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "21052:80"  # Port PgAdmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pwa5@example.com
+      PGADMIN_DEFAULT_PASSWORD: 123
+    depends_on:
+      - pwa5_postgres  # Menjadikan layanan PgAdmin bergantung pada layanan PostgreSQL
+
+volumes:
+  pwa5_postgres_data:
