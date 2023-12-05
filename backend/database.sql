@@ -227,6 +227,22 @@ BEFORE INSERT ON riwayat_pengajaran
 FOR EACH ROW
 EXECUTE FUNCTION generate_riwayat_pengajaran_id();
 
+-- Trigger hapus riwayat pengajaran ketika mata kuliah dihapus
+CREATE OR REPLACE FUNCTION delete_riwayat_pengajaran()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Delete from riwayat_pengajaran
+    DELETE FROM riwayat_pengajaran WHERE id_matkul = OLD.id_matkul;
+
+    RETURN OLD;
+END; 
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_riwayat_pengajaran_trigger
+BEFORE DELETE ON mata_kuliah
+FOR EACH ROW
+EXECUTE FUNCTION delete_riwayat_pengajaran();
+
 
 
 ----------------------------------------------------------------------------------------------------------------

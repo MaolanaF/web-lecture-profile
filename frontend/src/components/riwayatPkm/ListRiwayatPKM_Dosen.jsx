@@ -147,7 +147,14 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
               <td>{riwayat_pkm.bidang_pkm}</td>
               <td>{riwayat_pkm.nama}</td>
               <td>
-                <a className="btn btn-primary btn-sm mr-2" target="_blank" href={'http://localhost:3100/static/uploads/pkm/'+riwayat_pkm.link_pkm}><FaFile></FaFile> Lihat File</a></td>
+              {riwayat_pkm.link_pkm ? (
+                  <a className="btn btn-primary btn-sm mr-2" target="_blank" href={`http://localhost:3100/static/uploads/pkm/${riwayat_pkm.link_pkm}`}>
+                    <FaFile></FaFile> Lihat File
+                  </a>
+                ) : (
+                  "File Tidak Ada"
+                )}
+              </td>
               <td>
                 <button className="btn btn-success btn-sm" onClick={() => { handleShowAddAuthorModal(riwayat_pkm.id_pkm);}}>
                   <FaPlus  />

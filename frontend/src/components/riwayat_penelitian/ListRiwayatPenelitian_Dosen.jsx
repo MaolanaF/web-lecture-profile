@@ -146,7 +146,13 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               <td>{riwayat_penelitian.nama}</td>
               {/* <td>{riwayat_penelitian.author}</td> */}
               <td>
-                <a className="btn btn-primary btn-sm" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}><FaFile></FaFile> Lihat File</a>
+              {riwayat_penelitian.link_penelitian ? (
+                  <a className="btn btn-primary btn-sm" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}>
+                    <FaFile></FaFile> Lihat File
+                  </a>
+                ) : (
+                  "File Tidak Ada"
+                )}
               </td>
                 
               <td>

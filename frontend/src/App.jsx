@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
 import './App.css'
 import { Link } from "react-router-dom";
 
@@ -54,6 +54,12 @@ function App() {
   return (
       <Router>
           <Routes>
+            {/* Default Redirect to /home */}
+            <Route
+              path="/"
+              element={<Navigate to="/home" replace />}
+            />
+
             {/* Dosen */}
             <Route path="/dosen" element = {<Dosen />} />
             <Route path="/dosen/insert" element = {<AddDosen/>} />

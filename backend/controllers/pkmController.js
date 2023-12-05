@@ -46,7 +46,9 @@ const insertPKM = (req, res) => {
   
   const { judul_pkm, tahun_pkm, bidang_pkm, kontributor } = req.body;
 
-  pkmModel.insertPKM(judul_pkm, tahun_pkm, bidang_pkm, kontributor, req.file.filename, (err, result) => {
+  const link_pkm = req.file ? req.file.filename : null;
+
+  pkmModel.insertPKM(judul_pkm, tahun_pkm, bidang_pkm, kontributor, link_pkm, (err, result) => {
     if (!err) {
       res.send('Insert success');
     } else {

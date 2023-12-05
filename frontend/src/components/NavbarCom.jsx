@@ -16,7 +16,7 @@ const MyNavbar = () => {
     <Navbar expand="lg" bg="light" variant="light" fixed="top">
       <Container>
         {/* Logo */}
-        <Navbar.Brand href="#">
+        <Navbar.Brand href="/home">
           <img
             src="https://www.polban.ac.id/wp-content/uploads/2018/06/logo-polban-80.png"
             width="45"

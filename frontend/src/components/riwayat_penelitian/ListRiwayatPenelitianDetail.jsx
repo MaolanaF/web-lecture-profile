@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col, Card } from "react-bootstrap";
-import { FaFile } from 'react-icons/fa';
-import { Link } from "react-router-dom";
+// import { FaArrowLeft } from 'react-icons/fa';
+import { Link, useNavigate } from "react-router-dom";
 import "../style.css";
 
 const ListRiwayatPenelitianDetailCom = ({ id }) => {
@@ -10,6 +10,7 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
   const [penelitian, setPenelitian] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const formatDate = (dateString) => {
     const options = { day: 'numeric', month: 'long', year: 'numeric' };
@@ -44,9 +45,11 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
     return <p>Error: {error.message}</p>;
   }
 
+  const fileLink = `http://localhost:3100/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`;
 
   return (
     <div className="container margin-class">
+      <a className="subtitle-a btn btn-danger" onClick={() => navigate(-1)} style={{ fontSize:"15px" }} >Kembali</a>
       <Row>
         <Col md={12}>
           <Card className="card-blog mt-2">
@@ -67,16 +70,24 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
             ))}
           </div>
 
+          {riwayatPenelitian[0]?.link_penelitian ? (
               <Card.Body>
-                  <Card.Text>
-                      <iframe 
-                          src={`http://localhost:3100/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`} 
-                          width="100%" 
-                          height="500px" 
-                          title="PDF Viewer"
-                      />
-                  </Card.Text>
+                <Card.Text>
+                  <iframe
+                    src={fileLink}
+                    width="100%"
+                    height="500px"
+                    title="PDF Viewer"
+                  />
+                </Card.Text>
               </Card.Body>
+            ) : (
+              <Card.Body>
+                <Card.Text>
+                  File untuk penelitian ini tidak ditemukan.
+                </Card.Text>
+              </Card.Body>
+            )}
 
             <Card.Footer>
               

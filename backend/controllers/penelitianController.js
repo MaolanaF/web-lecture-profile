@@ -43,18 +43,19 @@ const getAllPenelitian = (req, res) => {
 }
 
 const insertPenelitian = (req, res) => {
-  
-  const {judul, tanggal_publikasi, bidang, author } = req.body;
+  const { judul, tanggal_publikasi, bidang, author } = req.body;
 
-  penelitianModel.insertPenelitian(judul, tanggal_publikasi, bidang, author, req.file.filename, (err, result) => {
+  // Check if a file is provided
+  const link_penelitian = req.file ? req.file.filename : null;
+
+  penelitianModel.insertPenelitian(judul, tanggal_publikasi, bidang, author, link_penelitian, (err, result) => {
     if (!err) {
       res.send('Insert success');
     } else {
       res.status(500).send(err.message);
     }
-  });  
-
-}
+  });
+};
 
 const updatePenelitian = (req, res) => {
   const id_penelitian = req.params.id_penelitian;
