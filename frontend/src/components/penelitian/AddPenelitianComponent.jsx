@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 const AddPenelitianComponent = ({ id }) => {
 
@@ -8,7 +9,7 @@ const AddPenelitianComponent = ({ id }) => {
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/dosen')
+    axios.get(`${BASE_URL}/dosen`)
       .then((response) => {
         setDosenList(response.data); // Mengatur data dosen ke dalam state
       })
@@ -47,7 +48,7 @@ const AddPenelitianComponent = ({ id }) => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post(`http://localhost:3100/penelitian`, formData, {
+    axios.post(`${BASE_URL}/penelitian`, formData, {
         headers: {
           "Content-type": "multipart/form-data",
         },

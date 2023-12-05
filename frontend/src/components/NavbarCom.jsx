@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link as ScrollLink } from "react-scroll";
+import BASE_URL from '../../config';
 
 const MyNavbar = () => {
   const location = useLocation();

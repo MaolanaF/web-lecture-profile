@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap';
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 import AddPKMComponent from './AddPKMComponent';
 import EditPKMComponent from './EditPKMComponent';
+import BASE_URL from '../../../config';
 
 const ListPKMComponent = () => {
   // State dan variabel
@@ -29,7 +30,7 @@ const ListPKMComponent = () => {
   // Mengambil data PKM dari server menggunakan useEffect
   useEffect(() => {
     axios
-      .get('http://localhost:3100/pkm')
+      .get(`${BASE_URL}/pkm`)
       .then((response) => {
         const sortedPKMList = response.data.sort((a, b) =>
           a.id_pkm.localeCompare(b.id_pkm, undefined, { numeric: true })
@@ -54,7 +55,7 @@ const ListPKMComponent = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/pkm/${id}`)
+          .delete(`${BASE_URL}/pkm/${id}`)
           .then(() => {
             setPKMList((prevPKMList) => prevPKMList.filter((pkm) => pkm.id_pkm !== id));
             Swal.fire({

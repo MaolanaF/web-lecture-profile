@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 function EditPKMComponent({ id }) {
   // State untuk menyimpan data PKM yang akan diedit
@@ -19,7 +20,7 @@ function EditPKMComponent({ id }) {
     async function fetchData() {
       try {
         // Melakukan permintaan GET ke backend untuk mendapatkan data PKM berdasarkan ID
-        const response = await axios.get(`http://localhost:3100/pkm/${id}`);
+        const response = await axios.get(`${BASE_URL}/pkm/${id}`);
         const rows = response.data.rows[0];
         
         // Mengatur data PKM ke dalam state formData
@@ -58,7 +59,7 @@ function EditPKMComponent({ id }) {
     const { id_pkm, judul_pkm, bidang_pkm, tahun_pkm, kontributor, file } = formData;
     try {
       // Melakukan permintaan PUT untuk memperbarui data PKM berdasarkan ID
-      const response = await axios.put(`http://localhost:3100/pkm/${id}`, { id_pkm, judul_pkm, bidang_pkm, tahun_pkm, kontributor, file }, {
+      const response = await axios.put(`${BASE_URL}/pkm/${id}`, { id_pkm, judul_pkm, bidang_pkm, tahun_pkm, kontributor, file }, {
         headers: {
           "Content-type": "multipart/form-data",
         },

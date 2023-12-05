@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 function EditPenelitianComponent({ id }) {
     const [formData, setFormData] = useState({

@@ -7,6 +7,7 @@ import { FaSearch, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import AddDosenComponent from './AddDosenComponent';
 import EditDosenComponent from './EditDosenComponent';
 import './../style.css';
+import BASE_URL from '../../../config';
 
 
 const ListDosenComponent = () => {
@@ -31,7 +32,7 @@ const ListDosenComponent = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3100/dosen')
+      .get(`${BASE_URL}/dosen`)
       .then((response) => {
         const sortedDosenList = response.data.sort((a, b) =>
           a.id_dosen.localeCompare(b.id_dosen, undefined, { numeric: true })
@@ -56,7 +57,7 @@ const ListDosenComponent = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/dosen/${id}`)
+          .delete(`${BASE_URL}/dosen/${id}`)
           .then(() => {
             setDosenList((prevDosenList) =>
               prevDosenList.filter((dosen) => dosen.id_dosen !== id)

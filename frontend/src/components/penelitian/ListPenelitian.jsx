@@ -3,13 +3,14 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.css'; // Impor CSS Bootstrap
 import { Link } from "react-router-dom";
+import BASE_URL from '../../../config';
 
 const ListPenelitianComponent = () => {
   const [penelitianList, setPenelitianList] = useState([]);
 
   useEffect(() => {
     // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-    axios.get('http://localhost:3100/penelitian')
+    axios.get(`${BASE_URL}/penelitian`)
       .then((response) => {
         setPenelitianList(response.data); // Mengatur data dosen ke dalam state
       })
@@ -32,7 +33,7 @@ const ListPenelitianComponent = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/penelitian/${id}`)
+          .delete(`${BASE_URL}/penelitian/${id}`)
           .then(() => {
             setPenelitianList((prevPenelitianList) => 
               prevPenelitianList.filter((penelitian) => penelitian.id_penelitian !== id

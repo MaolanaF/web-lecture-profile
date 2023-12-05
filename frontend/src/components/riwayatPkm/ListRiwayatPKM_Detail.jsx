@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col, Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URL from '../../../config';
 
 const ListRiwayatPKMComponent = ({ id }) => {
   // State untuk menyimpan data riwayat PKM
@@ -23,8 +24,8 @@ const ListRiwayatPKMComponent = ({ id }) => {
       try {
         // Mendapatkan data riwayat PKM dan PKM berdasarkan ID dosen
         const [riwayatResponse, pkmResponse] = await Promise.all([
-          axios.get(`http://localhost:3100/profile_dosen/riwayatpkm/detail/${id}`),
-          axios.get(`http://localhost:3100/pkm/dosen/${id}`)
+          axios.get(`${BASE_URL}/profile_dosen/riwayatpkm/detail/${id}`),
+          axios.get(`${BASE_URL}/pkm/dosen/${id}`)
         ]);
 
         setRiwayatPKM(riwayatResponse.data);
@@ -47,7 +48,7 @@ const ListRiwayatPKMComponent = ({ id }) => {
     return <p>Error: {error.message}</p>;
   }
 
-  const fileLink = `http://localhost:3100/static/uploads/pkm/${riwayatPKM[0]?.link_pkm}`;
+  const fileLink = `${BASE_URL}/static/uploads/pkm/${riwayatPKM[0]?.link_pkm}`;
 
   return (
     <div className="container margin-class">

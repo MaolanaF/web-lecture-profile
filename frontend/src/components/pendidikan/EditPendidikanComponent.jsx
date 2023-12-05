@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
-
+import BASE_URL from '../../../config';
 
 function EditRiwayatComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ function EditRiwayatComponent({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/riwayat_pendidikan/${id}`);
+        const response = await axios.get(`${BASE_URL}/riwayat_pendidikan/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
         console.log(id);
@@ -40,7 +40,7 @@ function EditRiwayatComponent({ id }) {
     e.preventDefault();
     const { jenjang_pendidikan, nama_institusi, tahun_lulus } = formData
     try {
-      const response = await axios.put(`http://localhost:3100/riwayat_pendidikan/${id}`, { jenjang_pendidikan, nama_institusi, tahun_lulus });
+      const response = await axios.put(`${BASE_URL}/riwayat_pendidikan/${id}`, { jenjang_pendidikan, nama_institusi, tahun_lulus });
       console.log(response.data);
       Swal.fire({
         title: 'Berhasil mengedit data pendidikan',

@@ -4,6 +4,7 @@ import { Row, Col, Card } from "react-bootstrap";
 // import { FaArrowLeft } from 'react-icons/fa';
 import { Link, useNavigate } from "react-router-dom";
 import "../style.css";
+import BASE_URL from '../../../config';
 
 const ListRiwayatPenelitianDetailCom = ({ id }) => {
   const [riwayatPenelitian, setRiwayatPenelitian] = useState([]);
@@ -21,8 +22,8 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
     const fetchData = async () => {
       try {
         const [riwayatResponse, penelitianResponse] = await Promise.all([
-          axios.get(`http://localhost:3100/profile_dosen/riwayat_penelitian/detail/${id}`),
-          axios.get(`http://localhost:3100/penelitian/dosen/${id}`)
+          axios.get(`${BASE_URL}/profile_dosen/riwayat_penelitian/detail/${id}`),
+          axios.get(`${BASE_URL}/penelitian/dosen/${id}`)
         ]);
 
         setRiwayatPenelitian(riwayatResponse.data);
@@ -45,7 +46,7 @@ const ListRiwayatPenelitianDetailCom = ({ id }) => {
     return <p>Error: {error.message}</p>;
   }
 
-  const fileLink = `http://localhost:3100/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`;
+  const fileLink = `${BASE_URL}/static/uploads/penelitian/${riwayatPenelitian[0]?.link_penelitian}`;
 
   return (
     <div className="container margin-class">

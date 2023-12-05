@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import BASE_URL from '../../../config';
 
 const AddMatkulComponent = () => {
 
@@ -24,7 +25,7 @@ const AddMatkulComponent = () => {
     e.preventDefault();
     
     // Make a POST request to your backend endpoint
-    axios.post('http://localhost:3100/mata_kuliah', formData)
+    axios.post(`${BASE_URL}/mata_kuliah`, formData)
       .then((response) => {
         Swal.fire({
           title: 'Berhasil menambah data mata kuliah',

@@ -7,6 +7,7 @@ import AddPenulisPenelitianComponent from '../riwayat_penelitian/AddRiwayatPenel
 import AddPenelitianComponent from '../penelitian/AddPenelitianComponent';
 import EditPenelitianComponent from '../penelitian/EditPenelitianComponent';
 import '../style.css';
+import BASE_URL from '../../../config';
 
 import { Link } from "react-router-dom";
 
@@ -51,7 +52,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayat_penelitian/${id}`)
       .then((response) => {
         const sortedRiwayatPenelitianList = response.data.sort((a, b) =>
           b.tanggal_publikasi.localeCompare(a.tanggal_publikasi, undefined, { numeric: false })
@@ -78,7 +79,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/riwayat_penelitian/${id}`)
+          .delete(`${BASE_URL}/riwayat_penelitian/${id}`)
           .then(() => {
             setlistRiwayatPenelitian((prevRiwayatPenelitianList) =>
               prevRiwayatPenelitianList.filter(
@@ -147,7 +148,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
               {/* <td>{riwayat_penelitian.author}</td> */}
               <td>
               {riwayat_penelitian.link_penelitian ? (
-                  <a className="btn btn-primary btn-sm" target="_blank" href={'http://localhost:3100/static/uploads/penelitian/'+riwayat_penelitian.link_penelitian}>
+                  <a className="btn btn-primary btn-sm" target="_blank" href={`${BASE_URL}/static/uploads/penelitian/`+riwayat_penelitian.link_penelitian}>
                     <FaFile></FaFile> Lihat File
                   </a>
                 ) : (

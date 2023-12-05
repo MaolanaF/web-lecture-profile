@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import BASE_URL from '../../../config';
 
 const ListRiwayatPengajaranCom = ({ id }) => {
   const [listRiwayatPengajaran, setlistRiwayatPengajaran] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_pengajaran/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayat_pengajaran/${id}`)
       .then((response) => {
         setlistRiwayatPengajaran(response.data);
         console.log(response.data);

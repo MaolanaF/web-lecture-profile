@@ -6,6 +6,7 @@ import { FaSearch, FaEdit, FaTrash, FaFile, FaPlus } from 'react-icons/fa';
 import AddPenulisPkmComponent from '../riwayatPkm/AddRiwayatPKMComponent';
 import AddPKMComponent from '../pkm/AddPKMComponent';
 import EditPKMComponent from '../pkm/EditPKMComponent';
+import BASE_URL from '../../../config';
 
 const ListRiwayatPKMComponentDosen = ({ id }) => {
   // State untuk menyimpan data riwayat PKM
@@ -51,7 +52,7 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayatpkm/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayatpkm/${id}`)
       .then((response) => {
         const sortedRiwayatPKMList = response.data.sort((a, b) => {
           if (a.tahun_pkm === b.tahun_pkm) {
@@ -81,7 +82,7 @@ const ListRiwayatPKMComponentDosen = ({ id }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3100/riwayatpkm/${id}`)
+          .delete(`${BASE_URL}/riwayatpkm/${id}`)
           .then(() => {
             setlistRiwayatPKM((prevRiwayatPKMList) =>
               prevRiwayatPKMList.filter((riwayat_pkm) => riwayat_pkm.id_riwayatpkm !== id)

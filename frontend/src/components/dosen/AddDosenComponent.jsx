@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Cookies from "js-cookie";
+import BASE_URL from '../../../config';
 
 const AddDosenComponent = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -28,7 +29,7 @@ const AddDosenComponent = () => {
 
     // Make a POST request to your backend endpoint
     axios
-      .post("http://localhost:3100/dosen", formData)
+      .post(`${BASE_URL}/dosen`, formData)
       .then((response) => {
         Swal.fire({
           title: 'Berhasil Menambah Data Dosen',

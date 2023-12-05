@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import BASE_URL from '../../../config';
 
 const ListRiwayatPenelitianCom = ({ id }) => {
   const [listRiwayatPenelitian, setlistRiwayatPenelitian] = useState([]);
@@ -13,7 +14,7 @@ const ListRiwayatPenelitianCom = ({ id }) => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayat_penelitian/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayat_penelitian/${id}`)
       .then((response) => {
         setlistRiwayatPenelitian(response.data);
       })

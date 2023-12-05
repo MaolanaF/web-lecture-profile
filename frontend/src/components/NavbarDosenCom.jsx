@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import Cookies from "js-cookie";
+import BASE_URL from '../../config';
 
 function NavbarDosen({ id }) {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function NavbarDosen({ id }) {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`http://localhost:3100/dosen/${id}`);
+        const response = await axios.get(`${BASE_URL}/dosen/${id}`);
         const rows = response.data.rows[0];
         setFormData(response.data.rows[0]);
       } catch (error) {

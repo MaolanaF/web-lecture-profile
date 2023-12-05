@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom"; 
 import { FaUsers, FaFlask, FaBook} from 'react-icons/fa';  
 import "./style.css"; 
+import BASE_URL from '../../config';
 
 const ListDosenComponent = () => {
     const [dosenList, setDosenList] = useState([]);
@@ -16,7 +17,7 @@ const ListDosenComponent = () => {
   
     useEffect(() => {
       // Lakukan permintaan GET ke backend endpoint untuk mendapatkan daftar dosen
-      axios.get('http://localhost:3100/dosen')
+      axios.get(`${BASE_URL}/dosen`)
         .then((response) => {
           const sortedDosenList = response.data.sort((a, b) =>
             a.nama.localeCompare(b.nama, undefined, { numeric: true })
@@ -28,7 +29,7 @@ const ListDosenComponent = () => {
           // Handle error
         });
   
-      axios.get('http://localhost:3100/penelitian')
+      axios.get(`${BASE_URL}/penelitian`)
       .then((response) => {
         setPenelitianList(response.data);
       })
@@ -36,7 +37,7 @@ const ListDosenComponent = () => {
         console.error(error);
       });
 
-      axios.get('http://localhost:3100/pkm')
+      axios.get(`${BASE_URL}/pkm`)
       .then((response) => {
         setPKMList(response.data);
       })

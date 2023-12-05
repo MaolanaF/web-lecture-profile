@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col, Card, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import BASE_URL from '../../../config';
 
 const ListRiwayatPKMComponent = ({ id }) => {
   const [listRiwayatPKM, setlistRiwayatPKM] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3100/profile_dosen/riwayatpkm/${id}`)
+      .get(`${BASE_URL}/profile_dosen/riwayatpkm/${id}`)
       .then((response) => {
         setlistRiwayatPKM(response.data); // Mengatur data dosen ke dalam state
       })
