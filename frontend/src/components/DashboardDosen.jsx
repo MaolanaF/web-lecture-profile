@@ -13,7 +13,6 @@ import { FaGraduationCap, FaChalkboardTeacher, FaFlask, FaBook } from 'react-ico
 import './style.css';
 // import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import BASE_URL from '../../config';
 
 function DashboardDosenDetailComponent({ id }) {
   const [formData, setFormData] = useState({
@@ -22,6 +21,7 @@ function DashboardDosenDetailComponent({ id }) {
     email: "",
     jabatan: "",
     jurusan: "",
+    foto: "",
     id_user: "",
   });
 
@@ -49,7 +49,7 @@ function DashboardDosenDetailComponent({ id }) {
   //         return;
   //       }
 
-  //       const response = await axios.get(`${BASE_URL}/dosen/${id}`);
+  //       const response = await axios.get(`http://localhost:3100/dosen/${id}`);
   //       const rows = response.data.rows[0];
   //       setFormData(response.data.rows[0]);
   //     } catch (error) {
@@ -91,8 +91,8 @@ function DashboardDosenDetailComponent({ id }) {
               <Card.Body>
                 <Row>
                     <Col md={5} style={{ textAlign:"center" }}>
-                      <Image src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
-                      style={{ width: "80%", height: "auto" }}/>
+                      <Image src={`${BASE_URL}/static/uploads/foto/${formData.foto}`} 
+                      style={{ width: "200px", height: "200px", objectFit: "cover"}}/>
                     </Col>
                     <Col md={7}>
                       <Row>

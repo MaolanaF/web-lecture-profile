@@ -4,7 +4,6 @@ import Swal from 'sweetalert2';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Cookies from "js-cookie";
-import BASE_URL from '../../../config';
 
 const AddDosenComponent = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -14,7 +13,24 @@ const AddDosenComponent = () => {
     email: "",
     jabatan: "",
     jurusan: "",
+    file: null
   });
+
+  const handleFileChange = (e) => {
+    setFormData({
+      ...formData,
+      ['file']: e.target.files[0],
+    });
+
+  }
+  // Fungsi untuk menangani perubahan file foto
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData({
+  //     ...formData,
+  //     foto: file,
+  //   });
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +44,11 @@ const AddDosenComponent = () => {
     e.preventDefault();
 
     // Make a POST request to your backend endpoint
-    axios
-      .post(`${BASE_URL}/dosen`, formData)
+    axios.post(`${BASE_URL}/dosen`, formData, {
+      headers: {
+        "Content-type": "multipart/form-data",
+      },
+    })
       .then((response) => {
         Swal.fire({
           title: 'Berhasil Menambah Data Dosen',
@@ -95,6 +114,17 @@ const AddDosenComponent = () => {
             value={formData.jurusan}
             onChange={handleChange}
             className="form-control"
+            required
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Foto</label>
+          <input
+            type="file"
+            name="foto"
+            onChange={handleFileChange}
+            className="form-control"
+            accept="image/*" // Hanya menerima file gambar
             required
           />
         </div>

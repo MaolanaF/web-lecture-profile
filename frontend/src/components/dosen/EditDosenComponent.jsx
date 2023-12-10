@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2';
-import BASE_URL from '../../../config';
 
 function EditDosenComponent({ id }) {
     const [formData, setFormData] = useState({
@@ -10,8 +9,18 @@ function EditDosenComponent({ id }) {
     email: "",
     jabatan: "",
     jurusan: "",
+    file : null,
     id_user: "",
   });
+
+  const handleFileChange = (e) => {
+
+    setFormData({
+      ...formData,
+      ['file']: e.target.files[0],
+    });
+
+  }
 
   useEffect(() => {
     async function fetchData() {
@@ -38,8 +47,13 @@ function EditDosenComponent({ id }) {
   // Function to handle the form submission for updating dosen
   const handleUpdateDosen = async (e) => {
     e.preventDefault();
+    const { id_dosen, nama, email, jabatan, jurusan, file } = formData;
     try {
-      const response = await axios.put(`${BASE_URL}/dosen/${id}`, formData);
+      const response = await axios.put(`${BASE_URL}/dosen/${id}`, { id_dosen, nama, email, jabatan, jurusan, file }, {
+        headers: {
+          "Content-type": "multipart/form-data",
+        },
+      });
       console.log(response.data);
       Swal.fire({
         title: 'Berhasil mengedit data dosen',
@@ -52,7 +66,7 @@ function EditDosenComponent({ id }) {
         }
       });
     } catch (error) {
-      console.error("Gagal menambahkan data dosen", error);
+      console.error("Gagal mengedit data dosen", error);
     }
   };
 
@@ -71,12 +85,12 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Jurusan</label>
+          <label>Email</label>
           <input
-            type="text"
+            type="email"
             className="form-control"
-            name="jurusan"
-            value={formData.jurusan}
+            name="email"
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>
@@ -91,13 +105,24 @@ function EditDosenComponent({ id }) {
           />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Jurusan</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
-            name="email"
-            value={formData.email}
+            name="jurusan"
+            value={formData.jurusan}
             onChange={handleInputChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Foto</label>
+          <input
+            type="file"
+            name="file"
+            onChange={handleFileChange}
+            className="form-control"
+            accept="image/*" // Hanya menerima file gambar
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary mt-3">

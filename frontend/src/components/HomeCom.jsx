@@ -4,7 +4,6 @@ import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 import { Link } from "react-router-dom"; 
 import { FaUsers, FaFlask, FaBook} from 'react-icons/fa';  
 import "./style.css"; 
-import BASE_URL from '../../config';
 
 const ListDosenComponent = () => {
     const [dosenList, setDosenList] = useState([]);
@@ -122,8 +121,8 @@ const ListDosenComponent = () => {
                   <Card className="dosen-box">
                       <div className="work-img mb-4">
                         <Image
-                          src="https://th.bing.com/th/id/R.4af6ce5416a72bbbc3ade4dc082b8753?rik=FL6eQf6dHNAF5g&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2fpaomedia%2fsmall-n-flat%2f1024%2fprofile-icon.png&ehk=7%2bekY9GHPFrkSaye%2f6RZA7u%2fs7gpZ9GMP5phoOj6j4U%3d&risl=&pid=ImgRaw&r=0"
-                          style={{ width: "50%", height: "auto" }}
+                          src={`${BASE_URL}/static/uploads/foto/${dosen.foto}`}
+                          style={{ width: "200px", height: "200px", objectFit: "cover"}}
                         />
                       </div>
                     <div className="work-content">
