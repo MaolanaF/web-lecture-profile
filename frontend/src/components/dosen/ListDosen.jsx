@@ -7,7 +7,6 @@ import { FaSearch, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import AddDosenComponent from './AddDosenComponent';
 import EditDosenComponent from './EditDosenComponent';
 import './../style.css';
-import BASE_URL from '../../../config';
 
 
 const ListDosenComponent = () => {
@@ -123,11 +122,14 @@ const ListDosenComponent = () => {
               <td>{dosen.jabatan}</td>
               <td>{dosen.jurusan}</td>
               <td>{dosen.email}</td>
+              {/* <td>{dosen.foto}</td> */}
               <td>{dosen.password}</td>
               <td>
-                <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(dosen.id_dosen)}>
-                  <FaEdit />
-                 </button>
+                <Link to={{ pathname: `/dosen/edit/${dosen.id_dosen}` }}>
+                  <button type="button" className="btn btn-primary btn-sm mr-2" onClick={() => handleShowEditModal(dosen.id_dosen)}>
+                    <FaEdit />
+                  </button>
+                </Link>
                 <button
                   className="btn btn-danger btn-sm"
                     onClick={() => {

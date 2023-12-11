@@ -1,4 +1,5 @@
 const dosenModel = require("../models/dosen");
+const fs = require('fs');
 
 const getAllDosen = (req, res) => {
   dosenModel.getAllDosen((err, result) => {
@@ -37,25 +38,34 @@ const getDosenById = (req, res) => {
 
 const insertDosen = (req, res) => {
   const { nama, email, jabatan, jurusan } = req.body;
-  dosenModel.insertDosen(nama, email, jabatan, jurusan, (err, result) => {
+  dosenModel.insertDosen(nama, email, jabatan, jurusan, req.file.filename, (err, result) => {
     if (!err) {
       res.send("Insert success");
     } else {
       res.status(500).send(err.message);
+      console.log(err.message)
     }
   });
 };
 
 const updateDosen = (req, res) => {
   const id_dosen = req.params.id_dosen;
-  const { nama, email, jabatan, jurusan } = req.body;
-  dosenModel.updateDosen(
-    nama,
-    email,
-    jabatan,
-    jurusan,
-    id_dosen,
-    (err, result) => {
+  const { nama, email, jabatan, jurusan, foto } = req.body;
+  const foto_baru = req.file ? req.file.filename : foto
+  
+  if(req.file) {
+    var deletedFile = './public/uploads/foto/' + foto
+    if (fs.existsSync(deletedFile)) {
+        fs.unlink(deletedFile, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log('deleted');
+        })
+    }
+  }
+  
+  dosenModel.updateDosen(id_dosen, nama, email, jabatan, jurusan, foto_baru, (err, result) => {
       if (!err) {
         res.send("Update success");
       } else {

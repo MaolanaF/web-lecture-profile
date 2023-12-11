@@ -1,4 +1,3 @@
-// models/dosen.js
 const client = require("../connection");
 
 const getAllDosen = (callback) => {
@@ -15,17 +14,17 @@ const getDosenById = (id_dosen, callback) => {
   client.query(query, values, callback);
 };
 
-const insertDosen = (nama, email, jabatan, jurusan, callback) => {
+const insertDosen = (nama, email, jabatan, jurusan, foto, callback) => {
   const query =
-    "INSERT INTO dosen(nama, email, jabatan, jurusan) VALUES($1, $2, $3, $4)";
-  const values = [nama, email, jabatan, jurusan];
+    "INSERT INTO dosen(nama, email, jabatan, jurusan, foto) VALUES($1, $2, $3, $4, $5)";
+  const values = [nama, email, jabatan, jurusan, foto];
   client.query(query, values, callback);
 };
 
-const updateDosen = (nama, email, jabatan, jurusan, id_dosen, callback) => {
+const updateDosen = (nama, email, jabatan, jurusan, foto, id_dosen, callback) => {
   const query =
-    "UPDATE dosen SET nama = $1, email = $2, jabatan = $3, jurusan = $4 WHERE id_dosen = $5";
-  const values = [nama, email, jabatan, jurusan, id_dosen];
+    "UPDATE dosen SET nama = $1, email = $2, jabatan = $3, jurusan = $4, foto = $5 WHERE id_dosen = $5";
+  const values = [nama, email, jabatan, jurusan, foto, id_dosen];
   client.query(query, values, callback);
 };
 
